@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,textcomp}
+\usepackage{tabto}
+\usepackage{multirow}
+\usepackage{tgheros}
+\usepackage[left=3cm,right=2cm,top=3cm,bottom=2cm]{geometry}
+\usepackage{outline} 
+\usepackage{pmgraph} 
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{tikzpagenodes}
+\usepackage{verbatim}
+\usepackage{svg}
+\pagestyle{plain}
+\title{
+\includegraphics[scale=0.5]{CodeSix LogoTypeCut.png} \\
+\vspace*{1in}
+{\Huge \textbf{Documento Candidatura}}\\
+\vspace*{0.25in}
+\textbf{Progetto Ingegneria Del Software}\\
+\vspace{0.1in}
+}
+
+\author{
+    \begin{tabular}[t]{c@{\extracolsep{8em}}c} 
+        Albertin Enrico  & Marcatti Pietro \\
+        Davide Spada & Marco Andrea Limongelli \\ 
+        Bettin Michele & Matteo Raccanello \\
+    \end{tabular}
+    \vspace*{0.5in} \\
+    Dipartimento di Matematica \\
+    \textbf{Università degli studi di Padova} \\
+    \begin{tikzpicture}[remember picture,overlay]
+     \node[anchor=south] at (current page text area.south) {\includegraphics[height=1in]{logo_unipd.png}};
+    \end{tikzpicture}
+} 
+\date{\today}
+
+
+%--------------------Make usable space all of page
+\setlength{\oddsidemargin}{0in} \setlength{\evensidemargin}{0in}
+\setlength{\topmargin}{0in}     \setlength{\headsep}{-.25in}
+\setlength{\textwidth}{6.5in}   \setlength{\textheight}{8.5in}
+%--------------------Indention
+\setlength{\parindent}{1cm}
+
+\begin{document}
+\maketitle
+\newpage
+
+{\fontfamily{qhv}\selectfont
+\section{Resoconto incontro con il proponente}
+L’incontro con il proponente è stato fissato via e-mail per il giorno \textbf{4 Novembre 2021} per una chiamata \textit{Zoom} con il Signor Gregorio Piccoli.\newline
+Di seguito un breve resoconto dell’incontro. \newline
+L’incontro ha avuto inizio alle \textbf{16:30}, con presenti tutti e sei i membri del gruppo e Gregorio Piccoli, proponente del capitolato per Zucchetti S.P.A., Durante la chiamata sono state poste domande da parte del gruppo al signor Piccoli riguardo aspetti generali e tecnici del progetto come:
+\begin{itemize}
+    \item I \textbf{casi d’uso} del prodotto
+    \item Il \textbf{deploy} del prodotto finale
+    \item La scelta dei \textbf{metodi di visualizzazione} dei dati, l’origine e il trattamento degli stessi
+    \item Applicazioni e spunti di riflessione derivate dai \textbf{requisiti opzionali}
+    \item Approfondimenti circa la \textbf{libreria di visualizzazione} richiesta dal capitolato
+    \item Il \textbf{front-end} del prodotto stesso \newline
+\end{itemize}
+L’incontro si è concluso positivamente alle 17:05 e i membri del gruppo si sono trattenuti in chiamata fino alle 18:15 per riflettere e fissare gli spunti emersi dalla discussione con il proponente.
+}
+\end{document}

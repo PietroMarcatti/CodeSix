@@ -1,0 +1,127 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,textcomp}
+\usepackage{tabto}
+\usepackage{multirow}
+\usepackage{tgheros}
+\usepackage[left=3cm,right=2cm,top=3cm,bottom=2cm]{geometry}
+\usepackage{outline} 
+\usepackage{pmgraph} 
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{tikzpagenodes}
+\usepackage{verbatim}
+\usepackage{svg}
+\pagestyle{plain}
+\title{
+\includegraphics[scale=0.5]{CodeSix LogoTypeCut.png} \\
+\vspace*{1in}
+{\Huge \textbf{Documento Candidatura}}\\
+\vspace*{0.25in}
+\textbf{Progetto Ingegneria Del Software}\\
+\vspace{0.1in}
+}
+
+\author{
+    \begin{tabular}[t]{c@{\extracolsep{8em}}c} 
+        Albertin Enrico  & Marcatti Pietro \\
+        Davide Spada & Marco Andrea Limongelli \\ 
+        Bettin Michele & Matteo Raccanello \\
+    \end{tabular}
+    \vspace*{0.5in} \\
+    Dipartimento di Matematica \\
+    \textbf{Università degli studi di Padova} \\
+    \begin{tikzpicture}[remember picture,overlay]
+     \node[anchor=south] at (current page text area.south) {\includegraphics[height=1in]{logo_unipd.png}};
+    \end{tikzpicture}
+} 
+\date{\today}
+
+
+%--------------------Make usable space all of page
+\setlength{\oddsidemargin}{0in} \setlength{\evensidemargin}{0in}
+\setlength{\topmargin}{0in}     \setlength{\headsep}{-.25in}
+\setlength{\textwidth}{6.5in}   \setlength{\textheight}{8.5in}
+%--------------------Indention
+\setlength{\parindent}{1cm}
+
+\begin{document}
+\maketitle
+\newpage
+{\fontfamily{qhv}\selectfont
+
+
+{\Huge \textbf{Documento Candidatura}}
+\section{Scelta del capitolato}
+Con la presente il gruppo CodeSix intende comunicare la decisione di realizzare il progetto descritto nel capitolato d’appalto C5, denominato:\tab\textbf{Login Warrior}\newline
+commissionato dall’azienda Zucchetti S.P.A.\newline
+
+\noindent In seguito alla pubblicazione dei capitolati d’appalto, il gruppo si è riunito per discutere in merito alla fattibilità dei diversi progetti proposti. Basandosi su un carico di lavoro di 100 ore per ogni componente del gruppo e quindi per un totale di 600 ore produttive per la realizzazione di un progetto, il gruppo ha ritenuto i capitolati C1 e C2 non compatibili con le proprie disponibilità, in quanto le tempistiche per la realizzazione degli stessi risultavano troppo elevate. \newline
+
+\noindent Per quanto riguarda i progetti descritti nei capitolati C3, C4 e C6, seppur trovandoli interessanti, il gruppo non ha inteso candidarsi per la realizzazione in quanto nessuno di questi ha ottenuto l’unanimità sulla decisione di realizzarlo, cosa che al contrario è avvenuta per il progetto descritto nel capitolato C5.\newline
+
+\noindent La scelta di quest ultimo è individuabile principalmente nella rilevanza che sempre più la sicurezza informatica e la presenza corretta sul \textit{web} rivestono nel settore dei servizi terziari e terziari avanzati. Questo capitolato costituisce un’ottima palestra per maturare delle competenze tecniche altamente spendibili nel mondo professionale quali la capacità di creare \textit{web app} responsive e la capacità di lavorare con enormi \textit{dataset} multidimensionali. Inoltre, i membri del team hanno riconosciuto come estremamente allettante la possibilità di lavorare al fianco di una azienda così rilevante sul territorio nazionale.\newline
+
+\noindent Il gruppo ha quindi organizzato un incontro virtuale, tramite una chiamata \textit{Zoom}, con il Signor Gregorio Piccoli - proponente del capitolato per \textit{Zucchetti S.P.A} - durante il quale ogni componente ha fatto domande di carattere generale come esempi di casi d’uso del prodotto, e domande di carattere tecnico in merito al \textit{deploy} del prodotto finale, le librerie da utilizzare e le tecnologie preferibili per la realizzazione della \textit{web application}.\newline
+
+\noindent Concluso l'incontro, volendo garantire la consegna di un prodotto finale di qualità e volendo realizzare un progetto che fosse stimolante per tutti i componenti, il gruppo ha preso la decisione di realizzare il progetto descritto nel capitolato C5 e quindi di proporsi con la seguente candidatura.
+
+
+\section{Impegni}
+Viene giustificata nella sezione seguente il prezzo preventivato per la realizzazione del progetto, tenendo a mente il minimo ammesso di € 13.000 che calibrato su un gruppo di sei persone ammonta a € 11.143.\newline
+
+\noindent Il tempo rendicontato esclude la fase di candidatura e parte dall'acquisizione dell’appalto in data \textbf{19 Novembre 2021} passando per tre fasi di revisione ( RTB, PB e CA) e terminando con l'ultima di queste in cui viene fissata la scadenza massima di consegna per il giorno \textbf{31 marzo 2022}.\newline 
+
+\noindent Il preventivo dei costi è stato calcolato sulla base del monte ore e sulla retribuzione associata ai ruoli. \newline Ogni fase è riassunta tramite delle tabelle che esprimono le ore produttive e il costo orario e terminano con una tabella riassuntiva che le sommarizza.
+Poiché il totale delle ore produttive assegnate a persona deve essere nell’intervallo 80-100, il progetto equivale a un lavoro previsto, dato il numero dei partecipanti, di circa \textbf{550-600 ore}.\newline
+
+\noindent Di seguito sono elencati i ruoli che verranno ricoperti a rotazione da tutti i membri del team e le relative retribuzioni orarie:
+\begin{itemize}
+    \item Responsabile\tab 30 €/h
+    \item Amministratore\tab 20 €/h
+    \item Analista\tab 25 €/h
+    \item Progettista\tab 25 €/h
+    \item Programmatore\tab 15 €/h
+    \item Verificatore\tab 15 €/h
+\end{itemize}
+
+\vspace{1em}
+ \hskip-0.2cm
+\def\arraystretch{1.5}%
+\begin{tabular}{ |p{0.8cm}|p{2.5cm}|p{0.8cm}|p{0.8cm}|p{0.8cm}|p{0.8cm}|p{1.3cm}|p{0.8cm}|p{3cm}|}
+ \hline
+ \multicolumn{8}{|c|}{Ruoli} & \\
+ \hline
+ \multirow{7}{3em}{Nome} 
+ & \textbf{Ore assegnate} & Resp. & Amm. & An. & Prg. & Program. & Ver. & \textbf{Totale Ore Persona}\\ \cline{2-9}
+ & Marco Andrea Limongelli & 9 & 12 & 10 & 15 & 28 & 26 & 100\\ \cline{2-9}
+ & Davide Spada & 7 & 6 & 9 & 18 & 29 & 31 & 100\\ \cline{2-9}
+ & Pietro Marcatti & 10 & 8 & 9 & 13 & 35 & 25 & 100\\ \cline{2-9}
+ & Michele Bettin & 8 & 7 & 8 & 15 & 30 & 32 & 100\\ \cline{2-9}
+ & Enrico Albertin & 8 & 10 & 10 & 13 & 35 & 24 & 100\\ \cline{2-9}
+ & Matteo Raccanello & 6 & 15 & 9 & 15 & 26 & 29 & 100\\ \cline{1-9}
+ \multicolumn{2}{|c|}{\textbf{Totale Ore Ruoli}} & \textbf{48} & \textbf{58} & \textbf{55} & \textbf{89} & \textbf{183} & \textbf{167} & \textbf{600}\\ \hline
+\end{tabular}
+\vspace{2em}
+
+ \noindent Applicando al monte ore appena illustrato le retribuzioni orarie di cui sopra otteniamo la giustificazione del prezzo richiesto per la realizzazione del progetto:
+ 
+\vspace{2em}
+\hskip -0.2cm
+\begin{tabular}{|c|c|c|}
+    \hline
+     Ruolo &  Ore & Costo (€)\\\hline
+     Responsabile & 48 & 1440\\\hline
+     Amministratore & 58 & 1160\\\hline
+     Analista & 55 & 1375\\\hline
+     Progettista & 89 & 2225\\\hline
+     Programmatore & 183 & 2745\\\hline
+     Verificatore & 167 & 2505\\\hline
+     \textbf{Totale} & \textbf{600} & \textbf{11450}\\\hline
+\end{tabular}
+
+
+}
+
+\end{document}
