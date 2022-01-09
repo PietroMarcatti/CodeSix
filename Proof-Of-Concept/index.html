@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Login Warrior</title>
+	<meta name="keywords" content="Login Warrior" />
+	<meta name="description" content="Progetto Ingegneria del Software - gruppo CodeSix" />
+	<meta name="author" content="CodeSix" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" media="screen" href="style.css" />
+	
+	<script src="https://d3js.org/d3.v4.js"></script>
+	<!--<script src="script.js"></script>-->
+	<script src="model.js"></script>
+	<script src="scatterplot.js"></script>
+	<script src="view.js"></script>
+	<script src="controller.js"></script>
+	<script src="main.js"></script>
+</head>
+
+<body>
+	<header>
+		<h1 lang="en">Login Warrior</h1>
+	</header>
+
+	<div id="content">
+		<div id="inputData">
+			<label>Seleziona un dataset (.csv):</label>
+			<br>
+			<input type="file" id="csv-data" accept=".csv">
+			<br>
+			<!--<button id="load-data" onclick="loadFile()">Carica dati</button>-->
+			<button id="load-data">Carica dati</button>
+		</div>
+
+		<div id="data-visualization"></div>
+	</div>
+</body>
