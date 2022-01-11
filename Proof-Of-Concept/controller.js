@@ -21,7 +21,7 @@ class Controller{
     		}
 
     		//Wait until the dataset isn't full loaded
-			await model.loadData(document.getElementById('csv-data').files[0]);
+			await model.loadData(view.getLoadFileInput().files[0]);
 
 			view.showScatterPlot(model.getDataset(), model.getColumnNames()[0], model.getColumnNames()[1]);
 		});
