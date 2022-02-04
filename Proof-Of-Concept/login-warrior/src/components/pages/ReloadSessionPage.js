@@ -43,3 +43,5 @@ class ReloadSessionPage extends React.Component {
         );
     }
 }
+
+export default ReloadSessionPage;
