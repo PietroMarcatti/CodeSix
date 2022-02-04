@@ -274,10 +274,15 @@ p.selected-dim{
     padding:1em;
     padding-top: 0em;
     flex:1 1 auto;
+    margin-top: 1em;
 }
 
 .docs-card a,.docs-card span{
     margin: 0.5em;
+}
+
+.docs-card a{
+    text-decoration: underline;
 }
 
 #docs-wrapper{
@@ -285,3 +290,28 @@ p.selected-dim{
     flex-flow: column;
     justify-content: center;
 }
+
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fdfdfd;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; 
+    color: #353d40;
+}
+
