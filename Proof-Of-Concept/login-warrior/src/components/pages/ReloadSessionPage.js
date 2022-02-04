@@ -26,8 +26,13 @@ class ReloadSessionPage extends React.Component {
                 <div className="rowFlex" id="grid-wrapper">
                     <div className="columnFlex" id="file-upload-wrapper">
                         <div className="columnFlex">
-                            <Alert message="Caricando un file .JSOn perderai quanto fatto nella sessione corrente! Ti consigliamo di esportarla prima di proseguire con il caricamento."/>
+                            <Alert message="Caricando un file .JSON perderai quanto fatto nella sessione corrente! Ti consigliamo di esportarla prima di proseguire con il caricamento."/>
+                            {/*
                             <FileUpload options={["Trascina qui il file da analizzare", "Sceglilo dal tuo dispositivo"]}/>
+                            */}
+
+                            <FileUpload type="json"/>
+                        
                         </div>
                         <DocsLink/>
                     </div>
@@ -38,5 +43,3 @@ class ReloadSessionPage extends React.Component {
         );
     }
 }
-
-export default ReloadSessionPage;

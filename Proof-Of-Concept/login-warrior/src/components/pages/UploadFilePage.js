@@ -5,6 +5,9 @@ import FileUpload from "../FileUpload";
 import Alert from "../Alert";
 import { NavLink } from "react-router-dom";
 
+
+
+
 function DocsLink(props){
     return(
         <span id="docs-link">Hai bisogno di aiuto? <NavLink to="/docs" >Consulta il manuale</NavLink></span>
@@ -12,6 +15,7 @@ function DocsLink(props){
 }
 
 class UploadFilePage extends React.Component {
+
     
     render() {
         return(
@@ -27,8 +31,15 @@ class UploadFilePage extends React.Component {
                     <div className="columnFlex" id="file-upload-wrapper">
                         <div className="columnFlex">
                             <Alert message="Caricando un nuovo fils .csv perderai tutti i progessi nella sessione attuale. Ti consigliamo di esportare la sessione corrente prima di procedere"/>
-                            <FileUpload onClick={() => this.handleQuickButtonClick()} options={["Trascina qui il file della sessione precedente", "Sceglilo dal tuo dispositivo"]}/>
+                            {/*<FileUpload onClick={() => this.handleQuickButtonClick()} 
+                            options={["Trascina qui il file della sessione precedente", "Sceglilo dal tuo dispositivo"]}/>
+                            */}
+
+                            <FileUpload type="csv"/>
+                            
                         </div>
+
+
                         <DocsLink/>
                     </div>
                     <FileInfo />
