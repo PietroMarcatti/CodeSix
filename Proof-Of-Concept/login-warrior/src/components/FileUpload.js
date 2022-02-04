@@ -1,19 +1,25 @@
 import React from "react";
 import AddCircleOutline from '@mui/icons-material/AddCircleOutline';
 
-class FileUpload extends React.Component{
+import CsvReader from './CsvReader'
+import JsonReader from './JsonReader'
 
+class FileUpload extends React.Component{
     render(){
-        return(
-            <div id="drop-file" className="rowFlex center">
-                <AddCircleOutline fontSize="large"/>
-                <div className="columnFlex">
-                    <span className="option">{this.props.options[0]}</span>
-                    <span>oppure</span>
-                    <span className="option">{this.props.options[1]}</span>
+
+            return(
+                <div id="drop-file" className="rowFlex center">
+                    <AddCircleOutline fontSize="large"/>
+                    <div className="columnFlex">
+                    {
+                        this.props.type == 'csv' ? <CsvReader /> : <JsonReader />
+                    }
+        
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        
+        
     }
 
 }
