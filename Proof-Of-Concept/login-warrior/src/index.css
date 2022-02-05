@@ -218,17 +218,7 @@ p.selected-dim{
     margin-right: 0.5em;
 }
 
-.green{
-    background-color: #4DBE5E;
-}
-.orange{
-    background-color: #F2B138;
-}
-.red{
-    background-color: #BB2020;
-}
-
-#drop-file{
+.drop-file{
     background-color: #353D40;
     border-radius: 20px;
     border-style: dashed;
@@ -313,5 +303,15 @@ p.selected-dim{
     border: 1px solid #888;
     width: 50%; 
     color: #353d40;
+}
+
+.green{
+    background-color: #4DBE5E;
+}
+.orange{
+    background-color: #F2B138;
+}
+.red{
+    background-color: #BB2020;
 }
 

@@ -11,11 +11,11 @@ function RemoveFile(props){
                     <h3>Rimuovi File</h3>
                 </div>
                 <div className="modal-body">
-                    Questo è un componente modale
+                    Sei sicuro di voler eliminare il file di lavoro corrente?
                 </div>
                 <div className="modal-footer">
                     <button onClick={props.onClose}>Annulla</button>
-                    <button>Fine</button>
+                    <button onClick={props.onDelete}>Conferma</button>
                 </div>
             </div>
         </div>

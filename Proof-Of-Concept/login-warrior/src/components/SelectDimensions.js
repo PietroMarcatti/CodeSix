@@ -15,7 +15,7 @@ function SelectDimensions(props){
                 </div>
                 <div className="modal-footer">
                     <button onClick={props.onClose}>Annulla</button>
-                    <button>Fine</button>
+                    <button onClick={props.onConfirm}>Conferma</button>
                 </div>
             </div>
         </div>
