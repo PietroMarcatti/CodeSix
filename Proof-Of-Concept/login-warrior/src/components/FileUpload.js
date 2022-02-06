@@ -11,7 +11,7 @@ const FileUpload = (props) =>{
             {props.csvLoaded ? <Check fontSize="large"/> :<AddCircleOutline fontSize="large"/>}
             <div className="columnFlex">
                 { 
-                    (props.csvLoaded || !props.imputAllowed)? 
+                    (props.csvLoaded || !props.inputAllowed)? 
                     ("File \""+props.fileName+"\" caricato correttamente."):
                     (props.type == 'csv' ? <CsvReader hooks={props.hooks} /> : <JsonReader />)
                 }

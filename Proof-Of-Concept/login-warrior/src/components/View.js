@@ -21,7 +21,7 @@ const View = () =>{
     const [showExportSession, setShowExportSession] = useState(false);
     const [showRemoveFile, setShowRemoveFile] = useState(false);
     const [showFileInfo, setShowFileInfo]= useState(false);
-    const [showOverwriteCsvAlert, setShowOverwriteCsvAlert]= useState(false);
+    const [showOverwriteCsvAlert, setShowOverwriteCsvAlert]= useState(true);
     const [showConfigurationCsvAlert, setShowConfigurationCsvAlert]= useState(false);
     const quickActionButtonHandlers = [() => setShowSelectDims(true), () => setShowExportSession(true), ()=> setShowRemoveFile(true)];
 
@@ -45,6 +45,7 @@ const View = () =>{
         const initial = JSON.parse(saved);
         return initial;
     })
+
 
     useEffect(() => {
         if(csvFile){
@@ -70,7 +71,8 @@ const View = () =>{
         localStorage.removeItem("csvLoaded");
         localStorage.removeItem("fileName");
         setShowRemoveFile(false);
-        setShowOverwriteCsvAlert(false);
+        setShowOverwriteCsvAlert(true);
+        setShowConfigurationCsvAlert(false);
         setCsvLoaded(false);
         setCsvData([]);
         setCsvFile(0);
@@ -78,7 +80,7 @@ const View = () =>{
     }
 
     function csvConfigurationComplete(){
-        console.log("Show configuratino Csv Alert :"+showConfigurationCsvAlert);
+        console.log("Show configuration Csv Alert :"+showConfigurationCsvAlert);
         setShowConfigurationCsvAlert(false);
         setShowOverwriteCsvAlert(true);
         setShowSelectDims(false);
@@ -142,14 +144,16 @@ const View = () =>{
                             }  
                         />
                         <Route path="/reloadSession"
-                            element={<ReloadSessionPage handles={quickActionButtonHandlers} dims={csvLoaded ? csvData : []} fileName = {fileName}/>}
+                            element={<ReloadSessionPage 
+                                handles={quickActionButtonHandlers} 
+                                dims={csvLoaded ? csvData : []} fileName = {fileName}/>}
                         />
                         <Route path="/info" element={<InfoPage/>}/>
                         <Route path="/docs" element={<DocsPage />}/>
                         <Route path="/scatter" element={<Scatter />}/>
                         <Route path="/sankey" element={<Sankey />}/>
                     </Routes>
-                    <SelectDimensions show={showSelectDims} onClose={()=>setShowSelectDims(false)} onConfirm={() => csvConfigurationComplete()} />
+                    <SelectDimensions show={showSelectDims} dims={csvLoaded ? csvData : []} onClose={()=>setShowSelectDims(false)} onConfirm={() => csvConfigurationComplete()} />
                     <ExportSession show={showExportSession} onClose={()=>setShowExportSession(false)}/>
                     <RemoveFile show={showRemoveFile} onClose={()=>setShowRemoveFile(false)} onDelete={() => removeCsvFile()}/>
                 </div>
