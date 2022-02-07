@@ -2,17 +2,18 @@ import React from "react";
 import { Landscape, ArrowForwardRounded,ArrowBackRounded } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 
-class Sankey extends React.Component{
+class Parallel extends React.Component{
     render() {
         return(
             <div className="graph-text">
             <NavLink to="/" >
                 <ArrowBackRounded className="graph-back-icon"/>
             </NavLink>
-                <p className="graph_title">Sankey Diagram</p>
+                <p className="graph_title">Parallel Coordinates</p>
                 <p className="graph_description">
-                Il Sankey Diagram è un particolare tipo di diagramma di flusso in cui l'ampiezza delle frecce è disegnata in maniera proporzionale alla quantità di flusso. 
-                Esso è usualmente utilizzato per indicare trasferimenti di energia, materiali, costi o dati in un processo.
+                Il Parallel Coordinates è un sistema comunemente utilizzato per visualizzare spazi n-dimensionali e analizzare dati multivariati. 
+                Per mostrare un insieme di punti in uno spazio a n dimensioni, 
+                vengono disegnate n linee parallele, solitamente verticali e poste a uguale distanza l'una dall'altra.
                 </p>
 
                 <div className="card-icon-wrapper">
@@ -24,4 +25,4 @@ class Sankey extends React.Component{
     }
 }
 
-export default Sankey
+export default Parallel

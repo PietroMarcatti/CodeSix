@@ -1,14 +1,17 @@
-#root, html, body {
+#root{
     height: 100%;
+    width: 100%;    
+}
+
+html, body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+
 #page-wrapper{
-    display: flex;
-    flex-flow: row;
-    height: 100%;
-    width: 100%;
+    display: grid;
+    grid-template-columns: 0.3fr 5fr;
 }
 
 #menu-wrapper{
@@ -19,7 +22,8 @@
     background-color: #353d40;
     color: #fdfdfd;
     justify-content: center;
-    min-width: 20.5em;
+    width: 30em;
+    height: 100%;
 }
 
 #menu{
@@ -89,10 +93,9 @@ li.menu-item svg{
 #content-wrapper{
     display: flex;
     flex-flow: column;
-    height: 100%;
     flex: 10 1 auto;
     background-color:#121317;
-    padding:3em 4em
+    padding:3em 4em;
 }
 
 #content > * {
@@ -362,3 +365,39 @@ input[type="checkbox"]:checked{
     background-color: #BB2020;
 }
 
+/*  Grafici */
+
+.graph-text{
+    font-size: 1.5em;
+    color: white;
+}
+
+.graph-text > a > svg{
+    font-size: 2em;
+    color: white;
+}
+
+.graph_title{
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.graph_description{
+    font-size: 1em;
+}
+
+/*  Grafici */
+
+.columnFlex a{
+    color: white;
+    text-decoration: none;
+}
+
+.columnFlex a:active{
+    color: white;
+}
+
+.columnFlex a:hover{
+    text-decoration: underline;
+
+}

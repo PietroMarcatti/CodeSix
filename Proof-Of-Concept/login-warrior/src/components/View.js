@@ -8,6 +8,8 @@ import DocsPage from "./pages/DocsPage";
 import InfoPage from "./pages/InfoPage";
 import Scatter from "./graph/Scatter"
 import Sankey from "./graph/Sankey";
+import Parallel from "./graph/Parallel";
+import Force from "./graph/Force";
 import SelectDimensions from "./SelectDimensions";
 import ExportSession from "./ExportSession";
 import RemoveFile from "./RemoveFile";
@@ -161,6 +163,8 @@ const View = () =>{
                         <Route path="/docs" element={<DocsPage />}/>
                         <Route path="/scatter" element={<Scatter />}/>
                         <Route path="/sankey" element={<Sankey />}/>
+                        <Route path="/force" element={<Force />}/>
+                        <Route path="/parallel" element={<Parallel />}/>
                     </Routes>
                     <SelectDimensions show={showSelectDims} data={csvLoaded ? csvData : []} headersToggle={headersToggle} onClose={()=>setShowSelectDims(false)} onConfirm={() => csvConfigurationComplete()} />
                     <ExportSession show={showExportSession} onClose={()=>setShowExportSession(false)}/>
