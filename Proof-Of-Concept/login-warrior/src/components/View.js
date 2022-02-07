@@ -19,6 +19,7 @@ const View = () =>{
 
     let menuItems= ["Homepage", "Carica file", "Ricarica Sessione", "Informazioni", "Manuale" ];
     let menuIcons= [<HomeOutlined fontSize='large'/>, <UploadFile fontSize='large'/>, <Cached fontSize='large'/>, <InfoOutlined fontSize='large'/>, <ContactSupportOutlined fontSize='large'/>];
+    
     const [showSelectDims, setShowSelectDims] = useState(false);
     const [showExportSession, setShowExportSession] = useState(false);
     const [showRemoveFile, setShowRemoveFile] = useState(false);
@@ -27,10 +28,13 @@ const View = () =>{
     const [showConfigurationCsvAlert, setShowConfigurationCsvAlert]= useState(false);
     const quickActionButtonHandlers = [() => setShowSelectDims(true), () => setShowExportSession(true), ()=> setShowRemoveFile(true)];
 
+    const [showTest, setShowTest] = useState(false);
+    const [headersToggle, setHeadersToggle] = useState(false);
+    let option = {headers: headersToggle, complete: (results) => {setCsvData(results); setShowTest(true);}}
+    
     const [csvFile, setCsvFile] = useState(()=>{
         const saved = localStorage.getItem("csvFile");
         const initial = JSON.parse(saved);
-        console.log(initial || null)
         return initial || null;
     })
     const [csvLoaded, setCsvLoaded] = useState(()=>{
@@ -46,23 +50,26 @@ const View = () =>{
     const [csvFileName, setCsvFileName]= useState(()=>{
         const saved = localStorage.getItem("csvFileName");
         const initial = JSON.parse(saved);
-        return initial;
+        return initial || "";
     })
 
 
     useEffect(() => {
         if(csvFile){
-            console.log("csvLoaded: " + csvLoaded);
-            console.log(csvFile);
+            console.log("showTest" + showTest);
             setCsvFileName(csvFile.name);
-            console.log("csvFileName: "+ csvFileName);
             
             localStorage.setItem("csvFileName", JSON.stringify(csvFile.name));
             localStorage.setItem("csvLoaded", JSON.stringify(csvLoaded));
             setShowConfigurationCsvAlert(true);
             setShowOverwriteCsvAlert(false);
+            Papa.parse(csvFile, option);
         }
     }, [csvFile]);
+
+    useEffect(() => {
+
+    }, [headersToggle])
 
     useEffect(()=>{
         if(csvLoaded)
@@ -136,13 +143,14 @@ const View = () =>{
                         <Route path="/uploadFile" 
                             element={<UploadFilePage 
                                         handles={quickActionButtonHandlers}
-                                        hooks={{"csvFile":[csvFile,(file) => setCsvFile(file)], "csvLoaded":[csvLoaded,() =>setCsvLoaded(true)]}}
+                                        hooks={{"csvFile":[csvFile,(file) => setCsvFile(file)], "csvLoaded":[csvLoaded,() =>setCsvLoaded(true)], "headersToggle":[headersToggle,() =>setHeadersToggle(!headersToggle)]}}
                                         dims={csvLoaded ? csvData : []}
                                         showFileInfo={showFileInfo}
                                         showOverwriteCsvAlert={showOverwriteCsvAlert}
                                         showConfigurationCsvAlert={showConfigurationCsvAlert}
                                         csvLoaded = {csvLoaded}
                                         csvFileName = {csvFileName}
+                                        showTest={showTest}
                                     />
                             }  
                         />
@@ -158,7 +166,7 @@ const View = () =>{
                         <Route path="/force" element={<Force />}/>
                         <Route path="/parallel" element={<Parallel />}/>
                     </Routes>
-                    <SelectDimensions show={showSelectDims} dims={csvLoaded ? csvFile : []} onClose={()=>setShowSelectDims(false)} onConfirm={() => csvConfigurationComplete()} />
+                    <SelectDimensions show={showSelectDims} data={csvLoaded ? csvData : []} headersToggle={headersToggle} onClose={()=>setShowSelectDims(false)} onConfirm={() => csvConfigurationComplete()} />
                     <ExportSession show={showExportSession} onClose={()=>setShowExportSession(false)}/>
                     <RemoveFile show={showRemoveFile} onClose={()=>setShowRemoveFile(false)} onDelete={() => removeCsvFile()}/>
                 </div>

@@ -9,12 +9,10 @@ const CsvReader = (props) =>{
                 accept='.csv'
                 id='csvFile'
                 onChange={(e) => {
-                    console.log(typeof e.target.files[0]);
                     props.hooks["csvLoaded"][1](true)
                     props.hooks["csvFile"][1](e.target.files[0])
                 }}
-            >
-            </input>
+            />
         </form>
 
 

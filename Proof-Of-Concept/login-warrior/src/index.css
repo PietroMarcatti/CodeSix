@@ -350,7 +350,7 @@ p.selected-dim{
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.modal input[type="checkbox"]{
+input[type="checkbox"]{
     appearance: none;
     border-radius: 3px;
     background-color: #353d40;
@@ -361,7 +361,7 @@ p.selected-dim{
     position: relative;
 }
 
-.modal input[type="checkbox"]:checked::after{
+input[type="checkbox"]:checked::after{
     content: '\2714';
     font-size: 14px;
     position:absolute;
@@ -370,7 +370,7 @@ p.selected-dim{
     color: #fdfdfd;
 }
 
-.modal input[type="checkbox"]:checked{
+input[type="checkbox"]:checked{
     background-color: #4DBE5E;
 }
 
