@@ -1,10 +1,39 @@
 import React from "react";
 import {ArrowBack} from '@mui/icons-material';
 
+function DimensionCheckBox (props){
+    function handleChange(){
+        props.onChange(props.index)
+    }
+    return(
+        <li key={props.value} className="rowFlex center">
+            <label key={"l"+props.value}>{props.value}</label>
+            <input type="checkbox" name={"dim"+props.index} id={props.index} onChange={handleChange} defaultChecked={props.checked}/>
+        </li>
+    );
+}
+
 function SelectDimensions(props){
 
+    console.log(props.selectedDims)
+    var selectedDims = new Set(props.selectedDims);
+
+    function toggleDimension(key){
+        if(selectedDims.has(key)){
+            
+            selectedDims.delete(key);
+        }else{
+            selectedDims.add(key);
+        }
+        console.log(selectedDims)
+    }
+
+    function handleOnConfirm(){
+        var dims = [...selectedDims]
+        props.onConfirm(dims)
+    }
+    console.log(props.data)
     return(
-        props.show ?
         <div className="modal" onClick={props.onClose}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <div className="modal-header">
@@ -12,36 +41,29 @@ function SelectDimensions(props){
                 </div>
                 <br/>
                 <div className="rowFlex center">
-                    {   
-                        console.log(props.data),
-                        console.log("headersToggle: "+props.headersToggle)
-                        (props.headersToggle && Object.keys(props.data).length > 0 ) ?
-                        props.data.meta.fields.map((value, key) =>
-                            { 
-                                return <>
-                                    <label for={"dim"+key} key={"l"+value}>{value}</label>
-                                    <input type="checkbox" name={"dim"+key} id={key}/>
-                                </>
-                            }
-                        ) :
-                        props.data.data[0].map((value,key) =>
-                            {
-                                return <>
-                                    <label for={"dim"+key} key={"l"+value}>{"Colonna "+ key}</label>
-                                    <input type="checkbox" name={"dim"+key} id={key}/>
-                                </>
-                            }
-                        )
-                    }
+                    <ul className="">
+                        {   
+                            (props.headersToggle && Object.keys(props.data).length > 0 ) ?
+                            props.data.meta.fields.map((value, key) =>
+                                { 
+                                    return <DimensionCheckBox onChange={toggleDimension} value={value} index={key} key={value} checked={selectedDims.has(key)}/>
+                                }
+                            ) :
+                            props.data.data[0].map((value,key) =>
+                                {
+                                    return <DimensionCheckBox onChange={toggleDimension} value={"Colonna "+ key} index={key} key={value} checked={selectedDims.has(key)}/>
+                                }
+                            )
+                        }
+                    </ul>
                 </div>
 
                 <div className="modal-footer">
                     <button className="red" onClick={props.onClose}>Annulla</button>
-                    <button className="green" onClick={props.onConfirm}>Conferma</button>
+                    <button className="green" onClick={handleOnConfirm}>Conferma</button>
                 </div>
             </div>
-        </div> : 
-        ""
+        </div>
     )
 }
 

@@ -13,7 +13,6 @@ function DocsLink(props){
 
 const UploadFilePage = (props) => {
 
-    console.log(props.headersToggle);
     return(
         <div id="content">
             <h2 className="rowFlex center">
@@ -37,7 +36,7 @@ const UploadFilePage = (props) => {
 
                     <DocsLink/>
                 </div>
-                <FileInfo showTest={props.showTest} show={props.showFileInfo} handles={props.handles} data={props.data} csvFileName={props.csvFileName}/>
+                <FileInfo disableDimensionSelection={props.disableDimensionSelection} show={props.showFileInfo} handles={props.handles} selectedDims={props.selectedDims} csvFileName={props.csvFileName}/>
                 
             </div>
         </div>

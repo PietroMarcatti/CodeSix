@@ -9,7 +9,7 @@ function SelectedDimsItem(props){
 
 function QuickActionButton (props){
     return(
-        <button onClick={props.onClick} className={props.className}>
+        <button onClick={props.onClick} className={props.className} disabled={props.disabled}>
             {props.value}
             {props.icon}
         </button>
@@ -28,15 +28,21 @@ const FileInfo =(props) => {
             <p>Dimensioni selezionate:</p>
             <div id="selected-dims-wrapper">
                 {
-                    console.log(props.data)
-                    /*( props.showOverwriteCsvAlert || props.data && props.data.length ===0)  ? "Non hai ancora caricato nessun file." :
-                    props.data.meta.fields.map((value)=>{ return <SelectedDimsItem value={value} key={value}/>})*/
+                    props.selectedDims && props.selectedDims.size > 0 ? 
+                    props.selectedDims.map((value) => {
+                        return <SelectedDimsItem value={value} key={value}/>
+                    }):
+                    "Ancora nessuna dimensione selezionata"
                 }
             </div>
             <p>Azioni rapide:</p>
             <div className="columnFlex">
-                {props.showTest ? <QuickActionButton onClick={props.handles[0]}
-                     value={props.showOverwriteCsvAlert ? "Modifica dimensioni" : "Configura dimensioni"} icon={<Edit sx={{fontSize: 30}}/>} className="green"/> : ""}
+                <QuickActionButton onClick={props.handles[0]}
+                     value={props.showOverwriteCsvAlert ? "Modifica dimensioni" : "Configura dimensioni"} 
+                     icon={<Edit sx={{fontSize: 30}}/>} 
+                     className="green"
+                     disabled= {props.disableDimensionSelection}
+                     />
                 <QuickActionButton onClick={props.handles[1]} value="Esporta Sessione" icon={<CloudDownloadOutlined sx={{fontSize: 30}}/>} className="orange"/>
                 <QuickActionButton onClick={props.handles[2]} value="Rimuovi File" icon={<DeleteOutlined sx={{fontSize: 30}}/>} className="red"/>
             </div>

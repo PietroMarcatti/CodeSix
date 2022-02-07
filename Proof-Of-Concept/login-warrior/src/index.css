@@ -235,6 +235,10 @@ p.selected-dim{
     border: transparent;
 }
 
+#file-info-wrapper button:disabled{
+    background-color: #A1A5A6;
+}
+
 #file-info-wrapper button svg{
     margin-left: 1em;
     float: right;
@@ -349,6 +353,7 @@ p.selected-dim{
     min-width: 5em;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 
 input[type="checkbox"]{
     appearance: none;

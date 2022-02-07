@@ -28,9 +28,19 @@ const View = () =>{
     const [showConfigurationCsvAlert, setShowConfigurationCsvAlert]= useState(false);
     const quickActionButtonHandlers = [() => setShowSelectDims(true), () => setShowExportSession(true), ()=> setShowRemoveFile(true)];
 
-    const [showTest, setShowTest] = useState(false);
-    const [headersToggle, setHeadersToggle] = useState(false);
-    let option = {headers: headersToggle, complete: (results) => {setCsvData(results); console.log(headersToggle); setShowTest(true);}}
+    const [disableDimensionSelection, setDisableDimensionSelection] = useState(false);
+    const [headersToggle, setHeadersToggle] = useState(() =>{
+        const saved = localStorage.getItem("headersToggle");
+        const initial = JSON.parse(saved);
+        return initial || false;
+    });
+    let option = {header: headersToggle, complete: (results) => {setCsvData(results); setDisableDimensionSelection(false);}}
+    
+    const [selectedDims, setSelectedDims] = useState(()=>{
+        const saved = localStorage.getItem("selectedDims");
+        const initial = JSON.parse(saved);
+        return initial || [];
+    })
     
     const [csvFile, setCsvFile] = useState(()=>{
         const saved = localStorage.getItem("csvFile");
@@ -56,9 +66,9 @@ const View = () =>{
 
     useEffect(() => {
         if(csvFile){
-            console.log("showTest" + showTest);
+            console.log(option);
             setCsvFileName(csvFile.name);
-            
+            setDisableDimensionSelection(false);
             localStorage.setItem("csvFileName", JSON.stringify(csvFile.name));
             localStorage.setItem("csvLoaded", JSON.stringify(csvLoaded));
             setShowConfigurationCsvAlert(true);
@@ -72,10 +82,18 @@ const View = () =>{
             localStorage.setItem("csvData", JSON.stringify(csvData));
     },[csvData]);
 
+    useEffect(() =>{
+        console.log("sono stato chiamato io")
+        localStorage.setItem("headersToggle", headersToggle);
+    }, [headersToggle])
+
     function removeCsvFile(){
         localStorage.removeItem("csvFile");
         localStorage.removeItem("csvLoaded");
         localStorage.removeItem("csvFileName");
+        localStorage.removeItem("selectedDims");
+        localStorage.removeItem("headersToggle");
+        localStorage.removeItem("csvData");
         setShowRemoveFile(false);
         setShowOverwriteCsvAlert(false);
         setShowConfigurationCsvAlert(false);
@@ -83,6 +101,8 @@ const View = () =>{
         setCsvData([]);
         setCsvFile(null);
         setCsvFileName("");
+        setDisableDimensionSelection(true);
+        handleDimensionsHeadersToggle(false);
     }
 
     function csvConfigurationComplete(){
@@ -90,6 +110,20 @@ const View = () =>{
         setShowConfigurationCsvAlert(false);
         setShowOverwriteCsvAlert(true);
         setShowSelectDims(false);
+    }
+
+    function handleDimensionSelectionConfirm(dims){
+        console.log(dims);
+        setShowSelectDims(false);
+        setSelectedDims(dims);
+        localStorage.setItem("selectedDims", JSON.stringify(dims))
+    }
+
+    function handleDimensionsHeadersToggle(){
+        console.log("sono stato chiamato anche io")
+        setHeadersToggle(!headersToggle)
+        console.log(headersToggle)
+        localStorage.setItem("headersToggle", headersToggle);
     }
 
     return(
@@ -139,14 +173,14 @@ const View = () =>{
                         <Route path="/uploadFile" 
                             element={<UploadFilePage 
                                         handles={quickActionButtonHandlers}
-                                        hooks={{"csvFile":[csvFile,(file) => setCsvFile(file)], "csvLoaded":[csvLoaded,() =>setCsvLoaded(true)], "headersToggle":[headersToggle,() =>setHeadersToggle(!headersToggle)]}}
-                                        dims={csvLoaded ? csvData : []}
+                                        hooks={{"csvFile":[csvFile,(file) => setCsvFile(file)], "csvLoaded":[csvLoaded,() =>setCsvLoaded(true)], "headersToggle":[headersToggle,() =>handleDimensionsHeadersToggle()]}}
+                                        selectedDims={selectedDims}
                                         showFileInfo={showFileInfo}
                                         showOverwriteCsvAlert={showOverwriteCsvAlert}
                                         showConfigurationCsvAlert={showConfigurationCsvAlert}
                                         csvLoaded = {csvLoaded}
                                         csvFileName = {csvFileName}
-                                        showTest={showTest}
+                                        disableDimensionSelection={disableDimensionSelection}
                                     />
                             }  
                         />
@@ -162,7 +196,7 @@ const View = () =>{
                         <Route path="/force" element={<Force />}/>
                         <Route path="/parallel" element={<Parallel />}/>
                     </Routes>
-                    <SelectDimensions show={showSelectDims} data={csvLoaded ? csvData : []} headersToggle={headersToggle} onClose={()=>setShowSelectDims(false)} onConfirm={() => csvConfigurationComplete()} />
+                    {showSelectDims ? <SelectDimensions data={csvLoaded ? csvData : []} headersToggle={headersToggle} onClose={()=>setShowSelectDims(false)} onConfirm={(value) => handleDimensionSelectionConfirm(value)} selectedDims={selectedDims} />: ""}
                     <ExportSession show={showExportSession} onClose={()=>setShowExportSession(false)}/>
                     <RemoveFile show={showRemoveFile} onClose={()=>setShowRemoveFile(false)} onDelete={() => removeCsvFile()}/>
                 </div>
