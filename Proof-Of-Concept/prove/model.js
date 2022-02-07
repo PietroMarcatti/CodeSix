@@ -5,11 +5,11 @@ class Model{
 	}
 
 	async loadData(file){
-	    //Wait until the file isn't full loaded
-	    var data = await file.text(); 
+		const response = await waitForPapaParse(file);
+		console.log(response); // {data: [], errors: [], meta: {}}
 
-	    this.dataset= d3.csvParse(data);
-	    this.columnNames= this.dataset.columns;
+		this.dataset= response.data;
+		this.columnNames= response.meta.fields;
 	}
 
 	getColumnNames(){
