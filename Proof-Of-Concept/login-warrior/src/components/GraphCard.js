@@ -1,5 +1,6 @@
 import React from "react";
 import { Landscape, ArrowForwardRounded } from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
 
 class GraphCard extends React.Component{
     render() {
