@@ -1,7 +1,7 @@
 import React from "react";
 import {ConstructionOutlined, UploadFile } from "@mui/icons-material";
 import FileInfo from "../FileInfo";
-import FileUpload from "../FileUpload";
+import CSVUpload from "../CSVUpload";
 import Alert from "../Alert";
 import { NavLink } from "react-router-dom";
 
@@ -26,13 +26,13 @@ const UploadFilePage = (props) => {
                 <div className="columnFlex" id="file-upload-wrapper">
                     <div className="columnFlex">
                         {props.showOverwriteCsvAlert ? <Alert message="Caricando un nuovo fils .csv perderai tutti i progessi nella sessione attuale. Ti consigliamo di esportare la sessione corrente prima di procedere"/> :""}
-                        <FileUpload type="csv" hooks={props.hooks} csvLoaded ={props.csvLoaded} fileName={props.fileName} inputAllowed={props.showOverwriteCsvAlert}/>
+                        <CSVUpload hooks={props.hooks} csvLoaded ={props.csvLoaded} csvFileName={props.csvFileName} inputAllowed={props.showOverwriteCsvAlert}/>
                         {props.showConfigurationCsvAlert ? <Alert message="Il tuo file è stato caricato correttamente ma va inizializzato. Per poterlo usare configuralo."/> :""}
                     </div>
 
                     <DocsLink/>
                 </div>
-                <FileInfo show={props.showFileInfo} handles={props.handles} dims={props.dims} fileName={props.fileName}/>
+                <FileInfo show={props.showFileInfo} handles={props.handles} dims={props.dims} csvFileName={props.csvFileName}/>
                 
             </div>
         </div>

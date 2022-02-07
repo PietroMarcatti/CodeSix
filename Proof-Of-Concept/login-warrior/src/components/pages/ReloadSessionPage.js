@@ -1,7 +1,7 @@
 import React from "react";
 import {Cached } from "@mui/icons-material";
 import FileInfo from "../FileInfo";
-import FileUpload from "../FileUpload";
+import JSONUpload from "../JSONUpload";
 import Alert from "../Alert";
 import { NavLink } from "react-router-dom";
 
@@ -26,11 +26,7 @@ const ReloadSessionPage = (props) => {
                 <div className="columnFlex" id="file-upload-wrapper">
                     <div className="columnFlex">
                         <Alert message="Caricando un file .JSON perderai quanto fatto nella sessione corrente! Ti consigliamo di esportarla prima di proseguire con il caricamento."/>
-                        {/*
-                        <FileUpload options={["Trascina qui il file da analizzare", "Sceglilo dal tuo dispositivo"]}/>
-                        */}
-
-                        <FileUpload type="json"/>
+                        <JSONUpload/>
                     
                     </div>
                     <DocsLink/>
