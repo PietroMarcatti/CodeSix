@@ -95,7 +95,7 @@ li.menu-item svg{
     flex-flow: column;
     flex: 10 1 auto;
     background-color:#121317;
-    padding:3em 4em;
+    padding:2em 3em;
 }
 
 #content > * {
@@ -124,10 +124,30 @@ li.menu-item svg{
 .columnFlex{
     display: flex;
     flex-flow: column;
+    width: 600px;
+}
+
+.columnFlex a{
+    color: white;
+    text-decoration: none;
+}
+
+.columnFlex a:active{
+    color: white;
+}
+
+.columnFlex a:hover{
+    text-decoration: underline;
+}
+
+#csvFile{
+    font-size: 0.8em;
+    font-weight: bold;
 }
 
 #grid-wrapper{
-    width: 95%;
+    display: flex;
+    flex-wrap: nowrap;
 }
 
 .card-wrapper{
@@ -136,9 +156,9 @@ li.menu-item svg{
     justify-content: center;
     align-items: center;
     flex: 1 1 auto;
-
     margin: 1em 0.5em 0 0;
     height: 15em;
+    width: 10em;
     text-align: center;
 
     background-color: #353D40;
@@ -170,13 +190,16 @@ li.menu-item svg{
 #card-grid{
     flex: 3 1 auto;
     min-width: 50%;
+    align-items: center;
+    justify-content: center;
+    
 }
 
 #file-info-wrapper{
     background-color: #353D40;
     border-radius: 15px;
     flex: 4 1 auto;
-    max-width: 50%;
+    max-width: 80%;
     margin-top: 1em;
     padding: 1em 2em;
     font-size: 20px;
@@ -388,16 +411,4 @@ p.selected-dim{
 
 /*  Grafici */
 
-.columnFlex a{
-    color: white;
-    text-decoration: none;
-}
 
-.columnFlex a:active{
-    color: white;
-}
-
-.columnFlex a:hover{
-    text-decoration: underline;
-
-}
