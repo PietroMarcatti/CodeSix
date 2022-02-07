@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 class Scatter extends React.Component{
     render() {
         return(
-            <div id="graph-text">
+            <div className="graph-text">
             <NavLink to="/" >
                 <ArrowBackRounded className="graph-back-icon"/>
             </NavLink>
