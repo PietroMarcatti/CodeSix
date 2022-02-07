@@ -30,7 +30,7 @@ const View = () =>{
 
     const [showTest, setShowTest] = useState(false);
     const [headersToggle, setHeadersToggle] = useState(false);
-    let option = {headers: headersToggle, complete: (results) => {setCsvData(results); setShowTest(true);}}
+    let option = {headers: headersToggle, complete: (results) => {setCsvData(results); console.log(headersToggle); setShowTest(true);}}
     
     const [csvFile, setCsvFile] = useState(()=>{
         const saved = localStorage.getItem("csvFile");
@@ -66,10 +66,6 @@ const View = () =>{
             Papa.parse(csvFile, option);
         }
     }, [csvFile]);
-
-    useEffect(() => {
-
-    }, [headersToggle])
 
     useEffect(()=>{
         if(csvLoaded)

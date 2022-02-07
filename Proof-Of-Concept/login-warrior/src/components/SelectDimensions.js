@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {ArrowBack} from '@mui/icons-material';
 
 function SelectDimensions(props){
-    
+
     return(
         props.show ?
         <div className="modal" onClick={props.onClose}>
@@ -13,7 +13,9 @@ function SelectDimensions(props){
                 <br/>
                 <div className="rowFlex center">
                     {   
-                        (props.headersToggle && props.data.length >0) ?
+                        console.log(props.data),
+                        console.log("headersToggle: "+props.headersToggle)
+                        (props.headersToggle && Object.keys(props.data).length > 0 ) ?
                         props.data.meta.fields.map((value, key) =>
                             { 
                                 return <>
