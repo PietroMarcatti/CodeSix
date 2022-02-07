@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {ConstructionOutlined, UploadFile } from "@mui/icons-material";
 import FileInfo from "../FileInfo";
 import CSVUpload from "../CSVUpload";
@@ -13,6 +13,7 @@ function DocsLink(props){
 
 const UploadFilePage = (props) => {
 
+
     return(
         <div id="content">
             <h2 className="rowFlex center">
@@ -26,13 +27,17 @@ const UploadFilePage = (props) => {
                 <div className="columnFlex" id="file-upload-wrapper">
                     <div className="columnFlex">
                         {props.showOverwriteCsvAlert ? <Alert message="Caricando un nuovo fils .csv perderai tutti i progessi nella sessione attuale. Ti consigliamo di esportare la sessione corrente prima di procedere"/> :""}
+                        <div className="rowFlex center">
+                            <label>Il file contiene gli header</label>
+                            <input type="checkbox" id="headers" name="headers" onChange={props.hooks["headersToggle"][1]} />
+                        </div>
                         <CSVUpload hooks={props.hooks} csvLoaded ={props.csvLoaded} csvFileName={props.csvFileName} inputAllowed={props.showOverwriteCsvAlert}/>
                         {props.showConfigurationCsvAlert ? <Alert message="Il tuo file è stato caricato correttamente ma va inizializzato. Per poterlo usare configuralo."/> :""}
                     </div>
 
                     <DocsLink/>
                 </div>
-                <FileInfo show={props.showFileInfo} handles={props.handles} dims={props.dims} csvFileName={props.csvFileName}/>
+                <FileInfo showTest={props.showTest} show={props.showFileInfo} handles={props.handles} data={props.data} csvFileName={props.csvFileName}/>
                 
             </div>
         </div>
