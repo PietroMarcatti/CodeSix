@@ -23,27 +23,28 @@ const View = () =>{
     const [showExportSession, setShowExportSession] = useState(false);
     const [showRemoveFile, setShowRemoveFile] = useState(false);
     const [showFileInfo, setShowFileInfo]= useState(false);
-    const [showOverwriteCsvAlert, setShowOverwriteCsvAlert]= useState(true);
+    const [showOverwriteCsvAlert, setShowOverwriteCsvAlert]= useState(false);
     const [showConfigurationCsvAlert, setShowConfigurationCsvAlert]= useState(false);
     const quickActionButtonHandlers = [() => setShowSelectDims(true), () => setShowExportSession(true), ()=> setShowRemoveFile(true)];
 
     const [csvFile, setCsvFile] = useState(()=>{
         const saved = localStorage.getItem("csvFile");
         const initial = JSON.parse(saved);
-        return initial;
+        console.log(initial || null)
+        return initial || null;
     })
     const [csvLoaded, setCsvLoaded] = useState(()=>{
         const saved = localStorage.getItem("csvLoaded");
         const initial = JSON.parse(saved);
-        return initial;
+        return initial || false;
     })
     const [csvData, setCsvData] = useState(()=>{
         const saved = localStorage.getItem("csvData");
         const initial = JSON.parse(saved);
         return initial || [];
     })
-    const [fileName, setFileName]= useState(()=>{
-        const saved = localStorage.getItem("fileName");
+    const [csvFileName, setCsvFileName]= useState(()=>{
+        const saved = localStorage.getItem("csvFileName");
         const initial = JSON.parse(saved);
         return initial;
     })
@@ -51,16 +52,16 @@ const View = () =>{
 
     useEffect(() => {
         if(csvFile){
-            Papa.parse(csvFile, {header:true, complete: function(results){
-                setCsvData(results);
-            }});
-            setFileName(csvFile != undefined ? csvFile.name : "");
-            localStorage.setItem("fileName", JSON.stringify(fileName));
-            localStorage.setItem("csvLoaded", csvLoaded);
+            console.log("csvLoaded: " + csvLoaded);
+            console.log(csvFile);
+            setCsvFileName(csvFile.name);
+            console.log("csvFileName: "+ csvFileName);
+            
+            localStorage.setItem("csvFileName", JSON.stringify(csvFile.name));
+            localStorage.setItem("csvLoaded", JSON.stringify(csvLoaded));
             setShowConfigurationCsvAlert(true);
             setShowOverwriteCsvAlert(false);
         }
-        setShowFileInfo(true);
     }, [csvFile]);
 
     useEffect(()=>{
@@ -69,16 +70,16 @@ const View = () =>{
     },[csvData]);
 
     function removeCsvFile(){
-        localStorage.removeItem("csvData");
+        localStorage.removeItem("csvFile");
         localStorage.removeItem("csvLoaded");
-        localStorage.removeItem("fileName");
+        localStorage.removeItem("csvFileName");
         setShowRemoveFile(false);
-        setShowOverwriteCsvAlert(true);
+        setShowOverwriteCsvAlert(false);
         setShowConfigurationCsvAlert(false);
         setCsvLoaded(false);
         setCsvData([]);
-        setCsvFile(0);
-        setFileName("");
+        setCsvFile(null);
+        setCsvFileName("");
     }
 
     function csvConfigurationComplete(){
@@ -131,7 +132,7 @@ const View = () =>{
                 </div>
                 <div id="content-wrapper">
                     <Routes>
-                        <Route path="/" element={<HomePage handles={quickActionButtonHandlers} dims={csvLoaded ? csvData : []} fileName = {fileName}/>}/>
+                        <Route path="/" element={<HomePage handles={quickActionButtonHandlers} dims={csvLoaded ? csvData : []} csvFileName = {csvFileName}/>}/>
                         <Route path="/uploadFile" 
                             element={<UploadFilePage 
                                         handles={quickActionButtonHandlers}
@@ -141,14 +142,14 @@ const View = () =>{
                                         showOverwriteCsvAlert={showOverwriteCsvAlert}
                                         showConfigurationCsvAlert={showConfigurationCsvAlert}
                                         csvLoaded = {csvLoaded}
-                                        fileName = {fileName}
+                                        csvFileName = {csvFileName}
                                     />
                             }  
                         />
                         <Route path="/reloadSession"
                             element={<ReloadSessionPage 
                                 handles={quickActionButtonHandlers} 
-                                dims={csvLoaded ? csvData : []} fileName = {fileName}/>}
+                                dims={csvLoaded ? csvData : []} csvFileName = {csvFileName}/>}
                         />
                         <Route path="/info" element={<InfoPage/>}/>
                         <Route path="/docs" element={<DocsPage />}/>
@@ -157,7 +158,7 @@ const View = () =>{
                         <Route path="/force" element={<Force />}/>
                         <Route path="/parallel" element={<Parallel />}/>
                     </Routes>
-                    <SelectDimensions show={showSelectDims} dims={csvLoaded ? csvData : []} onClose={()=>setShowSelectDims(false)} onConfirm={() => csvConfigurationComplete()} />
+                    <SelectDimensions show={showSelectDims} dims={csvLoaded ? csvFile : []} onClose={()=>setShowSelectDims(false)} onConfirm={() => csvConfigurationComplete()} />
                     <ExportSession show={showExportSession} onClose={()=>setShowExportSession(false)}/>
                     <RemoveFile show={showRemoveFile} onClose={()=>setShowRemoveFile(false)} onDelete={() => removeCsvFile()}/>
                 </div>

@@ -1,41 +1,66 @@
-import React from "react";
-import DeleteIcon from '@mui/icons-material/Delete';
-
-function SelectedDimsItem(props){
-    return(
-        <div>
-        <p className="selected-dim" id={props.key}>{props.value}</p>
-        </div>
-    );
-}
+import React, { useState } from "react";
+import {ArrowBack} from '@mui/icons-material';
+import Papa from "papaparse";
 
 function SelectDimensions(props){
-    if(!props.show)
-        return null;
+    
+    const [headersToggle, setHeadersToggle] = useState(false);
+    const [csvData, setCsvData] = useState([]);
+
+    function parse(){
+        Papa.parse(props.csvFile, {header:headersToggle, complete: (results) =>{ parseComplete(results)} })
+    }
+    
+    function toggleHeaders(){
+        setHeadersToggle(!headersToggle);
+        parse();
+    }
+
+    function parseComplete(results){
+        setCsvData(results);
+        console.log(csvData);
+    }
 
     return(
+        props.show ?
         <div className="modal" onClick={props.onClose}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <div className="modal-header">
-                    <h3>Selezione dimensioni</h3>
+                    <h3 className="rowFlex center"><ArrowBack onClick={props.onClose}/>Selezione dimensioni</h3>
+                </div>
+                <div className="rowFlex center">
+                    <label for="headers">Il file contiene gli headers</label>
+                    <input type="checkbox" name="headers" onChange={()=>toggleHeaders(!headersToggle)}/>
+                </div>
+                <br/>
+                <div className="rowFlex center">
+                    {headersToggle ?
+                        csvData.meta.fields.map((value, key) =>
+                            { 
+                                return <>
+                                    <label for={"dim"+key} key={"l"+value}>{value}</label>
+                                    <input type="checkbox" name={"dim"+key} id={key}/>
+                                </>
+                            }
+                        ) :
+                        csvData.data[0].map((value,key) =>
+                            {
+                                return <>
+                                    <label for={"dim"+key} key={"l"+value}>{value}</label>
+                                    <input type="checkbox" name={"dim"+key} id={key}/>
+                                </>
+                            }
+                        )
+                    }
                 </div>
 
-                <div id="selected-dims-wrapper">
-                {
-                    (props.dims && props.dims.length ===0)  ? "Non hai ancora caricato nessun file." :
-                    props.dims.meta.fields.map((value)=>{ return <SelectedDimsItem value={value} key={value}/>})
-                }
-                </div>
-
-                <div className="modal-body">
-                    Questo è un componente modale
-                </div>
                 <div className="modal-footer">
-                    <button onClick={props.onClose}>Annulla</button>
-                    <button onClick={props.onConfirm}>Conferma</button>
+                    <button className="red" onClick={props.onClose}>Annulla</button>
+                    <button className="green" onClick={props.onConfirm}>Conferma</button>
                 </div>
             </div>
-        </div>
+        </div> : 
+        ""
     )
 }
 

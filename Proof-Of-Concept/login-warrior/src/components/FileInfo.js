@@ -24,17 +24,18 @@ const FileInfo =(props) => {
                 Il tuo file
             </h2>
             <label>Nome del file:</label>
-            <p>{props.fileName != "" ? props.fileName : "Nessun file caricato."}</p>
+            <p>{props.csvFileName ? props.csvFileName : "Nessun file caricato."}</p>
             <p>Dimensioni selezionate:</p>
             <div id="selected-dims-wrapper">
                 {
-                    (props.dims && props.dims.length ===0)  ? "Non hai ancora caricato nessun file." :
+                    ( props.showOverwriteCsvAlert || props.dims && props.dims.length ===0)  ? "Non hai ancora caricato nessun file." :
                     props.dims.meta.fields.map((value)=>{ return <SelectedDimsItem value={value} key={value}/>})
                 }
             </div>
             <p>Azioni rapide:</p>
             <div className="columnFlex">
-                <QuickActionButton onClick={props.handles[0]} value="Modifica dimensioni" icon={<Edit sx={{fontSize: 30}}/>} className="green"/>
+                <QuickActionButton onClick={props.handles[0]}
+                     value={props.showOverwriteCsvAlert ? "Modifica dimensioni" : "Configura dimensioni"} icon={<Edit sx={{fontSize: 30}}/>} className="green"/>
                 <QuickActionButton onClick={props.handles[1]} value="Esporta Sessione" icon={<CloudDownloadOutlined sx={{fontSize: 30}}/>} className="orange"/>
                 <QuickActionButton onClick={props.handles[2]} value="Rimuovi File" icon={<DeleteOutlined sx={{fontSize: 30}}/>} className="red"/>
             </div>
