@@ -161,7 +161,7 @@ const View = () =>{
                         />
                         <Route path="/info" element={<InfoPage/>}/>
                         <Route path="/docs" element={<DocsPage />}/>
-                        <Route path="/scatter" element={<Scatter />}/>
+                        <Route path="/scatter" element={<Scatter data={csvData}/>}/>
                         <Route path="/sankey" element={<Sankey />}/>
                         <Route path="/force" element={<Force />}/>
                         <Route path="/parallel" element={<Parallel />}/>
