@@ -28,7 +28,11 @@ const View = () =>{
     const [showConfigurationCsvAlert, setShowConfigurationCsvAlert]= useState(false);
     const quickActionButtonHandlers = [() => setShowSelectDims(true), () => setShowExportSession(true), ()=> setShowRemoveFile(true)];
 
-    const [disableDimensionSelection, setDisableDimensionSelection] = useState(false);
+    const [disableDimensionSelection, setDisableDimensionSelection] = useState(() =>{
+        const saved = localStorage.getItem("disableDimensionSelection");
+        const initial = JSON.parse(saved);
+        return initial || false;
+    });
     const [headersToggle, setHeadersToggle] = useState(() =>{
         const saved = localStorage.getItem("headersToggle");
         const initial = JSON.parse(saved);
@@ -78,14 +82,17 @@ const View = () =>{
     }, [csvFile]);
 
     useEffect(()=>{
-        if(csvLoaded)
+        if(csvLoaded){
             localStorage.setItem("csvData", JSON.stringify(csvData));
+        }
+            
     },[csvData]);
 
     useEffect(() =>{
-        console.log("sono stato chiamato io")
+        console.log("Headers modificato: "+headersToggle)
         localStorage.setItem("headersToggle", headersToggle);
-    }, [headersToggle])
+        localStorage.setItem("disableDimensionSelection", disableDimensionSelection)
+    }, [headersToggle, disableDimensionSelection])
 
     function removeCsvFile(){
         localStorage.removeItem("csvFile");
@@ -94,6 +101,7 @@ const View = () =>{
         localStorage.removeItem("selectedDims");
         localStorage.removeItem("headersToggle");
         localStorage.removeItem("csvData");
+        localStorage.removeItem("disableDimensionSelection")
         setShowRemoveFile(false);
         setShowOverwriteCsvAlert(false);
         setShowConfigurationCsvAlert(false);
@@ -102,7 +110,7 @@ const View = () =>{
         setCsvFile(null);
         setCsvFileName("");
         setDisableDimensionSelection(true);
-        handleDimensionsHeadersToggle(false);
+        setHeadersToggle(false);
     }
 
     function csvConfigurationComplete(){
@@ -117,13 +125,6 @@ const View = () =>{
         setShowSelectDims(false);
         setSelectedDims(dims);
         localStorage.setItem("selectedDims", JSON.stringify(dims))
-    }
-
-    function handleDimensionsHeadersToggle(){
-        console.log("sono stato chiamato anche io")
-        setHeadersToggle(!headersToggle)
-        console.log(headersToggle)
-        localStorage.setItem("headersToggle", headersToggle);
     }
 
     return(
@@ -173,7 +174,7 @@ const View = () =>{
                         <Route path="/uploadFile" 
                             element={<UploadFilePage 
                                         handles={quickActionButtonHandlers}
-                                        hooks={{"csvFile":[csvFile,(file) => setCsvFile(file)], "csvLoaded":[csvLoaded,() =>setCsvLoaded(true)], "headersToggle":[headersToggle,() =>handleDimensionsHeadersToggle()]}}
+                                        hooks={{"csvFile":[csvFile,(file) => setCsvFile(file)], "csvLoaded":[csvLoaded,() =>setCsvLoaded(true)], "headersToggle":[headersToggle,(value) =>setHeadersToggle(value)]}}
                                         selectedDims={selectedDims}
                                         showFileInfo={showFileInfo}
                                         showOverwriteCsvAlert={showOverwriteCsvAlert}
@@ -181,6 +182,7 @@ const View = () =>{
                                         csvLoaded = {csvLoaded}
                                         csvFileName = {csvFileName}
                                         disableDimensionSelection={disableDimensionSelection}
+                                        disableFileRemoval={disableDimensionSelection}
                                     />
                             }  
                         />
@@ -191,7 +193,7 @@ const View = () =>{
                         />
                         <Route path="/info" element={<InfoPage/>}/>
                         <Route path="/docs" element={<DocsPage />}/>
-                        <Route path="/scatter" element={<Scatter data={csvData}/>}/>
+                        <Route path="/scatter" element={<Scatter data={csvData} headers={headersToggle} />}/>
                         <Route path="/sankey" element={<Sankey />}/>
                         <Route path="/force" element={<Force />}/>
                         <Route path="/parallel" element={<Parallel />}/>

@@ -10,6 +10,14 @@ const Scatter = (props) => {
 	}, []);
 
 	function showScatterPlot(data, dimensionX, dimensionY){
+		if(props.headers){
+			var temp = [];
+			data.forEach((element, index) => {
+				temp[index]=Object.values(element)
+			});
+			data = temp
+		}
+
 		var margin = {top: 10, right: 30, bottom: 30, left: 60},
 			width = 700 - margin.left - margin.right,
 		    height = 650 - margin.top - margin.bottom;

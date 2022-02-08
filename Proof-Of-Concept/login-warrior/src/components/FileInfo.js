@@ -43,8 +43,19 @@ const FileInfo =(props) => {
                      className="green"
                      disabled= {props.disableDimensionSelection}
                      />
-                <QuickActionButton onClick={props.handles[1]} value="Esporta Sessione" icon={<CloudDownloadOutlined sx={{fontSize: 30}}/>} className="orange"/>
-                <QuickActionButton onClick={props.handles[2]} value="Rimuovi File" icon={<DeleteOutlined sx={{fontSize: 30}}/>} className="red"/>
+                <QuickActionButton
+                    onClick={props.handles[1]}
+                    value="Esporta Sessione" 
+                    icon={<CloudDownloadOutlined sx={{fontSize: 30}}/>}
+                    className="orange"
+                    />
+                <QuickActionButton
+                    onClick={props.handles[2]} 
+                    value="Rimuovi File" 
+                    icon={<DeleteOutlined sx={{fontSize: 30}}/>} 
+                    className="red"
+                    disabled={props.disableFileRemoval}
+                    />
             </div>
         </div>
     );

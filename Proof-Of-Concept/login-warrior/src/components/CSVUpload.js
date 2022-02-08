@@ -11,7 +11,7 @@ const CSVUpload = (props) =>{
                 { 
                     (props.csvLoaded && !props.inputAllowed)? 
                     ("File \""+props.csvFileName+"\" caricato correttamente."):
-                    <CsvReader hooks={props.hooks} />
+                    <CsvReader disabled={props.disabled} hooks={props.hooks} />
                 }
             </div>
         </div>

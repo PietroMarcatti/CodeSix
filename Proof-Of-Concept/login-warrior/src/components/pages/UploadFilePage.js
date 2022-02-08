@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {ConstructionOutlined, UploadFile } from "@mui/icons-material";
 import FileInfo from "../FileInfo";
 import CSVUpload from "../CSVUpload";
@@ -13,6 +13,18 @@ function DocsLink(props){
 
 const UploadFilePage = (props) => {
 
+    const [ disabledUpload, setDisabledUpload] =useState(true);
+    function handleChange(value){
+        props.hooks["headersToggle"][1](value);
+        setDisabledUpload(false);
+    }
+
+    useEffect (()=>{
+        if(!props.hooks["csvLoaded"][0]){
+            document.getElementById("headersForm").reset()
+        }
+    }, [props.hooks["csvLoaded"][0]])
+
     return(
         <div id="content">
             <h2 className="rowFlex center">
@@ -26,17 +38,26 @@ const UploadFilePage = (props) => {
                 <div className="columnFlex" id="file-upload-wrapper">
                     <div className="columnFlex">
                         {props.showOverwriteCsvAlert ? <Alert message="Caricando un nuovo fils .csv perderai tutti i progessi nella sessione attuale. Ti consigliamo di esportare la sessione corrente prima di procedere"/> :""}
-                        <div className="rowFlex center">
-                            <label>Il file contiene gli header</label>
-                            <input type="checkbox" id="headers" name="headers" onChange={props.hooks["headersToggle"][1]} />
+                        <div show={!props.disableDimensionSelection} className="rowFlex center ">
+                            <form id="headersForm" className="columnFlex"   >
+                                <div className="rowFlex center" >
+                                    <label>Il file contiene gli header</label>
+                                    <input type="radio" name="headers"  required onChange={() => handleChange(true)}/>
+                                </div>
+                                <div className={"rowFlex center"}>
+                                    <label>Il file NON contiene gli header</label>
+                                    <input type="radio" name="headers"  onChange={() => handleChange(false)} />
+                                </div>
+                            </form>
+                            
                         </div>
-                        <CSVUpload hooks={props.hooks} csvLoaded ={props.csvLoaded} csvFileName={props.csvFileName} inputAllowed={props.showOverwriteCsvAlert}/>
+                        <CSVUpload disabled={disabledUpload} hooks={props.hooks} csvLoaded ={props.csvLoaded} csvFileName={props.csvFileName} inputAllowed={props.showOverwriteCsvAlert}/>
                         {props.showConfigurationCsvAlert ? <Alert message="Il tuo file è stato caricato correttamente ma va inizializzato. Per poterlo usare configuralo."/> :""}
                     </div>
 
                     <DocsLink/>
                 </div>
-                <FileInfo disableDimensionSelection={props.disableDimensionSelection} show={props.showFileInfo} handles={props.handles} selectedDims={props.selectedDims} csvFileName={props.csvFileName}/>
+                <FileInfo disableDimensionSelection={props.disableDimensionSelection} disableFileRemoval={props.disableFileRemoval} show={props.showFileInfo} handles={props.handles} selectedDims={props.selectedDims} csvFileName={props.csvFileName}/>
                 
             </div>
         </div>

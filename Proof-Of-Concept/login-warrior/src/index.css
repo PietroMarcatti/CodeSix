@@ -393,6 +393,10 @@ input[type="checkbox"]:checked{
     background-color: #BB2020;
 }
 
+.hidden{
+    display: none;
+}
+
 /*  Grafici */
 
 .graph-text{
