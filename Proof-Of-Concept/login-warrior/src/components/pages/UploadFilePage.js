@@ -13,7 +13,7 @@ function DocsLink(props){
 
 const UploadFilePage = (props) => {
 
-    const [ disabledUpload, setDisabledUpload] =useState(true);
+    const [ disabledUpload, setDisabledUpload] = useState(true);
     function handleChange(value){
         props.hooks["headersToggle"][1](value);
         setDisabledUpload(false);
@@ -41,12 +41,13 @@ const UploadFilePage = (props) => {
                         <div show={!props.disableDimensionSelection} className="rowFlex center ">
                             <form id="headersForm" className="columnFlex"   >
                                 <div className="rowFlex center" >
-                                    <label>Il file contiene gli header</label>
                                     <input type="radio" name="headers"  required onChange={() => handleChange(true)}/>
+                                    <label>Il file contiene gli header</label>
+                                    
                                 </div>
                                 <div className={"rowFlex center"}>
+                                    <input type="radio" name="headers" required onChange={() => handleChange(false)} />
                                     <label>Il file NON contiene gli header</label>
-                                    <input type="radio" name="headers"  onChange={() => handleChange(false)} />
                                 </div>
                             </form>
                             

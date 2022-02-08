@@ -6,7 +6,12 @@ import * as d3 from "d3";
 const Scatter = (props) => {
 
     useEffect(() => {
-		showScatterPlot(props.data.data, 0, 1);
+        if(props.data.data){
+		showScatterPlot(props.data.data, 0, 1); }
+        else{
+            console.log('file assente');
+            document.getElementsByClassName('graph-visualization')[0].innerHTML='Carica un file per visualizzare';
+        }
 	}, []);
 
 	function showScatterPlot(data, dimensionX, dimensionY){
@@ -57,7 +62,6 @@ const Scatter = (props) => {
 	      	.attr("cx", function (d) { return x(d[dimensionX]); } )
 	      	.attr("cy", function (d) { return y(d[dimensionY]); } )
 	      	.attr("r", 2.5)
-	      	.style("fill", "#fdfdfd");
 	}
     
     return(
@@ -71,7 +75,7 @@ const Scatter = (props) => {
                     sono riportate in un piano cartesiano.
                 </p>
 
-                <div id="data-visualization"></div>
+                <div id="data-visualization" className="graph-visualization"></div>
         </div>
     );
 }

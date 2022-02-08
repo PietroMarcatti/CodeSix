@@ -111,6 +111,7 @@ const View = () =>{
         setCsvFileName("");
         setDisableDimensionSelection(true);
         setHeadersToggle(false);
+        setSelectedDims([]);
     }
 
     function csvConfigurationComplete(){
@@ -170,7 +171,10 @@ const View = () =>{
                 </div>
                 <div id="content-wrapper">
                     <Routes>
-                        <Route path="/" element={<HomePage handles={quickActionButtonHandlers} dims={csvLoaded ? csvData : []} csvFileName = {csvFileName}/>}/>
+                        <Route path="/" element={<HomePage  handles={quickActionButtonHandlers} 
+                                                            dims={csvLoaded ? csvData : []} 
+                                                            csvFileName = {csvFileName} 
+                                                            selectedDims={selectedDims}/>}/>
                         <Route path="/uploadFile" 
                             element={<UploadFilePage 
                                         handles={quickActionButtonHandlers}

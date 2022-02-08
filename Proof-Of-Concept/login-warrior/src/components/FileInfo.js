@@ -23,19 +23,19 @@ const FileInfo =(props) => {
                 <Feed fontSize="large" id="file-info-icon"/>
                 Il tuo file
             </h2>
-            <label>Nome del file:</label>
+            <label class="file-info-head" >Nome del file:</label>
             <p>{props.csvFileName ? props.csvFileName : "Nessun file caricato."}</p>
-            <p>Dimensioni selezionate:</p>
+            <p class="file-info-head">Dimensioni selezionate:</p>
             <div id="selected-dims-wrapper">
                 {
-                    props.selectedDims && props.selectedDims.size > 0 ? 
+                    props.selectedDims && props.selectedDims.length > 0 ? 
                     props.selectedDims.map((value) => {
                         return <SelectedDimsItem value={value} key={value}/>
                     }):
                     "Ancora nessuna dimensione selezionata"
                 }
             </div>
-            <p>Azioni rapide:</p>
+            <p class="file-info-head">Azioni rapide:</p>
             <div className="columnFlex">
                 <QuickActionButton onClick={props.handles[0]}
                      value={props.showOverwriteCsvAlert ? "Modifica dimensioni" : "Configura dimensioni"} 
