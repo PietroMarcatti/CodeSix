@@ -13,7 +13,7 @@ function DocsLink(props){
 
 const UploadFilePage = (props) => {
 
-    const [ disabledUpload, setDisabledUpload] =useState(true);
+    const [ disabledUpload, setDisabledUpload] = useState(true);
     function handleChange(value){
         props.hooks["headersToggle"][1](value);
         setDisabledUpload(false);

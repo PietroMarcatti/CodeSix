@@ -15,8 +15,6 @@ const CsvReader = (props) =>{
                 }}
             />
         </form>
-
-
     );
 
 }

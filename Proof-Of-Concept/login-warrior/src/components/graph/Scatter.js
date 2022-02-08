@@ -6,7 +6,14 @@ import * as d3 from "d3";
 
 const Scatter = (props) => {
 
-    
+    useEffect(() => {
+        if(props.data.data){
+		showScatterPlot(props.data.data, 0, 1); }
+        else{
+            console.log('file assente');
+            document.getElementsByClassName('graph-visualization')[0].innerHTML='Carica un file per visualizzare';
+        }
+	}, []);
 
 	function showScatterPlot(data, dimensionX, dimensionY){
 		if(props.headers){
@@ -56,7 +63,6 @@ const Scatter = (props) => {
 	      	.attr("cx", function (d) { return x(d[dimensionX]); } )
 	      	.attr("cy", function (d) { return y(d[dimensionY]); } )
 	      	.attr("r", 2.5)
-	      	.style("fill", "#fdfdfd");
 	}
 
 	const [mappedDimensions,setMappedDimensions] = useState(()=>{
@@ -93,7 +99,8 @@ const Scatter = (props) => {
                     sono riportate in un piano cartesiano.
                 </p>
 				<ScatterPreferences selectedDims={props.selectedDims} hooks={[[mappedDimensions,setMappedDimensions]]} onConfirm={applyChangesAndPlot}/>
-                <div id="data-visualization"></div>
+
+                <div id="data-visualization" className="graph-visualization"></div>
         </div>
     );
 }

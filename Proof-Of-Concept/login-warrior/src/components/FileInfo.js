@@ -47,7 +47,7 @@ const FileInfo =(props) => {
                     "Ancora nessuna dimensione selezionata"
                 }
             </div>
-            <p>Azioni rapide:</p>
+            <p class="file-info-head">Azioni rapide:</p>
             <div className="columnFlex">
                 <QuickActionButton onClick={props.handles[0]}
                      value={props.showOverwriteCsvAlert ? "Modifica dimensioni" : "Configura dimensioni"} 

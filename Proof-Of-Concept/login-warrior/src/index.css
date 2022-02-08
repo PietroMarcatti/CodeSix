@@ -508,3 +508,33 @@ input[type="checkbox"]:checked{
 
 
 
+.graph-visualization{
+    display: inline-block;
+    color: black;
+    background-color: white;
+    border: 4px solid grey;
+    border-radius: 0.5em;
+    padding: 1em;
+
+}
+
+.graph-visualization svg g{
+    stroke: black;
+    stroke-width: 0.05em;
+    fill: #121317;    
+    font-size: 0.8em;
+}
+
+
+.graph-visualization svg circle{
+    fill:red;
+}
+
+.file-info-head{
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+#headersForm{
+    margin-left: 1em;
+}

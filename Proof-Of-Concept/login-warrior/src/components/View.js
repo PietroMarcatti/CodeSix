@@ -125,6 +125,13 @@ const View = () =>{
         setSelectedDims([]);
     }
 
+    function csvConfigurationComplete(){
+        console.log("Show configuration Csv Alert :"+showConfigurationCsvAlert);
+        setShowConfigurationCsvAlert(false);
+        setShowOverwriteCsvAlert(true);
+        setShowSelectDims(false);
+    }
+
     function handleDimensionSelectionConfirm(dims){
         if(showConfigurationCsvAlert && !showOverwriteCsvAlert){
             setShowConfigurationCsvAlert(false)
@@ -189,13 +196,10 @@ const View = () =>{
                 </div>
                 <div id="content-wrapper">
                     <Routes>
-                        <Route path="/" 
-                            element={<HomePage 
-                                        csvFileName = {csvFileName}
-                                        fileInfo = {fileInfo}
-                                    />
-                            }
-                        />
+                        <Route path="/" element={<HomePage  handles={quickActionButtonHandlers} 
+                                                            dims={csvLoaded ? csvData : []} 
+                                                            csvFileName = {csvFileName} 
+                                                            selectedDims={selectedDims}/>}/>
                         <Route path="/uploadFile" 
                             element={<UploadFilePage
                                         hooks={{"csvFile":[csvFile,(file) => setCsvFile(file)], "csvLoaded":[csvLoaded,() =>setCsvLoaded(true)], "headersToggle":[headersToggle,(value) =>setHeadersToggle(value)]}}
