@@ -418,6 +418,11 @@ input[type="checkbox"]:checked{
     font-size: 1em;
 }
 
+#data-visualization{
+    text-align: center;
+    margin-top: 3em;
+}
+
 /*  Grafici */
 
 
