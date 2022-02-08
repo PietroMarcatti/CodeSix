@@ -197,9 +197,8 @@ const View = () =>{
                 <div id="content-wrapper">
                     <Routes>
                         <Route path="/" element={<HomePage  handles={quickActionButtonHandlers} 
-                                                            dims={csvLoaded ? csvData : []} 
-                                                            csvFileName = {csvFileName} 
-                                                            selectedDims={selectedDims}/>}/>
+                                                            fileInfo = {fileInfo}
+                                                />}/>
                         <Route path="/uploadFile" 
                             element={<UploadFilePage
                                         hooks={{"csvFile":[csvFile,(file) => setCsvFile(file)], "csvLoaded":[csvLoaded,() =>setCsvLoaded(true)], "headersToggle":[headersToggle,(value) =>setHeadersToggle(value)]}}

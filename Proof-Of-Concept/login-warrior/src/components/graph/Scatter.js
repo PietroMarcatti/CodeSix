@@ -6,15 +6,6 @@ import * as d3 from "d3";
 
 const Scatter = (props) => {
 
-    useEffect(() => {
-        if(props.data.data){
-		showScatterPlot(props.data.data, 0, 1); }
-        else{
-            console.log('file assente');
-            document.getElementsByClassName('graph-visualization')[0].innerHTML='Carica un file per visualizzare';
-        }
-	}, []);
-
 	function showScatterPlot(data, dimensionX, dimensionY){
 		if(props.headers){
 			var temp = [];
@@ -98,9 +89,19 @@ const Scatter = (props) => {
                     Il grafico di dispersione ScatterPlot o scatter graph è un tipo di grafico in cui due variabili di un set di dati 
                     sono riportate in un piano cartesiano.
                 </p>
-				<ScatterPreferences selectedDims={props.selectedDims} hooks={[[mappedDimensions,setMappedDimensions]]} onConfirm={applyChangesAndPlot}/>
 
-                <div id="data-visualization" className="graph-visualization"></div>
+				{	
+					props.selectedDims.length >0 ? 
+					<>
+						<ScatterPreferences selectedDims={props.selectedDims} hooks={[[mappedDimensions,setMappedDimensions]]} onConfirm={applyChangesAndPlot}/>
+					</>:
+					""
+				}
+
+				{
+					props.selectedDims.length >1? <div id="data-visualization" className="graph-visualization"></div> : ""
+				}
+                
         </div>
     );
 }

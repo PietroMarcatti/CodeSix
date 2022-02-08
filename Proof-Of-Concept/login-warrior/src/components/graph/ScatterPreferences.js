@@ -13,7 +13,8 @@ const ScatterPreferences = (props) =>{
     }
 
     return(
-        <div id="graph-pref-wrapper">
+            props.selectedDims.length >1 ? 
+            <div id="graph-pref-wrapper">
             <p id="graph-pref-title">Azioni rapide</p>
             <ul id="dimension-list">
             {
@@ -39,7 +40,9 @@ const ScatterPreferences = (props) =>{
             }
             </ul>
             <button onClick={props.onConfirm}>Applica modifiche</button>
-        </div>
+            </div>: 
+            "Per visualizzare uno scatter plot sono necessarie almeno due dimensioni. Selezionale."
+        
     )
 }
 
