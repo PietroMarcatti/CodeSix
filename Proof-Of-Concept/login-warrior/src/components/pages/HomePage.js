@@ -38,7 +38,7 @@ const HomePage = (props) => {
                     </NavLink>
                     </div>
                 </div>
-                <FileInfo handles={props.handles} dims={props.dims} fileName={props.fileName} className={props.show ? "": "disabled"}/>
+                {props.fileInfo}
             </div>
         </div>
     );

@@ -14,6 +14,7 @@ import SelectDimensions from "./SelectDimensions";
 import ExportSession from "./ExportSession";
 import RemoveFile from "./RemoveFile";
 import Papa from "papaparse";
+import FileInfo from "./FileInfo";
 
 const View = () =>{
 
@@ -24,8 +25,16 @@ const View = () =>{
     const [showExportSession, setShowExportSession] = useState(false);
     const [showRemoveFile, setShowRemoveFile] = useState(false);
     const [showFileInfo, setShowFileInfo]= useState(false);
-    const [showOverwriteCsvAlert, setShowOverwriteCsvAlert]= useState(false);
-    const [showConfigurationCsvAlert, setShowConfigurationCsvAlert]= useState(false);
+    const [showOverwriteCsvAlert, setShowOverwriteCsvAlert]= useState(() =>{
+        const saved = localStorage.getItem("showOverwriteCsvAlert");
+        const initial = JSON.parse(saved);
+        return initial || false;
+    });
+    const [showConfigurationCsvAlert, setShowConfigurationCsvAlert]= useState(() =>{
+        const saved = localStorage.getItem("showConfigurationCsvAlert");
+        const initial = JSON.parse(saved);
+        return initial || false;
+    });
     const quickActionButtonHandlers = [() => setShowSelectDims(true), () => setShowExportSession(true), ()=> setShowRemoveFile(true)];
 
     const [disableDimensionSelection, setDisableDimensionSelection] = useState(() =>{
@@ -39,13 +48,11 @@ const View = () =>{
         return initial || false;
     });
     let option = {header: headersToggle, complete: (results) => {setCsvData(results); setDisableDimensionSelection(false);}}
-    
     const [selectedDims, setSelectedDims] = useState(()=>{
         const saved = localStorage.getItem("selectedDims");
         const initial = JSON.parse(saved);
         return initial || [];
     })
-    
     const [csvFile, setCsvFile] = useState(()=>{
         const saved = localStorage.getItem("csvFile");
         const initial = JSON.parse(saved);
@@ -92,7 +99,9 @@ const View = () =>{
         console.log("Headers modificato: "+headersToggle)
         localStorage.setItem("headersToggle", headersToggle);
         localStorage.setItem("disableDimensionSelection", disableDimensionSelection)
-    }, [headersToggle, disableDimensionSelection])
+        localStorage.setItem("showConfigurationCsvAlert", showConfigurationCsvAlert)
+        localStorage.setItem("showOverwriteCsvAlert", showOverwriteCsvAlert)
+    }, [headersToggle, disableDimensionSelection, showConfigurationCsvAlert, showOverwriteCsvAlert])
 
     function removeCsvFile(){
         localStorage.removeItem("csvFile");
@@ -102,6 +111,8 @@ const View = () =>{
         localStorage.removeItem("headersToggle");
         localStorage.removeItem("csvData");
         localStorage.removeItem("disableDimensionSelection")
+        localStorage.removeItem("showOverwriteCsvAlert")
+        localStorage.removeItem("showConfigurationCsvAlert")
         setShowRemoveFile(false);
         setShowOverwriteCsvAlert(false);
         setShowConfigurationCsvAlert(false);
@@ -111,21 +122,29 @@ const View = () =>{
         setCsvFileName("");
         setDisableDimensionSelection(true);
         setHeadersToggle(false);
-    }
-
-    function csvConfigurationComplete(){
-        console.log("Show configuration Csv Alert :"+showConfigurationCsvAlert);
-        setShowConfigurationCsvAlert(false);
-        setShowOverwriteCsvAlert(true);
-        setShowSelectDims(false);
+        setSelectedDims([]);
     }
 
     function handleDimensionSelectionConfirm(dims){
-        console.log(dims);
+        if(showConfigurationCsvAlert && !showOverwriteCsvAlert){
+            setShowConfigurationCsvAlert(false)
+            setShowOverwriteCsvAlert(true)
+            setDisableDimensionSelection(false)
+        }
         setShowSelectDims(false);
         setSelectedDims(dims);
         localStorage.setItem("selectedDims", JSON.stringify(dims))
     }
+
+    var fileInfo = <FileInfo 
+        disableDimensionSelection={disableDimensionSelection} 
+        disableFileRemoval={disableDimensionSelection}
+        showOverwriteCsvAlert={showOverwriteCsvAlert}
+        handles={quickActionButtonHandlers} 
+        selectedDims={selectedDims} 
+        csvFileName={csvFileName}
+        headersToggle = {headersToggle}
+    />
 
     return(
         <Router>
@@ -170,30 +189,35 @@ const View = () =>{
                 </div>
                 <div id="content-wrapper">
                     <Routes>
-                        <Route path="/" element={<HomePage handles={quickActionButtonHandlers} dims={csvLoaded ? csvData : []} csvFileName = {csvFileName}/>}/>
+                        <Route path="/" 
+                            element={<HomePage 
+                                        csvFileName = {csvFileName}
+                                        fileInfo = {fileInfo}
+                                    />
+                            }
+                        />
                         <Route path="/uploadFile" 
-                            element={<UploadFilePage 
-                                        handles={quickActionButtonHandlers}
+                            element={<UploadFilePage
                                         hooks={{"csvFile":[csvFile,(file) => setCsvFile(file)], "csvLoaded":[csvLoaded,() =>setCsvLoaded(true)], "headersToggle":[headersToggle,(value) =>setHeadersToggle(value)]}}
-                                        selectedDims={selectedDims}
-                                        showFileInfo={showFileInfo}
                                         showOverwriteCsvAlert={showOverwriteCsvAlert}
                                         showConfigurationCsvAlert={showConfigurationCsvAlert}
                                         csvLoaded = {csvLoaded}
                                         csvFileName = {csvFileName}
+                                        fileInfo = {fileInfo}
                                         disableDimensionSelection={disableDimensionSelection}
-                                        disableFileRemoval={disableDimensionSelection}
                                     />
                             }  
                         />
                         <Route path="/reloadSession"
                             element={<ReloadSessionPage 
-                                handles={quickActionButtonHandlers} 
-                                dims={csvLoaded ? csvData : []} csvFileName = {csvFileName}/>}
+                                        csvFileName = {csvFileName}
+                                        fileInfo = {fileInfo}
+                                    />
+                            }
                         />
                         <Route path="/info" element={<InfoPage/>}/>
                         <Route path="/docs" element={<DocsPage />}/>
-                        <Route path="/scatter" element={<Scatter data={csvData} headers={headersToggle} />}/>
+                        <Route path="/scatter" element={<Scatter data={csvData} headers={headersToggle} selectedDims={selectedDims}/>}/>
                         <Route path="/sankey" element={<Sankey />}/>
                         <Route path="/force" element={<Force />}/>
                         <Route path="/parallel" element={<Parallel />}/>

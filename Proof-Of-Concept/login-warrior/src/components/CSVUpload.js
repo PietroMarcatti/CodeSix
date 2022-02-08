@@ -6,7 +6,7 @@ import CsvReader from './CsvReader'
 const CSVUpload = (props) =>{
     return(
         <div className={"drop-file rowFlex center ".concat((props.csvLoaded && !props.inputAllowed)? "green" : "")} >
-            {props.csvLoaded ? <Check fontSize="large"/> :<AddCircleOutline fontSize="large"/>}
+            {props.inputAllowed ? <AddCircleOutline fontSize="large"/> : <Check fontSize="large"/> }
             <div className="columnFlex">
                 { 
                     (props.csvLoaded && !props.inputAllowed)? 

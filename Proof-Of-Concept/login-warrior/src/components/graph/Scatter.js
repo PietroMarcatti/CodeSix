@@ -1,13 +1,12 @@
-import React, {useEffect} from "react";
-import { Landscape, ArrowForwardRounded,ArrowBackRounded } from "@mui/icons-material";
+import React, {useEffect, useState} from "react";
+import { ArrowBackRounded } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
+import ScatterPreferences from "./ScatterPreferences";
 import * as d3 from "d3";
 
 const Scatter = (props) => {
 
-    useEffect(() => {
-		showScatterPlot(props.data.data, 0, 1);
-	}, []);
+    
 
 	function showScatterPlot(data, dimensionX, dimensionY){
 		if(props.headers){
@@ -59,7 +58,30 @@ const Scatter = (props) => {
 	      	.attr("r", 2.5)
 	      	.style("fill", "#fdfdfd");
 	}
+
+	const [mappedDimensions,setMappedDimensions] = useState(()=>{
+		const saved = localStorage.getItem("mappedDimensions");
+        const initial = JSON.parse(saved);
+        return initial || {"Asse X":0,"Asse Y":1};
+	});
+
+	useEffect(() => {
+		localStorage.setItem("mappedDimensions",JSON.stringify(mappedDimensions))
+	}, [mappedDimensions]);
+
+	function removeScatter(){
+		var div = document.getElementById("data-visualization");
+		if(div.children.length >0 ){
+			div.removeChild(div.firstChild)
+		}
+	}
+
+	function applyChangesAndPlot() {
+		removeScatter()
+		showScatterPlot(props.data.data, mappedDimensions["Asse X"], mappedDimensions["Asse Y"]);
+	}
     
+	
     return(
         <div className="graph-text">
             <NavLink to="/" >
@@ -70,7 +92,7 @@ const Scatter = (props) => {
                     Il grafico di dispersione ScatterPlot o scatter graph è un tipo di grafico in cui due variabili di un set di dati 
                     sono riportate in un piano cartesiano.
                 </p>
-
+				<ScatterPreferences selectedDims={props.selectedDims} hooks={[[mappedDimensions,setMappedDimensions]]} onConfirm={applyChangesAndPlot}/>
                 <div id="data-visualization"></div>
         </div>
     );
