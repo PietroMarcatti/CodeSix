@@ -4,6 +4,10 @@ import { NavLink } from "react-router-dom";
 import ScatterPreferences from "./ScatterPreferences";
 import * as d3 from "d3";
 
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { Button } from "@mui/material";
+
 const Scatter = (props) => {
 
 	function showScatterPlot(data, dimensionX, dimensionY){
@@ -77,7 +81,24 @@ const Scatter = (props) => {
 		removeScatter()
 		showScatterPlot(props.data.data, mappedDimensions["Asse X"], mappedDimensions["Asse Y"]);
 	}
+
     
+    const [showPreference, setShowPreference] = useState(true);
+    const onChange = () => setShowPreference(!showPreference);
+
+    const ShowPreference = () => {
+        return (
+          <div>
+           <Button onClick={onChange} id="show-hide-pref">
+                Azioni Rapide
+                {showPreference ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </Button>
+
+            { showPreference ? <ScatterPreferences selectedDims={props.selectedDims} hooks={[[mappedDimensions,setMappedDimensions]]} onConfirm={applyChangesAndPlot} /> : null }
+          </div>
+        );
+      }
+      
 	
     return(
         <div className="graph-text">
@@ -93,13 +114,13 @@ const Scatter = (props) => {
 				{	
 					props.selectedDims.length >0 ? 
 					<>
-						<ScatterPreferences selectedDims={props.selectedDims} hooks={[[mappedDimensions,setMappedDimensions]]} onConfirm={applyChangesAndPlot}/>
+						<ShowPreference />
 					</>:
 					""
 				}
 
 				{
-					props.selectedDims.length >1? <div id="data-visualization" className="graph-visualization"></div> : ""
+					props.selectedDims.length >1? <div id="data-visualization" className="graph-visualization"></div> : <p className="graph-message">Carica un file per visualizzare o seleziona correttamente le dimensioni</p>
 				}
                 
         </div>

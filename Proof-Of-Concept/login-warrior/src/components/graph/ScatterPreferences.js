@@ -15,7 +15,6 @@ const ScatterPreferences = (props) =>{
     return(
             props.selectedDims.length >1 ? 
             <div id="graph-pref-wrapper">
-            <p id="graph-pref-title">Azioni rapide</p>
             <ul id="dimension-list">
             {
                 props.selectedDims.map((value,key) =>{

@@ -158,7 +158,7 @@ li.menu-item svg{
     flex: 1 1 auto;
     margin: 1em 0.5em 0 0;
     height: 15em;
-    width: 12em;
+    width: 8em;
     text-align: center;
     background-color: #353D40;
     border-radius: 20px;
@@ -215,10 +215,11 @@ li.menu-item svg{
     background-color: #353D40;
     border-radius: 15px;
     flex: 4 1 auto;
-    max-width: 80%;
+    width: 20em;
     margin-top: 1em;
-    margin-right: 1em;
-    padding: 1em 2em;
+    margin-right: 3em;
+    margin-left: 3em;
+    padding: 1em 4em;
     font-size: 20px;
 }
 
@@ -226,6 +227,7 @@ li.menu-item svg{
     width: 90%;
     display: flex;
     flex-flow: row wrap;
+    font-weight: bold;
 
 }
 
@@ -244,7 +246,7 @@ p.selected-dim{
     padding: 0.7em 0.7em;
     margin-top: 0.5em;
     width: fit-content;
-    min-width: 14em;
+    min-width: 16em;
     color: #fdfdfd;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: bold;
@@ -454,18 +456,20 @@ input[type="checkbox"]:checked{
 #graph-pref-wrapper{
     background-color: #353d40;
     border-radius: 20px;
-    padding: 0.2em 1em;
+    padding: 0.1em 1em;
     padding-bottom: 1em;
     width: fit-content;
 }
 
-#graph-pref-title{
-    font-weight: bold;
-    font-size: 1em;
+#show-hide-pref{
+    font-size: 0.8em;
+    gap: 0.5em;
 }
+
 
 #dimension-list{
     list-style: none;
+    margin-top: 0;
 }
 
 #dimension-list select{
@@ -523,7 +527,7 @@ input[type="checkbox"]:checked{
     border: 4px solid grey;
     border-radius: 0.5em;
     padding: 1em;
-
+    text-align: center;
 }
 
 .graph-visualization svg g{
@@ -538,9 +542,14 @@ input[type="checkbox"]:checked{
     fill:red;
 }
 
-.file-info-head{
+.graph-message{
+    display: block;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    border: 1px solid white;
     font-size: 1.1em;
     font-weight: bold;
+    text-align: center;
 }
 
 #headersForm{
