@@ -21,20 +21,20 @@ const HomePage = (props) => {
                 <div className="columnFlex" id="card-grid">
                     <div className="rowFlex">
                     <NavLink to="/scatter" className={(graph) => (graph.isActive ? 'graph_select' : '')}>
-                        <GraphCard value={graphTypes[0]}/>
+                        <GraphCard value={graphTypes[0]} img='scatter.png' />
                     </NavLink>
                     <NavLink to="/sankey" className={(graph) => (graph.isActive ? 'graph_select' : '')}>
-                        <GraphCard value={graphTypes[1]}/>
+                        <GraphCard value={graphTypes[1]} img='sankey.png' />
                     </NavLink>
                     </div>
                     <div className="rowFlex">
 
                     <NavLink to="/force" className={(graph) => (graph.isActive ? 'graph_select' : '')}>
-                        <GraphCard value={graphTypes[2]}/>
+                        <GraphCard value={graphTypes[2]} img='force.png'/>
                     </NavLink>
 
                     <NavLink to="/parallel" className={(graph) => (graph.isActive ? 'graph_select' : '')}>
-                        <GraphCard value={graphTypes[3]}/>
+                        <GraphCard value={graphTypes[3]} img='parallel.png'/>
                     </NavLink>
                     </div>
                 </div>

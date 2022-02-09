@@ -158,9 +158,8 @@ li.menu-item svg{
     flex: 1 1 auto;
     margin: 1em 0.5em 0 0;
     height: 15em;
-    width: 10em;
+    width: 12em;
     text-align: center;
-
     background-color: #353D40;
     border-radius: 20px;
 }
@@ -174,7 +173,16 @@ li.menu-item svg{
     flex-flow: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
+
+
+.card-icon-wrapper{
+    justify-content: center;
+    align-items: center;
+    
+}
+
 
 .card-link{
     margin: 0.5em 0;
@@ -456,3 +464,47 @@ input[type="checkbox"]:checked{
 #headersForm{
     margin-left: 1em;
 }
+
+.home-images{
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+
+}
+
+
+/*#scatter{
+   background-image: url(./components/images/scatter.png);
+   height: 8em;
+   width: 8em;
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+}
+
+#sankey{
+    background-image: url(./components/images/sankey.png);
+    height: 8em;
+    width: 8em;
+    background-size:cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#force{
+    background-image: url(./components/images/force.png);
+    height: 8em;
+    width: 8em;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#parallel{
+    background-image: url(./components/images/parallel.png);
+    height: 8em;
+    width: 8em;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}*/
