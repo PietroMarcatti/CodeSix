@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {Feed, Edit, CloudDownloadOutlined, DeleteOutlined  } from "@mui/icons-material";
 
 function SelectedDimsItem(props){
@@ -16,21 +16,33 @@ function QuickActionButton (props){
     )
 }
 
+
 const FileInfo =(props) => {
+    
+    const [updatedDims, setUpdatedDims] = useState(null);
+    useEffect( () =>{
+        console.log("sono stato chimato : ".concat(props.selectedDims))
+        setUpdatedDims(props.selectedDims)
+    }, [props.selectedDims])
+
     return(
         <div id="file-info-wrapper">
             <h2 className="rowFlex center">
                 <Feed fontSize="large" id="file-info-icon"/>
                 Il tuo file
             </h2>
-            <label class="file-info-head" >Nome del file:</label>
-            <p>{props.csvFileName ? props.csvFileName : "Nessun file caricato."}</p>
-            <p class="file-info-head">Dimensioni selezionate:</p>
+            <div className="rowFlex center">
+                <label>Nome del file:</label>
+                <p id="fileName">{props.csvFileName ? props.csvFileName : "Nessun file caricato."}</p>
+            </div>
+            
+            <p>Dimensioni selezionate:</p>
             <div id="selected-dims-wrapper">
                 {
-                    props.selectedDims && props.selectedDims.length > 0 ? 
-                    props.selectedDims.map((value) => {
-                        return <SelectedDimsItem value={value} key={value}/>
+                    Array.isArray(updatedDims) && updatedDims.length > 0 ? 
+                    updatedDims.map((value) => {
+                        console.log(value)
+                        return <SelectedDimsItem value={value[1]} key={value}/>
                     }):
                     "Ancora nessuna dimensione selezionata"
                 }

@@ -31,7 +31,7 @@ const ReloadSessionPage = (props) => {
                     </div>
                     <DocsLink/>
                 </div>
-                <FileInfo handles={props.handles} dims={props.dims} fileName={props.fileName}/>
+                {props.fileInfo}
                 
             </div>
         </div>

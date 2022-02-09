@@ -1,18 +1,10 @@
-import React, {useEffect} from "react";
-import { Landscape, ArrowForwardRounded,ArrowBackRounded } from "@mui/icons-material";
+import React, {useEffect, useState} from "react";
+import { ArrowBackRounded } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
+import ScatterPreferences from "./ScatterPreferences";
 import * as d3 from "d3";
 
 const Scatter = (props) => {
-
-    useEffect(() => {
-        if(props.data.data){
-		showScatterPlot(props.data.data, 0, 1); }
-        else{
-            console.log('file assente');
-            document.getElementsByClassName('graph-visualization')[0].innerHTML='Carica un file per visualizzare';
-        }
-	}, []);
 
 	function showScatterPlot(data, dimensionX, dimensionY){
 		if(props.headers){
@@ -63,7 +55,30 @@ const Scatter = (props) => {
 	      	.attr("cy", function (d) { return y(d[dimensionY]); } )
 	      	.attr("r", 2.5)
 	}
+
+	const [mappedDimensions,setMappedDimensions] = useState(()=>{
+		const saved = localStorage.getItem("mappedDimensions");
+        const initial = JSON.parse(saved);
+        return initial || {"Asse X":0,"Asse Y":1};
+	});
+
+	useEffect(() => {
+		localStorage.setItem("mappedDimensions",JSON.stringify(mappedDimensions))
+	}, [mappedDimensions]);
+
+	function removeScatter(){
+		var div = document.getElementById("data-visualization");
+		if(div.children.length >0 ){
+			div.removeChild(div.firstChild)
+		}
+	}
+
+	function applyChangesAndPlot() {
+		removeScatter()
+		showScatterPlot(props.data.data, mappedDimensions["Asse X"], mappedDimensions["Asse Y"]);
+	}
     
+	
     return(
         <div className="graph-text">
             <NavLink to="/" >
@@ -75,7 +90,18 @@ const Scatter = (props) => {
                     sono riportate in un piano cartesiano.
                 </p>
 
-                <div id="data-visualization" className="graph-visualization"></div>
+				{	
+					props.selectedDims.length >0 ? 
+					<>
+						<ScatterPreferences selectedDims={props.selectedDims} hooks={[[mappedDimensions,setMappedDimensions]]} onConfirm={applyChangesAndPlot}/>
+					</>:
+					""
+				}
+
+				{
+					props.selectedDims.length >1? <div id="data-visualization" className="graph-visualization"></div> : ""
+				}
+                
         </div>
     );
 }

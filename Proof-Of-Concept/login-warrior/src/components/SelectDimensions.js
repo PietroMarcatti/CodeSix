@@ -20,10 +20,17 @@ function SelectDimensions(props){
 
     function toggleDimension(key){
         if(selectedDims.has(key)){
-            
-            selectedDims.delete(key);
+            if(props.headersToggle)
+                selectedDims.delete([key, props.data.meta.fields[key]])
+            else
+                selectedDims.delete([key, "Colonna "+key]);
         }else{
-            selectedDims.add(key);
+            if(props.headersToggle){
+                selectedDims.add([key, props.data.meta.fields[key]])
+            }else{
+                selectedDims.add([key, "Colonna "+key]);
+            }
+            
         }
         console.log(selectedDims)
     }

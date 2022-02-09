@@ -20,7 +20,7 @@ const UploadFilePage = (props) => {
     }
 
     useEffect (()=>{
-        if(!props.hooks["csvLoaded"][0]){
+        if(!props.hooks["csvLoaded"][0] && !props.disableDimensionSelection){
             document.getElementById("headersForm").reset()
         }
     }, [props.hooks["csvLoaded"][0]])
@@ -38,28 +38,35 @@ const UploadFilePage = (props) => {
                 <div className="columnFlex" id="file-upload-wrapper">
                     <div className="columnFlex">
                         {props.showOverwriteCsvAlert ? <Alert message="Caricando un nuovo fils .csv perderai tutti i progessi nella sessione attuale. Ti consigliamo di esportare la sessione corrente prima di procedere"/> :""}
-                        <div show={!props.disableDimensionSelection} className="rowFlex center ">
-                            <form id="headersForm" className="columnFlex"   >
-                                <div className="rowFlex center" >
-                                    <input type="radio" name="headers"  required onChange={() => handleChange(true)}/>
-                                    <label>Il file contiene gli header</label>
-                                    
-                                </div>
-                                <div className={"rowFlex center"}>
-                                    <input type="radio" name="headers" required onChange={() => handleChange(false)} />
-                                    <label>Il file NON contiene gli header</label>
-                                </div>
-                            </form>
-                            
-                        </div>
-                        <CSVUpload disabled={disabledUpload} hooks={props.hooks} csvLoaded ={props.csvLoaded} csvFileName={props.csvFileName} inputAllowed={props.showOverwriteCsvAlert}/>
+                        {(!props.showConfigurationCsvAlert && !props.showOverwriteCsvAlert) || props.showOverwriteCsvAlert ? 
+                            <div  className="rowFlex center " id="headerToggleForm">
+                                <form id="headersForm" className="columnFlex"   >
+                                    <div className="rowFlex center" >
+                                        <label>Il file contiene gli header</label>
+                                        <input type="radio" name="headers"  required onChange={() => handleChange(true)}/>
+                                    </div>
+                                    <div className={"rowFlex center"}>
+                                        <label>Il file NON contiene gli header</label>
+                                        <input type="radio" name="headers"  onChange={() => handleChange(false)} />
+                                    </div>
+                                </form>
+                                
+                            </div>:
+                            ""
+                        }
+                        <CSVUpload
+                            disabled={disabledUpload}
+                            hooks={props.hooks} 
+                            csvLoaded ={props.csvLoaded} 
+                            csvFileName={props.csvFileName}
+                            inputAllowed={(!props.showConfigurationCsvAlert && !props.showOverwriteCsvAlert) || props.showOverwriteCsvAlert}
+                        />
                         {props.showConfigurationCsvAlert ? <Alert message="Il tuo file è stato caricato correttamente ma va inizializzato. Per poterlo usare configuralo."/> :""}
                     </div>
 
                     <DocsLink/>
                 </div>
-                <FileInfo disableDimensionSelection={props.disableDimensionSelection} disableFileRemoval={props.disableFileRemoval} show={props.showFileInfo} handles={props.handles} selectedDims={props.selectedDims} csvFileName={props.csvFileName}/>
-                
+                {props.fileInfo}
             </div>
         </div>
     );

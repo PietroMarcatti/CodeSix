@@ -200,7 +200,15 @@ li.menu-item svg{
     min-width: 50%;
     align-items: center;
     justify-content: center;
-    
+}
+
+#card-grid a{
+    margin: 0.5em;
+    width: 15em;
+}
+
+#card-grid .card-wrapper{
+    width: 100%;
 }
 
 #file-info-wrapper{
@@ -209,6 +217,7 @@ li.menu-item svg{
     flex: 4 1 auto;
     max-width: 80%;
     margin-top: 1em;
+    margin-right: 1em;
     padding: 1em 2em;
     font-size: 20px;
 }
@@ -256,6 +265,11 @@ p.selected-dim{
     margin-right: 0.5em;
 }
 
+#fileName{
+    font-weight: bold;
+    margin-left: 1em;
+}
+
 .drop-file{
     background-color: #353D40;
     border-radius: 20px;
@@ -264,6 +278,10 @@ p.selected-dim{
     margin: 0.5em 1em;
     height: fit-content;
     padding:1em;
+}
+
+#headerToggleForm{
+    margin: 0.5em 1em;
 }
 
 #file-upload-wrapper{
@@ -432,6 +450,70 @@ input[type="checkbox"]:checked{
 }
 
 /*  Grafici */
+
+#graph-pref-wrapper{
+    background-color: #353d40;
+    border-radius: 20px;
+    padding: 0.2em 1em;
+    padding-bottom: 1em;
+    width: fit-content;
+}
+
+#graph-pref-title{
+    font-weight: bold;
+    font-size: 1em;
+}
+
+#dimension-list{
+    list-style: none;
+}
+
+#dimension-list select{
+    border: 1px solid #fdfdfd;
+    background-color: transparent;
+    color: #fdfdfd;
+    border-radius: 10px;
+    font-size: 16px;
+    min-width: 7em;
+    height: 3em;
+    padding: 0.5em;
+    content: icon;
+}
+
+#dimension-list option{
+    color: #fdfdfd;
+    background-color: #353d40;
+}
+
+#dimension-list option:checked{
+    color: #fdfdfd;
+    background-color: #A1A5A6;
+}
+
+#dimension-list select:focus{
+    color: #fdfdfd;
+    background-color: #888;
+}
+
+#graph-pref-wrapper button{
+    border-radius: 15px;
+    font-size: 22px;
+    padding: 0.7em 0.7em;
+    margin-top: 0.5em;
+    width: fit-content;
+    min-width: 10em;
+    color: #fdfdfd;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    text-align: left;
+    border: transparent;
+    background-color: #4DBE5E;
+    margin-left: 65%;
+}
+
+
+
+
 
 
 .graph-visualization{
