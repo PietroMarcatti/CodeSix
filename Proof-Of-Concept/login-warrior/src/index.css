@@ -12,6 +12,7 @@ html, body {
 #page-wrapper{
     display: grid;
     grid-template-columns: 0.3fr 5fr;
+    min-height: 980px;
 }
 
 #menu-wrapper{
@@ -217,10 +218,13 @@ li.menu-item svg{
     flex: 4 1 auto;
     width: 20em;
     margin-top: 1em;
-    margin-right: 3em;
     margin-left: 3em;
-    padding: 1em 4em;
+    padding: 1em 3em;
     font-size: 20px;
+}
+
+#file-info-wrapper .columnFlex{
+    width: unset;
 }
 
 #selected-dims-wrapper{
