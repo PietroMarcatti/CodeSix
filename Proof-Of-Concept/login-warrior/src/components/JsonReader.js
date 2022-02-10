@@ -1,18 +1,10 @@
 import { useState } from 'react'
 
-export default function JsonReader(){
-    const [jsonFile, setJSONFile] = useState();
+const JsonReader= (props) =>{
 
-    const submit = () => {
-        const file = jsonFile;
-        const reader = new FileReader();
-
-        reader.onload = function(e) {
-            const text = e.target.result;
-            console.log(text);
-        }
-        reader.readAsText(file);
-    }
+    const handleChange = e => {
+        
+    };
 
     return(
         <form id='json-form'> 
@@ -20,22 +12,26 @@ export default function JsonReader(){
                 type='file'
                 accept='.json'
                 id='jsonFile' 
-                onChange={(e) => {
-                    setJSONFile(e.target.files[0])
-                }}
-            >
-            </input>
-            <br/>
-            <button
-                id="load_btn"
-                onClick={(e) => {
-                    e.preventDefault()
-                    if(jsonFile)submit()
-                }}>
-                Conferma
-            </button>
+                onChange={(e) => {                    
+                    const sessionFile= e.target.files[0];
+                    const fileReader = new FileReader();
+                    fileReader.readAsText(sessionFile, "UTF-8");
+        
+                    fileReader.onload = e => {
+                        const jsonFile= JSON.parse(e.target.result);
+                        jsonFile.name= sessionFile.name;
+                        jsonFile.type= sessionFile.type;
 
+                        console.log("contenuto jsonFile", jsonFile["csvData"]);
+
+                        props.hooks["csvLoaded"][1](true);
+                        props.hooks["csvData"][1](jsonFile["csvData"]);
+                        props.hooks["csvFile"][1](jsonFile);
+                    };
+                }}
+            />
         </form>
     );
-
 }
+
+export default JsonReader;

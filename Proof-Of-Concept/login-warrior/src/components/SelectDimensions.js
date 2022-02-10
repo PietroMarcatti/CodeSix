@@ -14,8 +14,6 @@ function DimensionCheckBox (props){
 }
 
 function SelectDimensions(props){
-
-    console.log(props.selectedDims)
     var selectedDims = new Set(props.selectedDims);
 
     function toggleDimension(key){
@@ -32,14 +30,13 @@ function SelectDimensions(props){
             }
             
         }
-        console.log(selectedDims)
     }
 
     function handleOnConfirm(){
         var dims = [...selectedDims]
         props.onConfirm(dims)
     }
-    console.log(props.data)
+
     return(
         <div className="modal" onClick={props.onClose}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>

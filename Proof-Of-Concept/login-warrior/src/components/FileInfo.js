@@ -60,6 +60,7 @@ const FileInfo =(props) => {
                     value="Esporta Sessione" 
                     icon={<CloudDownloadOutlined sx={{fontSize: 30}}/>}
                     className="orange"
+                    disabled= {props.disableExportSession}
                     />
                 <QuickActionButton
                     onClick={props.handles[2]} 
