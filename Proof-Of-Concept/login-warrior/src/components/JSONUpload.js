@@ -3,14 +3,14 @@ import AddCircleOutline from '@mui/icons-material/AddCircleOutline';
 import { Check } from "@mui/icons-material";
 import JsonReader from './JsonReader'
 
-const CSVUpload = (props) =>{
+const JSONUpload = (props) =>{
     return(
-        <div className={"drop-file rowFlex center ".concat((props.csvLoaded || !props.inputAllowed)? "green" : "")} >
+        <div className={"drop-file rowFlex center ".concat((props.csvLoaded)? "green" : "")} >
             {props.csvLoaded ? <Check fontSize="large"/> :<AddCircleOutline fontSize="large"/>}
             <div className="columnFlex">
                 { 
-                    (props.csvLoaded || !props.inputAllowed)? 
-                    ("File \""+props.fileName+"\" caricato correttamente."):
+                    (props.csvLoaded)? 
+                    ("File \""+props.csvFileName+"\" caricato correttamente."):
                     <JsonReader hooks={props.hooks} />
                 }
             </div>
@@ -18,4 +18,4 @@ const CSVUpload = (props) =>{
     );
 }
 
-export default CSVUpload;
+export default JSONUpload;

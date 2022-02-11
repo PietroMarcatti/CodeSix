@@ -77,22 +77,36 @@ const View = () =>{
 
     useEffect(() => {
         if(csvFile){
-            console.log(option);
             setCsvFileName(csvFile.name);
             setDisableDimensionSelection(false);
             localStorage.setItem("csvFileName", JSON.stringify(csvFile.name));
             localStorage.setItem("csvLoaded", JSON.stringify(csvLoaded));
+            localStorage.setItem("selectedDims", JSON.stringify([]));
             setShowConfigurationCsvAlert(true);
             setShowOverwriteCsvAlert(false);
+            setSelectedDims([]);
+        }
+
+        if(csvFile && csvFile["type"] === "application/json"){
+            setSelectedDims(csvFile.selectedDims);
+            setHeadersToggle(csvFile.headersToggle);
+            localStorage.setItem("selectedDims", JSON.stringify(csvFile.selectedDims));
+            
+            if(csvFile.selectedDims && csvFile.selectedDims.length > 0){
+                setShowConfigurationCsvAlert(false);
+                setShowOverwriteCsvAlert(true);
+            }
+        }
+
+        if(csvFile && csvFile["type"] !== "application/json"){
             Papa.parse(csvFile, option);
         }
     }, [csvFile]);
 
-    useEffect(()=>{
+    useEffect(() => { 
         if(csvLoaded){
             localStorage.setItem("csvData", JSON.stringify(csvData));
         }
-            
     },[csvData]);
 
     useEffect(() =>{
@@ -135,8 +149,32 @@ const View = () =>{
         localStorage.setItem("selectedDims", JSON.stringify(dims))
     }
 
+    function saveSessionFile(){
+        const fileData = JSON.stringify({
+            "csvData" : JSON.parse(localStorage.getItem("csvData")),
+            "csvFileName" : JSON.parse(localStorage.getItem("csvFileName")),
+            "csvLoaded" : JSON.parse(localStorage.getItem("csvLoaded")),
+            "disableDimensionSelection" : JSON.parse(localStorage.getItem("disableDimensionSelection")),
+            "headersToggle" : JSON.parse(localStorage.getItem("headersToggle")),
+            "mappedDimensions" : JSON.parse(localStorage.getItem("mappedDimensions")),
+            "showConfigurationCsvAlert" : JSON.parse(localStorage.getItem("showConfigurationCsvAlert")),
+            "showOverwriteCsvAlert" : JSON.parse(localStorage.getItem("showConfigurationCsvAlert")),
+            "selectedDims" : JSON.parse(localStorage.getItem("selectedDims"))
+        });
+
+        const blob = new Blob([fileData], {type: "text/plain"});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = `file.json`;
+        link.href = url;
+        link.click();
+
+        setShowExportSession(false);
+    }
+
     var fileInfo = <FileInfo 
-        disableDimensionSelection={disableDimensionSelection} 
+        disableDimensionSelection={disableDimensionSelection}
+        disableExportSession={disableDimensionSelection} 
         disableFileRemoval={disableDimensionSelection}
         showOverwriteCsvAlert={showOverwriteCsvAlert}
         handles={quickActionButtonHandlers} 
@@ -205,6 +243,13 @@ const View = () =>{
                         />
                         <Route path="/reloadSession"
                             element={<ReloadSessionPage 
+                                        hooks={{
+                                            "csvData":[csvData, (data) => setCsvData(data)],
+                                            "csvFile":[csvFile,(file) => setCsvFile(file)], 
+                                            "csvLoaded":[csvLoaded,() =>setCsvLoaded(true)], 
+                                            "headersToggle":[headersToggle,(value) =>setHeadersToggle(value)]}
+                                        }
+                                        csvLoaded = {csvLoaded}
                                         csvFileName = {csvFileName}
                                         fileInfo = {fileInfo}
                                     />
@@ -218,7 +263,7 @@ const View = () =>{
                         <Route path="/parallel" element={<Parallel />}/>
                     </Routes>
                     {showSelectDims ? <SelectDimensions data={csvLoaded ? csvData : []} headersToggle={headersToggle} onClose={()=>setShowSelectDims(false)} onConfirm={(value) => handleDimensionSelectionConfirm(value)} selectedDims={selectedDims} />: ""}
-                    <ExportSession show={showExportSession} onClose={()=>setShowExportSession(false)}/>
+                    <ExportSession show={showExportSession} onClose={()=>setShowExportSession(false)} onSave={()=>saveSessionFile()}/>
                     <RemoveFile show={showRemoveFile} onClose={()=>setShowRemoveFile(false)} onDelete={() => removeCsvFile()}/>
                 </div>
             </div>

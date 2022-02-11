@@ -16,7 +16,7 @@ function ExportSession(props){
                 </div>
                 <div className="modal-footer">
                     <button className="red" onClick={props.onClose}>Annulla</button>
-                    <button className="green ">Fine</button>
+                    <button className="green" onClick={props.onSave}>Salva file</button>
                 </div>
             </div>
         </div>
