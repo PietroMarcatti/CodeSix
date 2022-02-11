@@ -43,11 +43,11 @@ const UploadFilePage = (props) => {
                                 <form id="headersForm" className="columnFlex"   >
                                     <div className="rowFlex center" >
                                         <input type="radio" name="headers" id="has-header" required onChange={() => handleChange(true)}/>
-                                        <label for='has-header'>Il file contiene gli header</label>
+                                        <label htmlFor='has-header'>Il file contiene gli header</label>
                                     </div>
                                     <div className={"rowFlex center"}>
                                         <input type="radio" name="headers" id='has-not-header' onChange={() => handleChange(false)} />
-                                        <label for='has-not-header'>Il file NON contiene gli header</label>
+                                        <label htmlFor='has-not-header'>Il file NON contiene gli header</label>
                                     </div>
                                 </form>
                                 

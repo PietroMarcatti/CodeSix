@@ -51,7 +51,7 @@ const View = () =>{
     const [selectedDims, setSelectedDims] = useState(()=>{
         const saved = localStorage.getItem("selectedDims");
         const initial = JSON.parse(saved);
-        return initial || [];
+        return initial || new Map();
     })
     const [csvFile, setCsvFile] = useState(()=>{
         const saved = localStorage.getItem("csvFile");
@@ -96,7 +96,6 @@ const View = () =>{
     },[csvData]);
 
     useEffect(() =>{
-        console.log("Headers modificato: "+headersToggle)
         localStorage.setItem("headersToggle", headersToggle);
         localStorage.setItem("disableDimensionSelection", disableDimensionSelection)
         localStorage.setItem("showConfigurationCsvAlert", showConfigurationCsvAlert)
@@ -123,13 +122,6 @@ const View = () =>{
         setDisableDimensionSelection(true);
         setHeadersToggle(false);
         setSelectedDims([]);
-    }
-
-    function csvConfigurationComplete(){
-        console.log("Show configuration Csv Alert :"+showConfigurationCsvAlert);
-        setShowConfigurationCsvAlert(false);
-        setShowOverwriteCsvAlert(true);
-        setShowSelectDims(false);
     }
 
     function handleDimensionSelectionConfirm(dims){

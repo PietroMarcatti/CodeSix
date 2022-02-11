@@ -67,6 +67,7 @@ const Scatter = (props) => {
 	});
 
 	useEffect(() => {
+		console.log(mappedDimensions)
 		localStorage.setItem("mappedDimensions",JSON.stringify(mappedDimensions))
 	}, [mappedDimensions]);
 

@@ -18,12 +18,6 @@ function QuickActionButton (props){
 
 
 const FileInfo =(props) => {
-    
-    const [updatedDims, setUpdatedDims] = useState(null);
-    useEffect( () =>{
-        console.log("sono stato chimato : ".concat(props.selectedDims))
-        setUpdatedDims(props.selectedDims)
-    }, [props.selectedDims])
 
     return(
         <div id="file-info-wrapper">
@@ -39,15 +33,15 @@ const FileInfo =(props) => {
             <p>Dimensioni selezionate:</p>
             <div id="selected-dims-wrapper">
                 {
-                    Array.isArray(updatedDims) && updatedDims.length > 0 ? 
-                    updatedDims.map((value) => {
-                        console.log(value)
+                    console.log(props.selectedDims),
+                    Array.isArray(props.selectedDims) && props.selectedDims.length > 0 ? 
+                    props.selectedDims.map((value) => {
                         return <SelectedDimsItem value={value[1]} key={value}/>
                     }):
                     "Ancora nessuna dimensione selezionata"
                 }
             </div>
-            <p class="file-info-head">Azioni rapide:</p>
+            <p className="file-info-head">Azioni rapide:</p>
             <div className="columnFlex">
                 <QuickActionButton onClick={props.handles[0]}
                      value={props.showOverwriteCsvAlert ? "Modifica dimensioni" : "Configura dimensioni"} 

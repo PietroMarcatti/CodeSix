@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 const CsvReader = (props) =>{
-    console.log(props.disabled)
     return(
         <form id='csv-form'>
             <input

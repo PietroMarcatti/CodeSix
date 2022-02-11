@@ -15,31 +15,26 @@ function DimensionCheckBox (props){
 
 function SelectDimensions(props){
 
-    console.log(props.selectedDims)
-    var selectedDims = new Set(props.selectedDims);
-
+    var selectedDims = new Map(props.selectedDims);
     function toggleDimension(key){
-        if(selectedDims.has(key)){
-            if(props.headersToggle)
-                selectedDims.delete([key, props.data.meta.fields[key]])
+        if(props.headersToggle){
+            if(selectedDims.has(key))
+                selectedDims.delete(key)
             else
-                selectedDims.delete([key, "Colonna "+key]);
+                selectedDims.set(key,props.data.meta.fields[key] )
         }else{
-            if(props.headersToggle){
-                selectedDims.add([key, props.data.meta.fields[key]])
-            }else{
-                selectedDims.add([key, "Colonna "+key]);
-            }
-            
+            if(selectedDims.has(key))
+                selectedDims.delete(key);
+            else
+                selectedDims.add(key,"Colonna "+key);
         }
-        console.log(selectedDims)
     }
 
     function handleOnConfirm(){
         var dims = [...selectedDims]
         props.onConfirm(dims)
     }
-    console.log(props.data)
+
     return(
         <div className="modal" onClick={props.onClose}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>
