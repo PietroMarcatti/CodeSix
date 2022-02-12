@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import { ArrowBackRounded } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import ScatterPreferences from "./ScatterPreferences";
+import DownloadGraphButton from "../DownloadGraphButton";
 import * as d3 from "d3";
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -121,7 +122,7 @@ const Scatter = (props) => {
 				}
 
 				{
-					props.selectedDims.length >1? <div id="data-visualization" className="graph-visualization"></div> : <p className="graph-message">Carica un file per visualizzare o seleziona correttamente le dimensioni</p>
+					props.selectedDims.length >1? <><div id="data-visualization" className="graph-visualization"></div><DownloadGraphButton /></> : <p className="graph-message">Carica un file per visualizzare o seleziona correttamente le dimensioni</p>
 				}
                 
         </div>

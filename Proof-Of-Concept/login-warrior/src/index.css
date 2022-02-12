@@ -451,8 +451,19 @@ input[type="checkbox"]:checked{
 }
 
 #data-visualization{
-    text-align: center;
     margin-top: 3em;
+}
+
+#downloadSvgGraph{
+    display: block;
+    margin: 1em;
+    margin-left: 11em;
+    border-radius: 15px;
+    font-size: 22px;
+    padding: 0.7em 0.7em;
+    color: #fdfdfd;
+    background-color: orange;
+    border: none;
 }
 
 /*  Grafici */
@@ -539,11 +550,6 @@ input[type="checkbox"]:checked{
     stroke-width: 0.05em;
     fill: #121317;    
     font-size: 0.8em;
-}
-
-
-.graph-visualization svg circle{
-    fill:red;
 }
 
 .graph-message{

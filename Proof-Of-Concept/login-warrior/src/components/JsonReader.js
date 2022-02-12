@@ -1,11 +1,6 @@
 import { useState } from 'react'
 
 const JsonReader= (props) =>{
-
-    const handleChange = e => {
-        
-    };
-
     return(
         <form id='json-form'> 
             <input
