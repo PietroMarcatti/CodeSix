@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 const ScatterPreferences = (props) =>{
-    var availableDimensions=["Asse X", "Asse Y", "Forma", "Colore", "Grandezza"];
+    var availableDimensions=["Asse X", "Asse Y", "Grandezza", "Forma", "Colore"];
     
 
     function handleSelectChange(e){

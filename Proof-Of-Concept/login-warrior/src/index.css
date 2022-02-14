@@ -530,11 +530,6 @@ input[type="checkbox"]:checked{
     margin-left: 65%;
 }
 
-
-
-
-
-
 .graph-visualization{
     display: inline-block;
     color: black;
@@ -547,8 +542,7 @@ input[type="checkbox"]:checked{
 
 .graph-visualization svg g{
     stroke: black;
-    stroke-width: 0.05em;
-    fill: #121317;    
+    stroke-width: 0.05em;   
     font-size: 0.8em;
 }
 

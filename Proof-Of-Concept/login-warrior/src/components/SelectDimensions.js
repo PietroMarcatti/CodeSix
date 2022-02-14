@@ -26,7 +26,7 @@ function SelectDimensions(props){
             if(selectedDims.has(key))
                 selectedDims.delete(key);
             else
-                selectedDims.add(key,"Colonna "+key);
+                selectedDims.set(key,"Colonna "+key);
         }
     }
 

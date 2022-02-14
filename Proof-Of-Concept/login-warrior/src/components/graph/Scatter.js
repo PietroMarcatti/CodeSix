@@ -11,7 +11,7 @@ import { Button } from "@mui/material";
 
 const Scatter = (props) => {
 
-	function showScatterPlot(data, dimensionX, dimensionY){
+	function showScatterPlot(data, dimensionX, dimensionY, dimensionSize){		
 		if(props.headers){
 			var temp = [];
 			data.forEach((element, index) => {
@@ -40,7 +40,7 @@ const Scatter = (props) => {
 	  	
 	  	svg.append("g")
 	    	.attr("transform", "translate(0," + height + ")")
-	    	.call(d3.axisBottom(x));
+			.call(d3.axisBottom(x));
 
 	  	// Add Y axis
 	  	var y = d3.scaleLinear()
@@ -50,6 +50,23 @@ const Scatter = (props) => {
 	  	svg.append("g")
 	    	.call(d3.axisLeft(y));
 
+		if(dimensionSize !== undefined){
+			var min= +Infinity;
+			var max= -Infinity;
+
+			data.forEach(element => {
+				max= max < parseInt(element[dimensionSize]) ? parseInt(element[dimensionSize]) : max;
+				min= min > parseInt(element[dimensionSize]) ? parseInt(element[dimensionSize]) : min;
+			});
+
+			console.log(min);
+			console.log(max);
+
+			var size = d3.scaleLinear()
+			.domain([min, max])
+			.range([0, 5]);
+		}		
+
 	  	// Add dots
 	  	svg.append('g')
 	    	.selectAll("dot")
@@ -58,7 +75,7 @@ const Scatter = (props) => {
 	    	.append("circle")
 	      	.attr("cx", function (d) { return x(d[dimensionX]); } )
 	      	.attr("cy", function (d) { return y(d[dimensionY]); } )
-	      	.attr("r", 2.5)
+	      	.attr("r", function (d) { return size === undefined ? 2.5 : size(d[dimensionSize]);})
 	}
 
 	const [mappedDimensions,setMappedDimensions] = useState(()=>{
@@ -81,7 +98,7 @@ const Scatter = (props) => {
 
 	function applyChangesAndPlot() {
 		removeScatter()
-		showScatterPlot(props.data.data, mappedDimensions["Asse X"], mappedDimensions["Asse Y"]);
+		showScatterPlot(props.data.data, mappedDimensions["Asse X"], mappedDimensions["Asse Y"], mappedDimensions["Grandezza"]);
 	}
 
     
