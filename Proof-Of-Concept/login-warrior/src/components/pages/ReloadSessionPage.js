@@ -25,7 +25,7 @@ const ReloadSessionPage = (props) => {
             <div className="rowFlex" id="grid-wrapper">
                 <div className="columnFlex" id="file-upload-wrapper">
                     <div className="columnFlex">
-                        <Alert message="Caricando un file .JSON perderai quanto fatto nella sessione corrente! Ti consigliamo di esportarla prima di proseguire con il caricamento."/>
+                    {props.csvLoaded && props.csvFileName.slice(-4) !=="json" ? <Alert message="Caricando un file .JSON perderai quanto fatto nella sessione corrente! Ti consigliamo di esportarla prima di proseguire con il caricamento."/> : ""}
                         <JSONUpload 
                             hooks={props.hooks}
                             csvLoaded ={props.csvLoaded} 
