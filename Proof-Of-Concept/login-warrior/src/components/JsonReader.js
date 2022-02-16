@@ -17,8 +17,8 @@ const JsonReader= (props) =>{
                         jsonFile.name= sessionFile.name;
                         jsonFile.type= sessionFile.type;
 
-                        console.log("contenuto jsonFile", jsonFile["csvData"]);
-
+                        console.log("contenuto jsonFile", jsonFile);
+                        
                         props.hooks["csvLoaded"][1](true);
                         props.hooks["csvData"][1](jsonFile["csvData"]);
                         props.hooks["csvFile"][1](jsonFile);

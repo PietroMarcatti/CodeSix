@@ -91,7 +91,8 @@ const View = () =>{
             setSelectedDims(csvFile.selectedDims);
             setHeadersToggle(csvFile.headersToggle);
             localStorage.setItem("selectedDims", JSON.stringify(csvFile.selectedDims));
-            
+            localStorage.setItem("mappedDimensions", JSON.stringify(csvFile.mappedDimensions));
+
             if(csvFile.selectedDims && csvFile.selectedDims.length > 0){
                 setShowConfigurationCsvAlert(false);
                 setShowOverwriteCsvAlert(true);
@@ -111,9 +112,9 @@ const View = () =>{
 
     useEffect(() =>{
         localStorage.setItem("headersToggle", headersToggle);
-        localStorage.setItem("disableDimensionSelection", disableDimensionSelection)
-        localStorage.setItem("showConfigurationCsvAlert", showConfigurationCsvAlert)
-        localStorage.setItem("showOverwriteCsvAlert", showOverwriteCsvAlert)
+        localStorage.setItem("disableDimensionSelection", disableDimensionSelection);
+        localStorage.setItem("showConfigurationCsvAlert", showConfigurationCsvAlert);
+        localStorage.setItem("showOverwriteCsvAlert", showOverwriteCsvAlert);
     }, [headersToggle, disableDimensionSelection, showConfigurationCsvAlert, showOverwriteCsvAlert])
 
     function removeCsvFile(){
@@ -123,9 +124,10 @@ const View = () =>{
         localStorage.removeItem("selectedDims");
         localStorage.removeItem("headersToggle");
         localStorage.removeItem("csvData");
-        localStorage.removeItem("disableDimensionSelection")
-        localStorage.removeItem("showOverwriteCsvAlert")
-        localStorage.removeItem("showConfigurationCsvAlert")
+        localStorage.removeItem("disableDimensionSelection");
+        localStorage.removeItem("showOverwriteCsvAlert");
+        localStorage.removeItem("showConfigurationCsvAlert");
+        localStorage.removeItem("mappedDimensions");
         setShowRemoveFile(false);
         setShowOverwriteCsvAlert(false);
         setShowConfigurationCsvAlert(false);
@@ -140,13 +142,13 @@ const View = () =>{
 
     function handleDimensionSelectionConfirm(dims){
         if(showConfigurationCsvAlert && !showOverwriteCsvAlert){
-            setShowConfigurationCsvAlert(false)
-            setShowOverwriteCsvAlert(true)
-            setDisableDimensionSelection(false)
+            setShowConfigurationCsvAlert(false);
+            setShowOverwriteCsvAlert(true);
+            setDisableDimensionSelection(false);
         }
         setShowSelectDims(false);
         setSelectedDims(dims);
-        localStorage.setItem("selectedDims", JSON.stringify(dims))
+        localStorage.setItem("selectedDims", JSON.stringify(dims));
     }
 
     function saveSessionFile(){

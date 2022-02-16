@@ -540,12 +540,6 @@ input[type="checkbox"]:checked{
     text-align: center;
 }
 
-.graph-visualization svg g{
-    stroke: black;
-    stroke-width: 0.05em;   
-    font-size: 0.8em;
-}
-
 .graph-message{
     display: block;
     border-radius: 0.5em;

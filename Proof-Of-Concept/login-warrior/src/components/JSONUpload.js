@@ -6,7 +6,7 @@ import JsonReader from './JsonReader'
 const JSONUpload = (props) =>{
     return(
         <div className={"drop-file rowFlex center ".concat((props.csvLoaded) && props.csvFileName.slice(-4)==="json" ? "green" : "")} >
-            {props.csvLoaded ? <Check fontSize="large"/> :<AddCircleOutline fontSize="large"/>}
+            {props.csvLoaded && props.csvFileName.slice(-4)==="json"? <Check fontSize="large"/> :<AddCircleOutline fontSize="large"/>}
             <div className="columnFlex">
                 { 
                     (props.csvLoaded && props.csvFileName.slice(-4)==="json")? 

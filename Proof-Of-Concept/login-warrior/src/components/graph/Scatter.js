@@ -11,6 +11,18 @@ import { Button } from "@mui/material";
 
 const Scatter = (props) => {
 
+	function findMinAndMax(data, dim){
+		var min= +Infinity;
+		var max= -Infinity;
+
+		data.forEach(element => {
+			max= max < parseFloat(element[dim]) ? parseFloat(element[dim]) : max;
+			min= min > parseFloat(element[dim]) ? parseFloat(element[dim]) : min;
+		});
+
+		return {"min" : min, "max" : max};
+	}
+
 	function showScatterPlot(data, dimensionX, dimensionY, dimensionSize){		
 		if(props.headers){
 			var temp = [];
@@ -34,36 +46,33 @@ const Scatter = (props) => {
 		        "translate(" + margin.left + "," + margin.top + ")");
 
 		// Add X axis
+		var dimensionXMinMax= findMinAndMax(data, dimensionX);
+
 		var x = d3.scaleLinear()
-	    	.domain([0, 70])
+	    	.domain([dimensionXMinMax["min"], dimensionXMinMax["max"]])
 	    	.range([ 0, width ]);
 	  	
 	  	svg.append("g")
 	    	.attr("transform", "translate(0," + height + ")")
+			.style("font-size", "14px")
 			.call(d3.axisBottom(x));
 
 	  	// Add Y axis
-	  	var y = d3.scaleLinear()
-	    	.domain([0, 70])
+		var dimensionYMinMax= findMinAndMax(data, dimensionY);
+
+		var y = d3.scaleLinear()
+	    	.domain([dimensionYMinMax["min"], dimensionYMinMax["max"]])
 	    	.range([ height, 0]);
 	  	
 	  	svg.append("g")
+		  	.style("font-size", "14px")
 	    	.call(d3.axisLeft(y));
 
 		if(dimensionSize !== undefined){
-			var min= +Infinity;
-			var max= -Infinity;
-
-			data.forEach(element => {
-				max= max < parseInt(element[dimensionSize]) ? parseInt(element[dimensionSize]) : max;
-				min= min > parseInt(element[dimensionSize]) ? parseInt(element[dimensionSize]) : min;
-			});
-
-			console.log(min);
-			console.log(max);
+			var dimensionSizeMinMax= findMinAndMax(data, dimensionSize);
 
 			var size = d3.scaleLinear()
-			.domain([min, max])
+			.domain([dimensionSizeMinMax["min"], dimensionSizeMinMax["max"]])
 			.range([0, 5]);
 		}		
 
@@ -81,7 +90,27 @@ const Scatter = (props) => {
 	const [mappedDimensions,setMappedDimensions] = useState(()=>{
 		const saved = localStorage.getItem("mappedDimensions");
         const initial = JSON.parse(saved);
-        return initial || {"Asse X":0,"Asse Y":1};
+		
+		if(initial !== null)
+        	return initial;
+		
+		console.log(props.selectedDims);
+
+		if(props.selectedDims.size == 0 || props.selectedDims.length == 0)
+			return null;
+
+		var initJson= {"Asse X": props.selectedDims[0][0], "Asse Y": props.selectedDims[1][0]};
+		
+		console.log(props.selectedDims.length);
+
+		if(props.selectedDims.length > 2){
+			var availableDimensions=["Asse X", "Asse Y", "Grandezza", "Forma", "Colore"];
+			
+			for(var i=2; i<props.selectedDims.length; i++){
+				initJson[availableDimensions[i]] = props.selectedDims[i][0];
+			}
+		}
+		return initJson;
 	});
 
 	useEffect(() => {
@@ -97,7 +126,7 @@ const Scatter = (props) => {
 	}
 
 	function applyChangesAndPlot() {
-		removeScatter()
+		removeScatter();
 		showScatterPlot(props.data.data, mappedDimensions["Asse X"], mappedDimensions["Asse Y"], mappedDimensions["Grandezza"]);
 	}
 

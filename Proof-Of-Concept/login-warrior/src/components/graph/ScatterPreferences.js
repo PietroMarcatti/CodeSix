@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 
 const ScatterPreferences = (props) =>{
-    var availableDimensions=["Asse X", "Asse Y", "Grandezza", "Forma", "Colore"];
-    
+    var availableDimensions=["Asse X", "Asse Y", "Grandezza", "Forma", "Colore"]; 
 
     function handleSelectChange(e){
         var availIndex = e.target.id;
@@ -40,8 +39,7 @@ const ScatterPreferences = (props) =>{
             </ul>
             <button onClick={props.onConfirm}>Applica modifiche</button>
             </div>: 
-            "Per visualizzare uno scatter plot sono necessarie almeno due dimensioni. Selezionale."
-        
+            "Per visualizzare uno scatter plot sono necessarie almeno due dimensioni. Selezionale."   
     )
 }
 
