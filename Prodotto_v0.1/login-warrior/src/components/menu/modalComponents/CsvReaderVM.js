@@ -10,7 +10,6 @@ export class CsvReaderVM{
         let columns = data.data.shift(),
 			parsedData = [],
 			dimensions;
-        console.log(columns)
 		
 		data.data.forEach(val =>{ //for each row
             

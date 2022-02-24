@@ -24,7 +24,7 @@ function CsvReader(props){
                     getRemoveFileProps,
                 }) => (
                     <>
-                    <div {...getRootProps()}>
+                    <div {...getRootProps()} className="drop-zone">
                         {acceptedFile ? (
                             <>
                                 <div >
@@ -50,7 +50,7 @@ function CsvReader(props){
                                 </div>
                             </>
                         ) : (
-                        'Drop CSV file here or click to upload'
+                        'Rilascia qui il tuo dataset CSV in alternativa clicca e selezionalo'
                         )}
                     </div>
                     </>

@@ -1,12 +1,13 @@
 import { action, computed, makeObservable, observable } from "mobx";
-import {FaFileCsv} from 'react-icons/fa';
+import {MdUploadFile} from 'react-icons/md';
+import {AiOutlineCloudSync} from "react-icons/ai"
 
 export class MenuVM{
 
     modalIsOpen = false;
     id=-1;
-    names=["Carica dati da CSV"];
-    icons=[<FaFileCsv size={32} className="icons"/>];
+    names=["Carica dati da CSV", "Salva o Ricarica Sessione"];
+    icons=[<MdUploadFile size={32} className="icons"/>, <AiOutlineCloudSync size={32} className="icons"/>];
 
     constructor(rootStore){
         //this.preferenceStore= rootStore.preferenceStore;

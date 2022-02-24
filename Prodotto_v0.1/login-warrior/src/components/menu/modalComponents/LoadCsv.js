@@ -6,6 +6,7 @@ import { useStore } from "../../../ContextProvider";
 import { useInstance } from "../../../useInstance";
 import { Modal, ModalBody, ModalFooter, Alert, Button } from "react-bootstrap";
 import { LoadCsvVM } from './LoadCsvVM';
+import { MdUploadFile } from "react-icons/md";
 
 const LoadCsv = observer((props) =>{
     const {
@@ -41,9 +42,9 @@ const LoadCsv = observer((props) =>{
 
     return(
         <>
-            <Modal show={modalIsOpen} onHide={handleDismiss}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Carica i dati</Modal.Title>
+            <Modal show={modalIsOpen} onHide={handleDismiss} centered>
+                <Modal.Header closeButton closeLabel="Chiudi">
+                    <Modal.Title><MdUploadFile size={32}/>Carica i dati</Modal.Title>
                 </Modal.Header>
                 <ModalBody>
                     <div>
@@ -52,8 +53,8 @@ const LoadCsv = observer((props) =>{
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                    <Button variant="secondary" onClick={handleDismiss}>Torna al menù</Button>
-                    <Button variant="primary" onClick={handleConfirm}>Conferma selezione</Button>
+                    <Button className="red" variant="secondary" onClick={handleDismiss}>Torna al menù</Button>
+                    <Button className="green" variant="primary" onClick={handleConfirm}>Conferma selezione</Button>
                 </ModalFooter>
             </Modal>
             <Alert show={showSuccess} variant="success" className="alert" dismissible onClose={setShowSuccess.bind(null,false)}>

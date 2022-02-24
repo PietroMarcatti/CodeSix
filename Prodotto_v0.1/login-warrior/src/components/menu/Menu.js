@@ -5,6 +5,7 @@ import { OverlayTrigger, Popover, PopoverHeader, PopoverBody } from 'react-boots
 import LoadCsv from './modalComponents/LoadCsv';
 import { MenuVM } from './MenuVM';
 import { useInstance } from '../../useInstance';
+import SessionManager from './modalComponents/SessionManager';
 
 const Menu = observer(() =>{
     const{
@@ -23,6 +24,8 @@ const Menu = observer(() =>{
         switch(index){
             case 0: 
                 return <LoadCsv modalIsOpen ={modalIsOpen} closeModal={closeModal.bind(null)}/>;
+            case 1:
+                return <SessionManager modalIsOpen={modalIsOpen} closeModal={closeModal.bind(null)}/>;
             default:
                 break;
         }
@@ -38,32 +41,38 @@ const Menu = observer(() =>{
     
     return(
         <>
-            <nav className='navbar'>
-                <ul className='navbar-nav'>
-                    {names.map((name, index)=>{
-                        return(
-                            <li className='nav-item' key={name}>
-                                {checkToDisabled(index) ? 
-                                    <OverlayTrigger
-                                        overlay={popover}
-                                        delay={{show:200, hide:0}}>
-                                            <span className='d-inline-block'>
-                                                <button className='nav-link' disabled aria-disabled="true" style={{pointerEvents: "none"}}>
-                                                    {icons[index]}
-                                                    <span className='link-text'>{name}</span>
-                                                </button>
-                                            </span>
-                                    </OverlayTrigger>:
-                                    <button className='nav-link' onClick={index < 5 ? openModal.bind(null, index): showChart.bind(null,index)}>
-                                        {icons[index]}
-                                        <span className='link-text'>{name}</span>
-                                    </button>
-                                }
-                            </li>
-                        );
-                    })}
-                </ul>
-            </nav>
+            <div id='menu-wrapper'>
+                <h1 id='menu-title'><b>Login</b> Warrior</h1>
+                <nav className='navbar'>
+                    <ul className='navbar-nav'>
+                        {names.map((name, index)=>{
+                            return(
+                                <li className='nav-item' key={name}>
+                                    {checkToDisabled(index) ?
+                                        <OverlayTrigger
+                                            overlay={popover}
+                                            delay={{show:200, hide:0}}>
+                                                <span className='d-inline-block'>
+                                                    <button className='nav-link' disabled aria-disabled="true" style={{pointerEvents: "none"}}>
+                                                        {icons[index]}
+                                                        <span className='link-text'>{name}</span>
+                                                    </button>
+                                                </span>
+                                        </OverlayTrigger>:
+                                        <button className='nav-link' onClick={index < 5 ? openModal.bind(null, index): showChart.bind(null,index)}>
+                                            {icons[index]}
+                                            <span className='link-text'>{name}</span>
+                                        </button>
+                                    }
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </nav>
+            </div>
+            <div id='mockup-content'>
+                Placeholder per definire lo stile
+            </div>
             {handleContent(id)}
         </>
     )

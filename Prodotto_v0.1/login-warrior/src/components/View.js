@@ -6,9 +6,10 @@ import { AppContextProvider } from '../ContextProvider';
 const View = () =>{
     const rootStore = new RootStore();
     return(
-        console.log(rootStore.datasetStore.selectedData),
         <AppContextProvider value={rootStore}>
-            <Menu/>
+            <div id='page-wrapper'>
+                <Menu/>
+            </div>
         </AppContextProvider>
     )
 };
