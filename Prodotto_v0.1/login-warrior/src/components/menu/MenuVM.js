@@ -1,3 +1,4 @@
+import React from "react";
 import { action, computed, makeObservable, observable } from "mobx";
 import {MdUploadFile} from 'react-icons/md';
 import {AiOutlineCloudSync} from "react-icons/ai"
@@ -6,23 +7,26 @@ export class MenuVM{
 
     modalIsOpen = false;
     id=-1;
-    names=["Carica dati da CSV", "Salva o Ricarica Sessione"];
-    icons=[<MdUploadFile size={32} className="icons"/>, <AiOutlineCloudSync size={32} className="icons"/>];
+    names=["Carica dati da CSV", "Salva o Ricarica Sessione", "Riduzione Dimensionale"];
+    icons=[<MdUploadFile size={32} className="icons"/>, <AiOutlineCloudSync size={32} className="icons"/>, <AiOutlineCloudSync size={32} className="icons"/>];
+    fileName = "";
 
     constructor(rootStore){
         //this.preferenceStore= rootStore.preferenceStore;
         this.datasetStore = rootStore.datasetStore;
         //this.distanceMatricesStore = rootStore.distanceMatricesStore;
         this.checkToDisabled = this.checkToDisabled.bind(this);
+        this.fileName= this.datasetStore.fileName;
 
         makeObservable(this,{
             modalIsOpen : observable,
             id: observable,
+            fileName: observable,
             openModal: action,
             closeModal: action,
             //showChart: action,
             //distanceMatricesNumber: computed,
-            isDataLoaded: computed
+            isDataLoaded: computed,
         });
     }
 
@@ -63,6 +67,6 @@ export class MenuVM{
     }*/
 
     checkToDisabled = index =>{
-        return (index >=3 && this.isDataLoaded) || (index === 8 && this.distanceMatricesNumber);
+        return (index >=2 && this.isDataLoaded) || (index === 8 && this.distanceMatricesNumber);
     }
 }

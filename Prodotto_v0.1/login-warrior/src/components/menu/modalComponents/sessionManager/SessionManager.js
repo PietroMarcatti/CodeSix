@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {observer} from "mobx-react-lite";
-import {useStore} from "../../../ContextProvider";
-import { useInstance } from "../../../useInstance";
+import {useStore} from "../../../../ContextProvider";
+import { useInstance } from "../../../../useInstance";
 import { Modal, ModalBody, ModalFooter, Alert } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import {SessionManagerVM} from "./SessionManagerVM";

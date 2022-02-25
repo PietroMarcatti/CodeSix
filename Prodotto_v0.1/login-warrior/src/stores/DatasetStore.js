@@ -6,11 +6,15 @@ export default class DatasetStore {
         this.dimensions=[];
         this.uploadedData=[];
         this.selectedData=[];
+        this.fileName="";
+        this.fileSize=0;
         this.rootStore= rootStore;
         makeObservable(this, {
             uploadedData : observable.shallow,
             selectedData : observable.shallow,
             dimensions : observable,
+            fileName: observable,
+            fileSize: observable,
             checkedDimensions: computed,
             categoricCheckedDimensions: computed,
             numericDimensions: computed,
@@ -18,6 +22,8 @@ export default class DatasetStore {
             loadDimensions: action,
             updateSelectedData: action,
             loadData: action,
+            loadFileName: action,
+            loadFileSize:  action,
             addDimensionsToDataset: action,
             reset: action,
             fromJSON: action
@@ -56,6 +62,14 @@ export default class DatasetStore {
         this.dimensions.replace(dimensions);
     };
 
+    loadFileName(fileName){
+        this.fileName=fileName;
+    };
+
+    loadFileSize(fileSize){
+        this.fileSize=fileSize;
+    }
+
     haveNotANumberValue(datasetRow){
         return !Object.values(datasetRow).some(value => Number.isNaN(value) || value === undefined || value === null)
     };
@@ -76,10 +90,12 @@ export default class DatasetStore {
         this.uploadedData.clear();
         this.selectedData.clear();
         this.dimensions.clear();
+        this.fileName.replace("");
+        this.fileSize=0;
     };
 
     toJSON(){
-        return {dimensions: this.dimensions, data: this.uploadedData, selected: this.selectedData};
+        return {dimensions: this.dimensions, data: this.uploadedData, selected: this.selectedData, fileName : this.fileName, fileSize: this.fileSize};
     };
 
     fromJSON(store){
@@ -88,6 +104,8 @@ export default class DatasetStore {
         }));
         this.uploadedData.replace(store.data);
         this.selectedData.replace(store.selected);
+        this.fileName.replace(store.fileName);
+        this.fileSize.replace(store.fileSize);
     };
 
 }

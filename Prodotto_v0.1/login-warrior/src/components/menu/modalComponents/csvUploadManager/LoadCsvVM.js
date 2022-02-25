@@ -6,6 +6,8 @@ export class LoadCsvVM {
         //this.distanceMatricesStore = rootStore.distanceMatricesStore;
     	//this.preferencesStore = rootStore.preferencesStore;
         this.localData = [];
+        this.fileName = "";
+        this.fileSize = 0;
         this.showSuccess = false;
         this.showDanger = false;
         this.localDimensions = [];
@@ -25,6 +27,9 @@ export class LoadCsvVM {
             //this.preferencesStore.reset();
             this.datasetStore.loadData([...this.localData]);
             this.datasetStore.loadDimensions([...this.localDimensions]);
+            console.log("Caricamento",this.fileName);
+            this.datasetStore.loadFileName(this.fileName);
+            this.datasetStore.loadFileSize(this.fileSize);
             this.datasetStore.updateSelectedData();
         }else{
             //this.preferencesStore.reset();
@@ -39,9 +44,13 @@ export class LoadCsvVM {
         this.closeModal();
     };
 
-    setLocalStates = (newData, newDims) => {
+    setLocalStates = (newData, newDims, fileName, fileSize) => {
         this.localData.replace(newData);
         this.localDimensions.replace(newDims);
+        
+        this.fileName=fileName;
+        this.fileSize=fileSize;
+        console.log("Filename: ",this.fileName);
     };
 
     selectAllDimensions=event=>{
@@ -58,6 +67,7 @@ export class LoadCsvVM {
     };
 
     handleConfirm=()=>{
+        console.log("Conferma");
         this.loadDataAndDims();
         this.resetAndClose();
         this.openAlertSuccess();

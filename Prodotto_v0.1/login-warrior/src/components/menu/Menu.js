@@ -2,10 +2,11 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../ContextProvider';
 import { OverlayTrigger, Popover, PopoverHeader, PopoverBody } from 'react-bootstrap';
-import LoadCsv from './modalComponents/LoadCsv';
+import LoadCsv from './modalComponents/csvUploadManager/LoadCsv';
 import { MenuVM } from './MenuVM';
 import { useInstance } from '../../useInstance';
-import SessionManager from './modalComponents/SessionManager';
+import SessionManager from './modalComponents/sessionManager/SessionManager';
+import DimensionalReduction from './modalComponents/dimensionalReductionManager/DimensionalReduction';
 
 const Menu = observer(() =>{
     const{
@@ -13,6 +14,7 @@ const Menu = observer(() =>{
         id,
         names,
         icons,
+        fileName,
         closeModal,
         openModal,
         showChart,
@@ -26,6 +28,8 @@ const Menu = observer(() =>{
                 return <LoadCsv modalIsOpen ={modalIsOpen} closeModal={closeModal.bind(null)}/>;
             case 1:
                 return <SessionManager modalIsOpen={modalIsOpen} closeModal={closeModal.bind(null)}/>;
+            case 2:
+                return <DimensionalReduction modalIsOpen={modalIsOpen} closeModal={closeModal.bind(null)}/>;
             default:
                 break;
         }
@@ -67,6 +71,9 @@ const Menu = observer(() =>{
                                 </li>
                             );
                         })}
+                        <li key={"fileName"}>
+                            {fileName}
+                        </li>
                     </ul>
                 </nav>
             </div>

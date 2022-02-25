@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCSVReader, formatFileSize } from 'react-papaparse';
-import { useInstance } from '../../../useInstance';
+import { useInstance } from '../../../../useInstance';
 import { CsvReaderVM } from './CsvReaderVM';
 
 function CsvReader(props){

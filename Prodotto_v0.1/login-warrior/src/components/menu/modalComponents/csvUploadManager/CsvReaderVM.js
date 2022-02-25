@@ -1,4 +1,4 @@
-import Dimension from "../../../stores/data/Dimension";
+import Dimension from "../../../../stores/data/Dimension";
 
 export class CsvReaderVM{
 
@@ -6,7 +6,7 @@ export class CsvReaderVM{
         this.setLocalStates = setLocalStates.bind(null);
     }
 
-    handleOnDrop = data =>{
+    handleOnDrop = (data,file) =>{
         let columns = data.data.shift(),
 			parsedData = [],
 			dimensions;
@@ -37,7 +37,7 @@ export class CsvReaderVM{
 			d.isNumeric = +parsedData[0][dimName] || parsedData[0][dimName]===0 ? true : false;
 			return d;
 		});
-		this.setLocalStates.bind(null)(parsedData, dimensions);
+		this.setLocalStates.bind(null)(parsedData, dimensions, file.name, file.size);
     };
 
     handleOnError(error){
