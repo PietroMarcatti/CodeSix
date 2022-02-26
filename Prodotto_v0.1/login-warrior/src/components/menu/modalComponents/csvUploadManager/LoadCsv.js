@@ -14,7 +14,7 @@ const LoadCsv = observer((props) =>{
         closeModal
     } = props;
     const {
-        localDimensions,
+        dimensions, 
         showSuccess,
         setShowSuccess,
         showDanger,
@@ -22,8 +22,12 @@ const LoadCsv = observer((props) =>{
         setLocalStates,
         selectAllDimensions,
         selectDimension,
+        castChoices,
+        localCasts,
+        handleSelectChangeCast,
         handleConfirm,
         handleDismiss,
+        isDataLoaded,
     } = useInstance(new LoadCsvVM(useStore(), closeModal));
 
     useEffect(()=>{
@@ -41,6 +45,7 @@ const LoadCsv = observer((props) =>{
     }, [showDanger]);
 
     return(
+        
         <>
             <Modal show={modalIsOpen} onHide={handleDismiss} centered>
                 <Modal.Header closeButton closeLabel="Chiudi">
@@ -49,7 +54,7 @@ const LoadCsv = observer((props) =>{
                 <ModalBody>
                     <div>
                         <CsvReader setLocalStates = {setLocalStates.bind(null)}/>
-                        <DimensionsList dimensions = {localDimensions} selectAllDimensions={selectAllDimensions.bind(null)} selectDimension={selectDimension.bind(null)}/>
+                        <DimensionsList isDataLoaded={isDataLoaded} dimensions = {dimensions} selectAllDimensions={selectAllDimensions.bind(null)} selectDimension={selectDimension.bind(null)} handleSelectChangeCast={handleSelectChangeCast.bind(null)} castChoices={castChoices} localCasts={localCasts}/>
                     </div>
                 </ModalBody>
                 <ModalFooter>

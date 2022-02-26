@@ -1,5 +1,5 @@
 import ReductionAlgorithm from "./ReductionAlgorithm";
-const druid = require("@saehrimnir/druidjs")
+import * as druid from "@saehrimnir/druidjs";
 
 class TsneAlgorithm extends ReductionAlgorithm{
 

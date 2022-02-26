@@ -6,6 +6,7 @@ export default class DatasetStore {
         this.dimensions=[];
         this.uploadedData=[];
         this.selectedData=[];
+        this.casts=[];
         this.fileName="";
         this.fileSize=0;
         this.rootStore= rootStore;
@@ -13,6 +14,7 @@ export default class DatasetStore {
             uploadedData : observable.shallow,
             selectedData : observable.shallow,
             dimensions : observable,
+            casts: observable,
             fileName: observable,
             fileSize: observable,
             checkedDimensions: computed,
@@ -62,6 +64,10 @@ export default class DatasetStore {
         this.dimensions.replace(dimensions);
     };
 
+    loadCasts(casts){
+        this.casts.replace(casts);
+    }
+
     loadFileName(fileName){
         this.fileName=fileName;
     };
@@ -90,18 +96,20 @@ export default class DatasetStore {
         this.uploadedData.clear();
         this.selectedData.clear();
         this.dimensions.clear();
+        this.casts.clear();
         this.fileName.replace("");
         this.fileSize=0;
     };
 
     toJSON(){
-        return {dimensions: this.dimensions, data: this.uploadedData, selected: this.selectedData, fileName : this.fileName, fileSize: this.fileSize};
+        return {dimensions: this.dimensions, data: this.uploadedData, selected: this.selectedData, casts:this.casts, fileName : this.fileName, fileSize: this.fileSize};
     };
 
     fromJSON(store){
         this.dimensions.replace(store.dimensions.map(dim =>{
             return new Dimension(dim._value, dim._isChecked, dim._isNumeric, dim._isReduced)
         }));
+        this.casts.replace(store.casts);
         this.uploadedData.replace(store.data);
         this.selectedData.replace(store.selected);
         this.fileName.replace(store.fileName);

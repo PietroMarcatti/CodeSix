@@ -84,6 +84,16 @@ div.modal{
   padding: 1em;
 }
 
+div.row{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+div.col{
+  margin:0.5em 0.8em
+}
+
 div.modal-header{
   display: flex;
   margin-bottom: 1em;

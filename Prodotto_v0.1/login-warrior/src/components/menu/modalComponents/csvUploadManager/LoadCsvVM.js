@@ -1,6 +1,7 @@
 import { observable, makeAutoObservable } from "mobx";
 
 export class LoadCsvVM {
+    castChoices = ["Data"];
     constructor(rootStore, closeModal){
         this.datasetStore = rootStore.datasetStore;
         //this.distanceMatricesStore = rootStore.distanceMatricesStore;
@@ -11,9 +12,11 @@ export class LoadCsvVM {
         this.showSuccess = false;
         this.showDanger = false;
         this.localDimensions = [];
+        this.casts = [];
         this.closeModal = closeModal.bind(null);
         makeAutoObservable(this,{
             datasetStore: false,
+            casts: false,
             //distanceMatricesStore: false,
             //preferencesStore: false,
             localData: observable.shallow,
@@ -25,9 +28,10 @@ export class LoadCsvVM {
             this.datasetStore.reset();
             //this.distanceMatricesStore.reset();
             //this.preferencesStore.reset();
+            console.log(this.localData.slice());
+            this.datasetStore.loadCasts([...this.localCasts]);
             this.datasetStore.loadData([...this.localData]);
             this.datasetStore.loadDimensions([...this.localDimensions]);
-            console.log("Caricamento",this.fileName);
             this.datasetStore.loadFileName(this.fileName);
             this.datasetStore.loadFileSize(this.fileSize);
             this.datasetStore.updateSelectedData();
@@ -38,6 +42,25 @@ export class LoadCsvVM {
         }
     };
 
+    get isDataLoaded() {
+        return this.datasetStore.dimensions.length>0 || this.localDimensions.length >0;
+    }
+
+    get dimensions(){
+        if(this.localDimensions.length >0 )
+            return this.localDimensions;
+        else 
+            return this.datasetStore.dimensions;
+        
+    }
+
+    get localCasts(){
+        if(this.datasetStore.casts.length > 0)
+            return this.datasetStore.casts.slice().sort((a,b)=>a.id-b.id);
+        else
+            return this.casts.slice().sort((a,b)=> a.id-b.id);
+    }
+
     resetAndClose=()=>{
         this.localData.clear();
         this.localDimensions.clear();
@@ -47,10 +70,8 @@ export class LoadCsvVM {
     setLocalStates = (newData, newDims, fileName, fileSize) => {
         this.localData.replace(newData);
         this.localDimensions.replace(newDims);
-        
         this.fileName=fileName;
         this.fileSize=fileSize;
-        console.log("Filename: ",this.fileName);
     };
 
     selectAllDimensions=event=>{
@@ -66,8 +87,17 @@ export class LoadCsvVM {
         });
     };
 
+    handleSelectChangeCast = event =>{
+        let dim = event.target.options[0].id.split('-')[0];
+        if(this.localCasts.length >0 && this.localCasts.find((value) => value.id === dim)){
+            this.casts.replace(this.localCasts.map((value)=> value.id === dim ? {value: event.target.value, id: dim} : value));
+        }else{
+            this.casts.push({value:event.target.value, id: dim});
+        }
+        
+    }
+
     handleConfirm=()=>{
-        console.log("Conferma");
         this.loadDataAndDims();
         this.resetAndClose();
         this.openAlertSuccess();
