@@ -160,5 +160,9 @@ button.btn-secondary{
   display: none;
 }
 
-
-
+#form-dimensions-names{
+  height: 300px;
+  width: 500px;
+  overflow: auto;
+  margin-bottom: 1em;
+}

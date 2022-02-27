@@ -30,7 +30,7 @@ const DimensionsList = observer((props)=>{
                         </> : 
                         <></> 
                         }
-                        <Form.Group>
+                        <Form.Group id="form-dimensions-names">
                             {
                                 console.log("localcast 0: ",localCasts[0]),
                                 dimensions.filter(dim => !dim.isReduced).map((dim,dimId)=>{
