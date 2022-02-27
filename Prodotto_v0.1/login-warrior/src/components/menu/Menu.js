@@ -63,7 +63,7 @@ const Menu = observer(() =>{
                                                     </button>
                                                 </span>
                                         </OverlayTrigger>:
-                                        <button className='nav-link' onClick={index < 5 ? openModal.bind(null, index): showChart.bind(null,index)}>
+                                        <button className='nav-link' onClick={index < 3 ? openModal.bind(null, index): showChart.bind(null,index)}>
                                             {icons[index]}
                                             <span className='link-text'>{name}</span>
                                         </button>
@@ -76,9 +76,6 @@ const Menu = observer(() =>{
                         </li>
                     </ul>
                 </nav>
-            </div>
-            <div id='mockup-content'>
-                Placeholder per definire lo stile
             </div>
             {handleContent(id)}
         </>

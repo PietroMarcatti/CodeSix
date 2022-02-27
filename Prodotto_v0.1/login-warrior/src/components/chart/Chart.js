@@ -4,8 +4,8 @@ import { useStore } from "../../ContextProvider";
 import { ChartVM } from "./ChartVM";
 import { useInstance } from "../../useInstance";
 import {ChartType} from "../../utils";
-import ScatterplotMatrix from "./charts";
-import ScatterplotMatrixPreferences from "./preferences";
+import Scatterplot from "./charts/Scatterplot";
+import ScatterplotPreferencesSelection from "./preferences/ScatterplotPreferencesSelection";
 
 const Chart = observer(()=>{
     const {
@@ -19,9 +19,10 @@ const Chart = observer(()=>{
     }
 
     function renderPreferences(){
+        console.log(chartToShow, "renderPreferences");
         switch(chartToShow){
-            case ChartType.ScatterplotMatrix:
-                return <ScatterplotMatrixPreferences/>;
+            case ChartType.Scatterplot:
+                return <ScatterplotPreferencesSelection/>;
             default:
                 return null;
         }
@@ -29,8 +30,8 @@ const Chart = observer(()=>{
 
     function renderCharts(){
         switch(chartToShow){
-            case ChartType.ScatterplotMatrix:
-                return <ScatterplotMatrix/>;
+            case ChartType.Scatterplot:
+                return <Scatterplot/>;
             default:
                 return null;
         }

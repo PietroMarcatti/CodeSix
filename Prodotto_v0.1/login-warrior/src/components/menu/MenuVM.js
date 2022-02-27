@@ -2,18 +2,20 @@ import React from "react";
 import { action, computed, makeObservable, observable } from "mobx";
 import {MdUploadFile} from 'react-icons/md';
 import {AiOutlineCloudSync} from "react-icons/ai"
+import {ChartType} from "../../utils";
 
 export class MenuVM{
 
     modalIsOpen = false;
     id=-1;
-    names=["Carica dati da CSV", "Salva o Ricarica Sessione", "Riduzione Dimensionale"];
-    icons=[<MdUploadFile size={32} className="icons"/>, <AiOutlineCloudSync size={32} className="icons"/>, <AiOutlineCloudSync size={32} className="icons"/>];
+    names=["Carica dati da CSV", "Salva o Ricarica Sessione", "Riduzione Dimensionale", "Scatterplot"];
+    icons=[<MdUploadFile size={32} className="icons"/>, <AiOutlineCloudSync size={32} className="icons"/>];
     fileName = "";
 
     constructor(rootStore){
-        //this.preferenceStore= rootStore.preferenceStore;
+        this.preferencesStore= rootStore.preferencesStore;
         this.datasetStore = rootStore.datasetStore;
+        
         //this.distanceMatricesStore = rootStore.distanceMatricesStore;
         this.checkToDisabled = this.checkToDisabled.bind(this);
         this.fileName= this.datasetStore.fileName;
@@ -24,7 +26,7 @@ export class MenuVM{
             fileName: observable,
             openModal: action,
             closeModal: action,
-            //showChart: action,
+            showChart: action,
             //distanceMatricesNumber: computed,
             isDataLoaded: computed,
         });
@@ -39,24 +41,25 @@ export class MenuVM{
         this.modalIsOpen = false;
     }
 
-    /*showChart = index =>{
+    showChart = index =>{
+        console.log(index, "dlksdslkdjk");
         switch(index) {
-    	case 5:
-    		this.preferencesStore.chart = VisualizationType.ScatterPlotMatrix;
+    	case 3:
+    		this.preferencesStore.chart = ChartType.Scatterplot;
     		break;
-    	case 6:
-    		this.preferencesStore.chart = VisualizationType.SankeyDiagram;
+    	/*case 6:
+    		this.preferencesStore.chart = ChartType.SankeyDiagram;
     		break;
     	case 7:
-    		this.preferencesStore.chart = VisualizationType.ParallelCoordinates;
+    		this.preferencesStore.chart = ChartType.ParallelCoordinates;
     		break;
     	case 8:
-    		this.preferencesStore.chart = VisualizationType.ForceField;
-    		break;
+    		this.preferencesStore.chart = ChartType.ForceField;
+    		break;*/
     	default: 
             break;
     	}
-    };*/
+    };
 
     get isDataLoaded(){
         return this.datasetStore.checkedDimensions.length < 2;

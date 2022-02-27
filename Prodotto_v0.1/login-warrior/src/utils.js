@@ -1,5 +1,5 @@
 export const ChartType = {
-    ScatterplotMatrix :"scatterplotMatrix",
+    Scatterplot :"scatterplot",
     SankeyDiagram : "sankeyDiagram",
     ForceDirected : "forceDirected",
     ParallelCoordinates : "parallelCoordinates",

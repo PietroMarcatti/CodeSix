@@ -3,12 +3,13 @@ import { computed, makeObservable, observable, action } from "mobx";
 export class ChartVM{
     constructor(rootStore){
         this.showPref = true;
-        //this.preferencesStore = rootStore.preferencesStore;
+        this.preferencesStore = rootStore.preferencesStore;
         this.datasetStore = rootStore.datasetStore;
+        
         makeObservable(this,{
             showPref: observable,
-            //chartToShow: computed,
-            //showChart: computed,
+            chartToShow: computed,
+            showChart: computed,
             togglePref: action,
         });
     };
@@ -17,11 +18,11 @@ export class ChartVM{
         this.showPref = !this.showPref;
     };
 
-    /*get chartToShow(){
+    get chartToShow(){
         return this.preferencesStore.chart;
-    };*/
+    };
 
     get showChart(){
-        return this.show;
+        return this.showPref;
     };
 }

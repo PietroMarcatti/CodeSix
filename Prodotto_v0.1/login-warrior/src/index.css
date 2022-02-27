@@ -29,12 +29,12 @@ html,body,#root {
 }
 
 #menu-wrapper{
-  flex: 1 1 auto;
   height: 100%;
   display: flex;
   flex-flow: column;
   background-color: var(--background-secondary);
   color: var(--text-primary);
+  width: 25%;
 }
 
 #menu-title{
@@ -146,7 +146,9 @@ button.btn-secondary{
   background-color: var(--title-background);
 }
 
-
+.hide-pref{
+  display: none;
+}
 
 
 
