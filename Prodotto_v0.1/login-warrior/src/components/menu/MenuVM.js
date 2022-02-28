@@ -2,14 +2,26 @@ import React from "react";
 import { action, computed, makeObservable, observable } from "mobx";
 import {MdUploadFile} from 'react-icons/md';
 import {AiOutlineCloudSync} from "react-icons/ai"
+import {MdScatterPlot} from "react-icons/md"
+import {SiRedux} from "react-icons/si"
+import {TiFlowSwitch} from "react-icons/ti";
+import {SiGraphql} from "react-icons/si"
 import {ChartType} from "../../utils";
+import {AiOutlineBranches} from "react-icons/ai"
 
 export class MenuVM{
 
     modalIsOpen = false;
     id=-1;
-    names=["Carica dati da CSV", "Salva o Ricarica Sessione", "Riduzione Dimensionale", "Scatterplot"];
-    icons=[<MdUploadFile size={32} className="icons"/>, <AiOutlineCloudSync size={32} className="icons"/>];
+    names=["Carica dati da CSV", "Gestisci Sessione", "Riduzione Dimensionale", "Scatterplot Matrix", "Sankey Diagram", "Force Directed Field", "Parallell Coordinates"];
+    icons=[<MdUploadFile size={32} className="icons"/>, 
+        <AiOutlineCloudSync size={32} className="icons"/>,
+        <SiRedux size={30}/>, 
+        <MdScatterPlot size={32} className="icons" />,
+        <TiFlowSwitch size={32} className="icons" />,
+        <SiGraphql size={32} className="icons"/>,
+        <AiOutlineBranches size={32} className="icons"/>
+    ];
     fileName = "";
 
     constructor(rootStore){
@@ -42,7 +54,7 @@ export class MenuVM{
     }
 
     showChart = index =>{
-        console.log(index, "dlksdslkdjk");
+        this.id = index;
         switch(index) {
     	case 3:
     		this.preferencesStore.chart = ChartType.Scatterplot;
@@ -50,12 +62,13 @@ export class MenuVM{
     	/*case 6:
     		this.preferencesStore.chart = ChartType.SankeyDiagram;
     		break;
+        case 8:
+    		this.preferencesStore.chart = ChartType.ForceField;
+    		break;
     	case 7:
     		this.preferencesStore.chart = ChartType.ParallelCoordinates;
-    		break;
-    	case 8:
-    		this.preferencesStore.chart = ChartType.ForceField;
     		break;*/
+    	
     	default: 
             break;
     	}

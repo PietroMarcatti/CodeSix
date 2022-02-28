@@ -52,12 +52,12 @@ const DimensionalReduction = observer((props)=>{
                 return(
                     <>
                         <Form.Group>
-                            <Form.Label>Perplessità</Form.Label>
-                            <Slider valueLabelDisplay="on" value={perplexity} min={20} max={200} onChange={handleChangePerplexity}/>
+                            <Form.Label>Perplessità: {perplexity}</Form.Label>
+                            <Slider  value={perplexity} min={20} max={200} onChange={handleChangePerplexity}/>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Epsilon</Form.Label>
-                            <Slider valueLabelDisplay="on" value={epsilon} min={5} max={100} onChange={handleChangeEpsilon}/>
+                            <Form.Label>Epsilon: {epsilon}</Form.Label>
+                            <Slider  value={epsilon} min={5} max={100} onChange={handleChangeEpsilon}/>
                         </Form.Group>
                     </>
                 );
@@ -126,26 +126,26 @@ const DimensionalReduction = observer((props)=>{
                             className="basic-multi-select" classNamePrefix="select" components={makeAnimated()} closeMenuOnSelect={false} onChange={handleChangeDimensionsToRedux}/>
                         </Form.Group>
                         <Form.Group controlId="algorithmType" id="alg">
-                            <Form.Label>Algoritmo</Form.Label>
+                            <Form.Label>Algoritmo: </Form.Label>
                             <Form.Control as="select" custom="true" value={algorithmType} onChange={handleChangeAlgorithmType}>
                                 <option value={AlgorithmTypes.Tsne}>t-SNE</option>
                                 <option value={AlgorithmTypes.Umap}>UMAP</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="newDimensionsName">
-                            <Form.Label>Nome nuove dimensioni</Form.Label>
+                            <Form.Label>Nome nuove dimensioni: </Form.Label>
                             <Form.Control required type="text" value={newDimensionsName} onChange={handleChangeNewDimensionsName} isInvalid={nameError}/>
                             <Form.Control.Feedback type="invalid">Nome invalido o già utilizzato</Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId="newDimensionsNumber">
-                            <Form.Label>Numero di nuove dimensioni</Form.Label>
+                            <Form.Label>Numero di nuove dimensioni: {newDimensionsNumber}</Form.Label>
                             <Slider value={newDimensionsNumber} onChange={handleChangeNewDimensionsNumber} min={2} max={8}/>
                         </Form.Group>
                         {renderParams()}
                     </ModalBody>
                     <ModalFooter>
-                        <button  onClick={closeModal}>Torna al menù</button>
-						<button type="submit" >
+                        <button  onClick={closeModal} className="red">Torna al menù</button>
+						<button type="submit" className="green" >
 							{isLoading? <><Spinner animation="border" size="sm"></Spinner><span>Riduzione in corso...</span></> : <span>Esegui riduzione</span>}
 						</button>
                     </ModalFooter>

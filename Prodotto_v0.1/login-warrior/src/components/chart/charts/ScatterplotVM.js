@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx";
 import * as d3 from "d3";
-import { MdFaceRetouchingNatural } from "react-icons/md";
 
 export class ScatterplotVM{
     constructor(rootStore){
@@ -10,7 +9,11 @@ export class ScatterplotVM{
     }
 
     get data(){
-		return this.datasetStore.selectedData;
+        this.datasetStore.selectedData.slice(0,3).forEach(element =>{
+            console.log(Object.entries(element));
+        })
+		return this.datasetStore.selectedData.slice(0,1000);
+        
 	}
 
     get axisX(){
@@ -46,7 +49,7 @@ export class ScatterplotVM{
     renderChart(){
         this.removeScatter();
 
-        if(this.axisX == undefined || this.axisY == undefined){
+        if(this.axisX === undefined || this.axisY === undefined){
             this.dataVisualizationDiv.append(document.createElement("div"));
             this.dataVisualizationDiv.firstChild.innerHTML= "Lo Scatterplot verrà visualizzato appena verranno selezionate le dimensioni per asse X e asse Y";
             return null;

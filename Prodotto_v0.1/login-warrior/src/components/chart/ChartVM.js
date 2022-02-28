@@ -2,27 +2,37 @@ import { computed, makeObservable, observable, action } from "mobx";
 
 export class ChartVM{
     constructor(rootStore){
-        this.showPref = true;
+        this.showPreferences = true;
         this.preferencesStore = rootStore.preferencesStore;
         this.datasetStore = rootStore.datasetStore;
         
         makeObservable(this,{
-            showPref: observable,
+            showPreferences: observable,
             chartToShow: computed,
-            showChart: computed,
+            showPref: computed,
             togglePref: action,
+            fileName: computed,
+            fileSize: computed,
         });
     };
 
     togglePref=() =>{
-        this.showPref = !this.showPref;
+        this.showPreferences = !this.showPreferences;
     };
 
     get chartToShow(){
         return this.preferencesStore.chart;
     };
 
-    get showChart(){
-        return this.showPref;
+    get showPref(){
+        return this.showPreferences;
     };
+
+    get fileName(){
+        return this.datasetStore.fileName;
+    }
+
+    get fileSize(){
+        return this.datasetStore.fileSize;
+    }
 }

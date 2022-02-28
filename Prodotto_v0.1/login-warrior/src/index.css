@@ -7,6 +7,8 @@
   --title-gradient: linear-gradient(90deg, rgba(1,73,208,1) 35%, rgba(1,88,250,1) 100%);
   --background-confirm: #4DBE5E;
   --background-danger: #BB2020;
+  --background-confirm-opacity: #4DBE5EBF ;
+  --background-danger-opacity: #BB2020BF;
   --background-alert: #F2B138;
 }
 
@@ -35,10 +37,12 @@ html,body,#root {
   background-color: var(--background-secondary);
   color: var(--text-primary);
   width: 25%;
+  flex: 1 0 auto;
+  max-width: 20em;
 }
 
 #menu-title{
-  background: var(--title-backgrounda);
+  background: var(--title-background);
   background: var(--title-gradient);
   padding: 0.3em;
   border-radius: 20px 40px ;
@@ -46,6 +50,12 @@ html,body,#root {
   font-size: 2em;
   text-align: center;
   
+}
+
+#popover-basic{
+  background-color: var(--background-tertiary) ;
+  padding: 0.5em;
+  border-radius: 15px;
 }
 
 .navbar-nav{
@@ -58,8 +68,19 @@ button.nav-link {
   color: var(--text-primary);
   display: flex;
   align-items: center;
-  font-size: 24px;
+  font-size: 18px;
   margin:1em 0em;
+}
+
+button.disabled {
+  opacity: 0.50;
+}
+
+li.nav-item.active {
+  background-color: var(--title-background);
+  background-color: var(--title-gradient);
+  color: #4DBE5E;
+  border-radius: 15px;
 }
 
 button.nav-link span{
@@ -68,8 +89,10 @@ button.nav-link span{
   font-weight: bold;
 }
 
-#mockup-content, #chart{
-  flex: 30 1 auto;
+.content{
+  flex: 30 0 auto;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
 }
 
 div.modal{
@@ -87,6 +110,7 @@ div.modal{
 div.row{
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-direction: row;
 }
 
@@ -140,8 +164,29 @@ div.modal button{
   font-weight: bold;
 };
 
-button.btn-secondary{
+
+.col{
+  display: flex;
+  flex-flow:row;
+  justify-content: space-between;
+  margin: 0.5em 0em;
+}
+
+.modal-footer button.red {
   margin-right: 0.5em;
+}
+
+#input-session, #newDimensionsName{
+  height: 2em;
+  border-radius: 10px;
+  border: transparent;
+  margin-right: 0.5em;
+  padding-left: 0.9em;
+  font-size: 16px;
+}
+
+#alg{
+  margin-top: 1em;
 }
 
 .red{
@@ -156,13 +201,129 @@ button.btn-secondary{
   background-color: var(--title-background);
 }
 
-.hide-pref{
-  display: none;
-}
+
 
 #form-dimensions-names{
   height: 300px;
   width: 500px;
   overflow: auto;
   margin-bottom: 1em;
+}
+
+.center-graph {
+  border: 2px solid var(--background-tertiary);
+  margin-left: 1em;
+  padding: 1em;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  margin-top: 3em;
+  width: fit-content;
+}
+
+/* Preferenze */
+
+.pref-container{
+  background-color: var(--background-secondary);
+  border-radius: 15px;
+  color: var(--text-primary);
+  padding: 1em;
+  width: fit-content;
+  float: right;
+  margin: 3em;
+}
+
+.pref-title{
+  margin-top: 0em;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.btn-pref{
+  background: var(--title-background);
+  background: var(--title-gradient);
+  color:var(--text-primary);
+  padding: 0.8em;
+  font-weight: bold;
+  border: transparent;
+  border-radius: 15px;
+  height: 3em;
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+  float: right;
+}
+
+.btn-pref svg{
+  margin-left: 0.7em;
+}
+
+.pref-field{
+  display: flex;
+  flex-flow:row;
+  justify-content: space-between;
+  margin: 0.5em 0em;
+}
+
+label.form-control, label.form-label {
+  margin-right: 1em;
+}
+
+select.form-control{
+  border: 1px solid var(--text-primary);
+  border-radius: 5px;
+  background-color: transparent;
+  color: var(--text-primary);
+  width: fit-content;
+  height: 2em;
+  padding: 0.3em;
+}
+
+
+.form-control option{
+  appearance: none;
+  background-color: var(--background-secondary);
+  border-radius: 0px 0px 5px 5px;
+  border: var(--text-primary);
+  color: var(--text-primary);
+}
+
+.hide-pref{
+  display: none;
+}
+
+/* Grafico */
+
+div.chart div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+div.chart{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Alert */
+
+.alert{
+  z-index: 1;
+  border-radius: 15px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: var(--text-primary);
+  padding: 1em;
+}
+
+.success{
+  background-color: var(--background-confirm-opacity);
+}
+
+.danger{
+  background-color: var(--background-danger-opacity);
+  opacity: 0.5;
 }

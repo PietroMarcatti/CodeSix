@@ -4,7 +4,7 @@ import CsvReader from './CsvReader';
 import DimensionsList from './DimensionsList';
 import { useStore } from "../../../../ContextProvider";
 import { useInstance } from "../../../../useInstance";
-import { Modal, ModalBody, ModalFooter, Alert, Button } from "react-bootstrap";
+import { Modal, ModalBody, ModalFooter, Alert} from "react-bootstrap";
 import { LoadCsvVM } from './LoadCsvVM';
 import { MdUploadFile } from "react-icons/md";
 
@@ -58,17 +58,17 @@ const LoadCsv = observer((props) =>{
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                    <Button className="red" variant="secondary" onClick={handleDismiss}>Torna al menù</Button>
-                    <Button className="green" variant="primary" onClick={handleConfirm}>Conferma selezione</Button>
+                    <button className="red"  onClick={handleDismiss}>Torna al menù</button>
+                    <button className="green"  onClick={handleConfirm}>Conferma selezione</button>
                 </ModalFooter>
             </Modal>
-            <Alert show={showSuccess} variant="success" className="alert" dismissible onClose={setShowSuccess.bind(null,false)}>
+            <Alert show={showSuccess} variant="success" className="alert success" dismissible onClose={setShowSuccess.bind(null,false)}>
                 <Alert.Heading>Avviso</Alert.Heading>
                 <p>
-                    Ora puoi applicare una riduzione dimensinoale ai tuoi dati o scegliere subito la visualizzazione che più preferisci
+                    Ora puoi applicare una riduzione dimensionale ai tuoi dati o scegliere subito la visualizzazione che più preferisci
                 </p>
             </Alert>
-            <Alert show={showDanger} variant="danger" className="alert" dismissible onClose={setShowDanger.bind(null,false)}>
+            <Alert show={showDanger} variant="danger" className="alert danger" dismissible onClose={setShowDanger.bind(null,false)}>
                 <Alert.Heading>Avviso</Alert.Heading>
                 <p>
                     Nessun dato è stato caricato. Assicurati di aver inserito il file e premuto il tasto "<strong>Conferma selezione</strong>"

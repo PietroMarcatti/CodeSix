@@ -17,7 +17,7 @@ const ScatterPlot = observer(()=>{
     useEffect(()=>{renderChart();},[axisX,axisY,pointSize,color,shape]);
 
     return(
-        <div id="scatterplot"></div>
+        <div id="scatterplot" className="chart"></div>
     );
 });
 
