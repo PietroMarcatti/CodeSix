@@ -34,14 +34,14 @@ const DimensionsList = observer((props)=>{
                                 dimensions.filter(dim => !dim.isReduced).map((dim,dimId)=>{
                                     
                                     return (
-                                        <> <Row >
-                                                <Col>
-                                                    <Form.Check custom="true" inline type="checkbox" checked={dim.isChecked} key={dim.value} id={dim.value}
+                                        <> <Row key={"r"+dimId}>
+                                                <Col key={dim.value}>
+                                                    <Form.Check custom="true" inline type="checkbox" checked={dim.isChecked} id={dim.value}
                                                     label={dim.value} onChange={selectDimension}/>
                                                 </Col>
-                                                <Col>
+                                                <Col key={dimId}>
                                                     <Form.Label>Interpreta come:</Form.Label>
-                                                    <Form.Control key={dimId} label="Intepreta come:" custom="true" as="select" value={localCasts[dimId]} onChange={handleSelectChangeCast.bind(null)}>
+                                                    <Form.Control  label="Intepreta come:" custom="true" as="select" value={localCasts[dimId]} onChange={handleSelectChangeCast.bind(null)}>
                                                         <option id={dimId+"-"+0} value={"auto"} key={"noCast"}>Auto</option>
                                                         {castChoices.map((d,i) => {
                                                             return <option id={dimId+"-"+(i+1)} value={d} key={d+i+1}>{d}</option>

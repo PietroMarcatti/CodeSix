@@ -59,9 +59,10 @@ export class MenuVM{
     	case 3:
     		this.preferencesStore.chart = ChartType.Scatterplot;
     		break;
-    	/*case 6:
-    		this.preferencesStore.chart = ChartType.SankeyDiagram;
+    	case 6:
+    		this.preferencesStore.chart = ChartType.ParallelCoordinates;
     		break;
+        /*
         case 8:
     		this.preferencesStore.chart = ChartType.ForceField;
     		break;

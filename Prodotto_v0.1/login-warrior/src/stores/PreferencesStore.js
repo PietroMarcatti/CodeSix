@@ -1,11 +1,13 @@
 import {makeAutoObservable} from "mobx";
 import ScatterplotPreferences from "./preferences/ScatterplotPreferences";
+import ParallelCoordinatesPreferences from "./preferences/ParallelCoordinatesPreferences";
 
 class PreferencesStore {
 	constructor(rootStore){
 		this.rootStore = rootStore;
 		this.chart = undefined;
         this.scatterplotPreferences = new ScatterplotPreferences();
+		this.parallelCoordinatesPreferences = new ParallelCoordinatesPreferences();
 
 		/*this.preferencesAm = new PreferencesAM();
 		this.preferencesHm = new PreferencesHM();
@@ -18,7 +20,8 @@ class PreferencesStore {
     toJSON(){
 		return {
 			chart: this.chart ? this.chart : "undefined",
-			scatterplotPreferences: this.scatterplotPreferences
+			scatterplotPreferences: this.scatterplotPreferences,
+			parallelCoordinatesPreferences: this.parallelCoordinatesPreferences,
 
             /*preferencesAm: this.preferencesAm,
 			preferencesFf: this.preferencesFf,
@@ -30,7 +33,7 @@ class PreferencesStore {
 	fromJSON(store){
 		this.chart = store.chart!== "undefined" ? store.chart : undefined;
 		this.scatterplotPreferences.fromJSON(store.scatterplotPreferences);
-
+		this.parallelCoordinatesPreferences.fromJSON(store.parallelCoordinatesPreferences);
         /*this.preferencesAm.fromJSON(store.preferencesAm);
 		this.preferencesFf.fromJSON(store.preferencesFf);
 		this.preferencesHm.fromJSON(store.preferencesHm);
@@ -40,6 +43,7 @@ class PreferencesStore {
 	reset(){
 		this.chart = undefined;
         this.scatterplotPreferences = new ScatterplotPreferences();
+		this.parallelCoordinatesPreferences = new ParallelCoordinatesPreferences();
 
 		/*this.preferencesAm = new PreferencesAM();
 		this.preferencesHm = new PreferencesHM();

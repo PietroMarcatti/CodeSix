@@ -307,6 +307,13 @@ div.chart{
   justify-content: center;
 }
 
+.axis {
+  opacity: 0.4;
+}
+
+.axis:hover {
+  opacity: 1;
+}
 /* Alert */
 
 .alert{

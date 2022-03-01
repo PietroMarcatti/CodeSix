@@ -7,7 +7,6 @@ import Chart from './chart/Chart';
 const View = () =>{
     const rootStore = new RootStore();
     return(
-        console.log(rootStore.datasetStore.fileName),
         <AppContextProvider value={rootStore}>
             <div id='page-wrapper'>
                 <Menu/>

@@ -7,6 +7,8 @@ import {ChartType} from "../../utils";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import Scatterplot from "./charts/Scatterplot";
 import ScatterplotPreferencesSelection from "./preferences/ScatterplotPreferencesSelection";
+import ParallelCoordinates from "./charts/ParallelCoordinates";
+import ParallelCoordinatesPreferencesSelection from "./preferences/ParallelCoordinatesPreferencesSelection";
 import Draggable from "react-draggable"
 
 const Chart = observer(()=>{
@@ -26,6 +28,8 @@ const Chart = observer(()=>{
         switch(chartToShow){
             case ChartType.Scatterplot:
                 return <ScatterplotPreferencesSelection/>;
+            case ChartType.ParallelCoordinates:
+                return <ParallelCoordinatesPreferencesSelection/>;
             default:
                 return null;
         }
@@ -35,6 +39,8 @@ const Chart = observer(()=>{
         switch(chartToShow){
             case ChartType.Scatterplot:
                 return <Scatterplot/>;
+            case ChartType.ParallelCoordinates:
+                return <ParallelCoordinates/>;
             default:
                 return null;
         }

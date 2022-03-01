@@ -42,6 +42,7 @@ export class DimensionalReductionVM{
     }
 
     set dimensionsToRedux(value){
+        console.log(value);
         this._dimensionsToRedux = value;
     }
 
@@ -71,7 +72,7 @@ export class DimensionalReductionVM{
     handleSubmit = () =>{
         try{
             let data = this.datasetStore.selectedData.map(obj => this.dimensionsToRedux.map((dim)=> obj[dim.value]));
-            
+            console.log("Data: ",data);
             if(this.normalize){
                 data = this.normalizeData(data);
                 this.normalize = false;
@@ -177,6 +178,7 @@ export class DimensionalReductionVM{
 	};
 
     handleChangeDimensionsToRedux(value,handler){
+        console.log("Value: ",value);
         switch(handler.action){
             case "select-option":
                 this.dimensionsToRedux = value; break;
