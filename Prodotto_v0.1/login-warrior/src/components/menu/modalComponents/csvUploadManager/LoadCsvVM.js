@@ -23,12 +23,30 @@ export class LoadCsvVM {
         }, {autoBind: true});
     }
 
+    castData(){
+        console.log(this.casts.slice());
+        try{
+            this.casts.forEach(value =>{
+                console.log(value)
+                if(value.value === "Data"){
+                    this.localData.forEach((rowObject,index) =>{
+                        rowObject[value.id]= new Date(rowObject[value.id]);
+                    });
+                }
+            })
+
+            
+        }catch(e){
+            console.log("Error: ",e);
+        }
+    }
+
     loadDataAndDims=()=>{
         if(this.localData.length > 0){
             this.datasetStore.reset();
             //this.distanceMatricesStore.reset();
             //this.preferencesStore.reset();
-            console.log(this.localData.slice());
+            this.castData();
             this.datasetStore.loadCasts([...this.localCasts]);
             this.datasetStore.loadData([...this.localData]);
             this.datasetStore.loadDimensions([...this.localDimensions]);
@@ -94,7 +112,7 @@ export class LoadCsvVM {
         }else{
             this.casts.push({value:event.target.value, id: dim});
         }
-        
+        console.log(this.casts.slice());
     }
 
     handleConfirm=()=>{
@@ -105,7 +123,6 @@ export class LoadCsvVM {
 
     handleDismiss=()=>{
         this.resetAndClose();
-        this.openAlertDanger();
     };
 
     openAlertSuccess=()=>{

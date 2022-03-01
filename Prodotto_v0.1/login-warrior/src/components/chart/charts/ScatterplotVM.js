@@ -1,7 +1,5 @@
 import { makeAutoObservable } from "mobx";
 import * as d3 from "d3";
-import { MdFaceRetouchingNatural } from "react-icons/md";
-import { height } from "@mui/system";
 
 export class ScatterplotVM{
     constructor(rootStore){
@@ -11,7 +9,11 @@ export class ScatterplotVM{
     }
 
     get data(){
-		return this.datasetStore.selectedData;
+        this.datasetStore.selectedData.slice(0,3).forEach(element =>{
+            console.log(Object.entries(element));
+        })
+		return this.datasetStore.selectedData.slice(0,1000);
+        
 	}
 
     get axisX(){

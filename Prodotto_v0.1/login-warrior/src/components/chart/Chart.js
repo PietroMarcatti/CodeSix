@@ -4,22 +4,25 @@ import { useStore } from "../../ContextProvider";
 import { ChartVM } from "./ChartVM";
 import { useInstance } from "../../useInstance";
 import {ChartType} from "../../utils";
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import Scatterplot from "./charts/Scatterplot";
 import ScatterplotPreferencesSelection from "./preferences/ScatterplotPreferencesSelection";
+import Draggable from "react-draggable"
 
 const Chart = observer(()=>{
     const {
         togglePref,
-        showChart,
+        showPref,
+        fileName,
+        fileSize,
         chartToShow
     } = useInstance(new ChartVM(useStore()));
 
     function prefBtnText(){
-        return showChart ? "Nascondi opzioni" : "Mostra opzioni";
+        return showPref ? <>Nascondi opzioni<MdVisibility size={18}/> </> : <>Mostra opzioni <MdVisibilityOff size={18}/></>;
     }
 
     function renderPreferences(){
-        console.log(chartToShow, "renderPreferences");
         switch(chartToShow){
             case ChartType.Scatterplot:
                 return <ScatterplotPreferencesSelection/>;
@@ -39,15 +42,17 @@ const Chart = observer(()=>{
 
     return(
         <div className="content">
-            <div className="pref-container">
-                <>
-                    {chartToShow !== undefined ? <button className="btn-pref" onClick={togglePref.bind(null)}>{prefBtnText()}</button> : <></>}
-                    <div className={showChart ? "show-pref": "hide-pref"}>
-                        {renderPreferences()}
+            <Draggable cancel="button .pref-field">
+                <div className="pref-container">
+                    <div className={showPref ? "show-pref": "hide-pref"}>
+                        <p className="pref-title">Opzioni</p>
+                        <p>{fileName+"  "+fileSize}</p>
+                        {chartToShow ? renderPreferences() : "Nessuna opzione disponibile,. Scegli una visualizzazione"}
                     </div>
-                </>
-            </div>
-            <div className={showChart ? null : "center-graph"}>
+                    <button className="btn-pref" onClick={togglePref.bind(null)}>{prefBtnText()}</button>
+                </div>
+            </Draggable>
+            <div className={chartToShow!== undefined ? "center-graph" : ""}>
                 {renderCharts()}
             </div>
         </div>

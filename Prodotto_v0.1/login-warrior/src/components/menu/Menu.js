@@ -51,13 +51,13 @@ const Menu = observer(() =>{
                     <ul className='navbar-nav'>
                         {names.map((name, index)=>{
                             return(
-                                <li className='nav-item' key={name}>
+                                <li className={id===index ? 'nav-item active' : 'nav-item'} key={name}>
                                     {checkToDisabled(index) ?
                                         <OverlayTrigger
                                             overlay={popover}
                                             delay={{show:200, hide:0}}>
                                                 <span className='d-inline-block'>
-                                                    <button className='nav-link' disabled aria-disabled="true" style={{pointerEvents: "none"}}>
+                                                    <button className='nav-link disabled' disabled aria-disabled="true" style={{pointerEvents: "none"}}>
                                                         {icons[index]}
                                                         <span className='link-text'>{name}</span>
                                                     </button>

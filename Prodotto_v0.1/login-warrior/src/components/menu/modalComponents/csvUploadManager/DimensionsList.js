@@ -15,7 +15,6 @@ const DimensionsList = observer((props)=>{
     }=props;
 
     return(
-        console.log(isDataLoaded," data loaded"),
         <Form>
             {
                 isDataLoaded ? 
@@ -32,7 +31,6 @@ const DimensionsList = observer((props)=>{
                         }
                         <Form.Group id="form-dimensions-names">
                             {
-                                console.log("localcast 0: ",localCasts[0]),
                                 dimensions.filter(dim => !dim.isReduced).map((dim,dimId)=>{
                                     
                                     return (
