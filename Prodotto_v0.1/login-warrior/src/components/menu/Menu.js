@@ -7,6 +7,7 @@ import { MenuVM } from './MenuVM';
 import { useInstance } from '../../useInstance';
 import SessionManager from './modalComponents/sessionManager/SessionManager';
 import DimensionalReduction from './modalComponents/dimensionalReductionManager/DimensionalReduction';
+import DistanceCalculation from "./modalComponents/distanceCalculationManager/DistanceCalculation";
 
 const Menu = observer(() =>{
     const{
@@ -30,6 +31,8 @@ const Menu = observer(() =>{
                 return <SessionManager modalIsOpen={modalIsOpen} closeModal={closeModal.bind(null)}/>;
             case 2:
                 return <DimensionalReduction modalIsOpen={modalIsOpen} closeModal={closeModal.bind(null)}/>;
+            case 3:
+                return <DistanceCalculation modalIsOpen={modalIsOpen} closeModal={closeModal.bind(null)}/>;
             default:
                 break;
         }
@@ -63,7 +66,7 @@ const Menu = observer(() =>{
                                                     </button>
                                                 </span>
                                         </OverlayTrigger>:
-                                        <button className='nav-link' onClick={index < 3 ? openModal.bind(null, index): showChart.bind(null,index)}>
+                                        <button className='nav-link' onClick={index < 4 ? openModal.bind(null, index): showChart.bind(null,index)}>
                                             {icons[index]}
                                             <span className='link-text'>{name}</span>
                                         </button>

@@ -192,7 +192,7 @@ export class ScatterplotVM{
     renderChart(){
         this.removeScatter();
 
-        if(this.axisX == undefined || this.axisY == undefined){
+        if(this.axisX === undefined || this.axisY === undefined){
             this.scatterPlotDiv.append(document.createElement("div"));
             this.scatterPlotDiv.firstChild.innerHTML= "Lo Scatterplot verrà visualizzato appena verranno selezionate le dimensioni per asse X e asse Y";
             return null;

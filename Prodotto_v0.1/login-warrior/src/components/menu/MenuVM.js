@@ -8,15 +8,17 @@ import {TiFlowSwitch} from "react-icons/ti";
 import {SiGraphql} from "react-icons/si"
 import {ChartType} from "../../utils";
 import {AiOutlineBranches} from "react-icons/ai"
+import {FaSquareRootAlt} from "react-icons/fa"
 
 export class MenuVM{
 
     modalIsOpen = false;
     id=-1;
-    names=["Carica dati da CSV", "Gestisci Sessione", "Riduzione Dimensionale", "Scatterplot Matrix", "Sankey Diagram", "Force Directed Field", "Parallell Coordinates"];
+    names=["Carica dati da CSV", "Gestisci Sessione", "Riduzione Dimensionale","Calcolo delle distanze", "Scatterplot Matrix", "Sankey Diagram", "Force Directed Field", "Parallell Coordinates"];
     icons=[<MdUploadFile size={32} className="icons"/>, 
         <AiOutlineCloudSync size={32} className="icons"/>,
-        <SiRedux size={30}/>, 
+        <SiRedux size={30}/>,
+        <FaSquareRootAlt size={32} className="icons"/>,
         <MdScatterPlot size={32} className="icons" />,
         <TiFlowSwitch size={32} className="icons" />,
         <SiGraphql size={32} className="icons"/>,
@@ -28,7 +30,7 @@ export class MenuVM{
         this.preferencesStore= rootStore.preferencesStore;
         this.datasetStore = rootStore.datasetStore;
         
-        //this.distanceMatricesStore = rootStore.distanceMatricesStore;
+        this.distanceMatricesStore = rootStore.distanceMatricesStore;
         this.checkToDisabled = this.checkToDisabled.bind(this);
         this.fileName= this.datasetStore.fileName;
 
@@ -39,7 +41,7 @@ export class MenuVM{
             openModal: action,
             closeModal: action,
             showChart: action,
-            //distanceMatricesNumber: computed,
+            distanceMatricesNumber: computed,
             isDataLoaded: computed,
         });
     }
@@ -56,10 +58,10 @@ export class MenuVM{
     showChart = index =>{
         this.id = index;
         switch(index) {
-    	case 3:
+    	case 4:
     		this.preferencesStore.chart = ChartType.Scatterplot;
     		break;
-    	case 6:
+    	case 7:
     		this.preferencesStore.chart = ChartType.ParallelCoordinates;
     		break;
         /*
@@ -67,7 +69,7 @@ export class MenuVM{
     		this.preferencesStore.chart = ChartType.ForceField;
     		break;
     	case 7:
-    		this.preferencesStore.chart = ChartType.ParallelCoordinates;
+    		this.preferencesStore.chart = ChartType.SankeyDiagram;
     		break;*/
     	
     	default: 
@@ -79,11 +81,11 @@ export class MenuVM{
         return this.datasetStore.checkedDimensions.length < 2;
     }
 
-    /*get distanceMatricesNumber(){
+    get distanceMatricesNumber(){
         return this.distanceMatricesStore.distanceMatricesNames.length < 1;
-    }*/
+    }
 
     checkToDisabled = index =>{
-        return (index >=2 && this.isDataLoaded) || (index === 8 && this.distanceMatricesNumber);
+        return (index >=2 && this.isDataLoaded) || ((index === 9|| index ===8) && this.distanceMatricesNumber);
     }
 }
