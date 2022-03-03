@@ -36,21 +36,19 @@ export class ScatterplotVM{
         return document.getElementById("scatterplot");
     }
 
+    get dataVisualization(){
+        return document.getElementById("data-visualization");
+    }
+
     removeScatter(){
-        if(document.getElementById("data-visualization") !== null)
-            document.getElementById("data-visualization").remove();
-        
-        if(document.getElementById("color-legend") !== null)
-            document.getElementById("color-legend").remove();
-        
-        if(document.getElementById("shape-legend") !== null)
-            document.getElementById("shape-legend").remove();
+        if(this.dataVisualization !== null)
+            this.dataVisualization.remove();
     }
 
     drawScatterPlot(){
-        var margin = {top: 10, right: 30, bottom: 30, left: 60},
-			width = 700 - margin.left - margin.right,
-		    height = 650 - margin.top - margin.bottom;
+        var margin = {top: 10, right: 520, bottom: 70, left: 60},
+			width = 1080 - margin.left - margin.right,
+		    height = 580 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
 		var svg = d3.select("#scatterplot")
@@ -88,7 +86,7 @@ export class ScatterplotVM{
 		}
 
         // Check color
-        if(this.color !== undefined){
+        if(this.color !== undefined){            
             var color_f = d3.scaleOrdinal(this.data.map(d => d[this.color]), d3.schemeCategory10);
         }
 
@@ -109,84 +107,121 @@ export class ScatterplotVM{
           .data(this.data)
           .join("path")
             .attr("transform", d => {return "translate("+x(d[axX])+","+y(d[axY])+")";})
-            .attr("fill", d => {return color_f === undefined ? "black" : color_f(d[clr]);})
+            .attr("fill", d => {return color_f === undefined ? "white" : color_f(d[clr]);})
             .attr("d", d => {
                 let sz= size_f === undefined ? 40 : size_f(d[ptSz]);     
                 return shape_f === undefined ? d3.symbol().type(d3.symbolCircle).size(sz)() : d3.symbol().type(shape_f(d[shp])).size(sz)();
             });
         
         // Add legend
-        this.drawLegend(color_f, shape_f);
+        this.drawLegend(color_f, shape_f, size_f);
     }
 
     drawColorLegend(colorFunction){
-        var svg= d3.select("#scatterplot")
-            .append("svg")
-            .attr("id", "color-legend")
-            .attr("height", 45 + (colorFunction.domain().length-1)*25)
-            .attr("width", 250);
-        
-        svg.append("text")
-            .attr("x", 0)
+        var colorLegend= d3.select("#data-visualization")
+            .append("g")
+            .attr("id", "color-legend");
+
+        colorLegend.append("text")
+            .attr("x", 600)
             .attr("y", 15)
-            .text("Legenda - colore dei punti:");
-        
-        svg.selectAll("dots")
+            .style("fill", "white")
+            .text(this.color+" - colore dei punti:");
+          
+        colorLegend.selectAll("dots")
             .data(colorFunction.domain())
             .enter()
             .append("circle")
-              .attr("cx", 15)
+              .attr("cx", 620)
               .attr("cy", (d,i) => {return 35 + i*25;})
               .attr("r", 6)
               .style("fill", d => {return colorFunction(d);});
-          
+            
         // Add one dot in the legend for each name
-        svg.selectAll("labels")
+        colorLegend.selectAll("labels")
             .data(colorFunction.domain())
             .enter()
             .append("text")
-              .attr("x", 25)
+              .attr("x", 630)
               .attr("y", (d,i) => {return 40 + i*25;})
               .style("fill", d => {return colorFunction(d);})
               .text(d => {return d;});
     }
 
     drawShapeLegend(shapeFunction){
-        var svg= d3.select("#scatterplot")
-            .append("svg")
-            .attr("id", "shape-legend")
-            .attr("height", 45 + (shapeFunction.domain().length-1)*25)
-            .attr("width", 250);
-        
-        svg.append("text")
-            .attr("x", 0)
+        var shapeLegend= d3.select("#data-visualization")
+            .append("g")
+            .attr("id", "shape-legend");
+          
+        shapeLegend.append("text")
+            .attr("x", 850)
             .attr("y", 15)
-            .text("Legenda - forma dei punti:");
-        
-        svg.selectAll("path")
+            .style("fill", "white")
+            .text(this.shape+" - forma dei punti:");
+          
+        shapeLegend.selectAll("shape")
             .data(shapeFunction.domain())
             .join("path")
-            .attr("transform", (d,i) => {return "translate(15,"+(35 + i*25)+")";})
-              .style("fill", "black")
+            .attr("transform", (d,i) => {return "translate(870,"+(35 + i*25)+")";})
+              .style("fill", "white")
               .attr("d", d => {return d3.symbol().type(shapeFunction(d)).size(100)();});
-          
+            
         // Add one dot in the legend for each name
-        svg.selectAll("labels")
+        shapeLegend.selectAll("labels")
             .data(shapeFunction.domain())
             .enter()
             .append("text")
-              .attr("x", 25)
+              .attr("x", 880)
               .attr("y", (d,i) => {return 40 + i*25;})
-              .style("fill", "black")
+              .style("fill", "white")
               .text(d => {return d;});
     }
 
-    drawLegend(colorFunction, shapeFunction){
+    drawAxisLegend(){
+        var axisXLegend= d3.select("#data-visualization")
+            .append("g")
+            .attr("id", "axisX-legend");
+        
+        axisXLegend.append("text")
+            .attr("x",400)
+            .attr("y", 560)
+            .style("fill", "white")
+            .text(this.axisX);
+
+        var axisYLegend= d3.select("#data-visualization")
+            .append("g")
+            .attr("id", "axisY-legend");
+        
+        axisYLegend.append("text")
+            .attr("x", -270)
+            .attr("y", 15)
+            .attr("transform", "rotate(-90)")
+            .style("fill", "white")
+            .text(this.axisY);       
+    }
+
+    drawPointSizeLegend(){
+        var sizeLegend= d3.select("#data-visualization")
+            .append("g")
+            .attr("id", "size-legend");
+        
+        sizeLegend.append("text")
+            .attr("x", 60)
+            .attr("y", 560)
+            .style("fill", "white")
+            .text(this.pointSize+" - grandezza dei punti");
+    }
+
+    drawLegend(colorFunction, shapeFunction, pointSizeFunction){
+        this.drawAxisLegend();
         if(colorFunction !== undefined)
             this.drawColorLegend(colorFunction);    
 
         if(shapeFunction !== undefined)
             this.drawShapeLegend(shapeFunction);
+        
+        if(pointSizeFunction !== undefined)
+            this.drawPointSizeLegend();
     }
 
     renderChart(){
@@ -195,6 +230,7 @@ export class ScatterplotVM{
         if(this.axisX == undefined || this.axisY == undefined){
             this.scatterPlotDiv.append(document.createElement("div"));
             this.scatterPlotDiv.firstChild.innerHTML= "Lo Scatterplot verrà visualizzato appena verranno selezionate le dimensioni per asse X e asse Y";
+            this.scatterPlotDiv.firstChild.setAttribute("id", "data-visualization");
             return null;
         }
 
