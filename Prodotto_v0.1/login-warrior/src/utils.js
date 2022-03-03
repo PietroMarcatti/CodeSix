@@ -5,6 +5,12 @@ export const ChartType = {
     ParallelCoordinates : "parallelCoordinates",
 };
 
+export const DistanceType ={
+    Euclidean : "euclidean",
+    Manhattan : "manhattan",
+    Chebyshev : "chebyshev",
+};
+
 export const AlgorithmTypes = {
     Tsne : "tsne",
     Umap : "umap",
