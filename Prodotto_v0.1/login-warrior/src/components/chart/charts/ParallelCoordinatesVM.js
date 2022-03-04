@@ -30,18 +30,45 @@ export class ParallelCoordinatesVM{
         }
     };
 
-    renderChart(){
-        this.removeParallel();
+    drawLegend(colorFunction){
+        if(colorFunction !== undefined)
+            this.drawColorLegend(colorFunction);    
+    }
 
+    drawColorLegend(colorFunction){
+        var colorLegend= d3.select("#data-visualization")
+            .append("g")
+            .attr("id", "color-legend");
+
+        colorLegend.append("text")
+            .attr("x", 600)
+            .attr("y", 15)
+            .style("fill", "white")
+            .text(this.color+" - colore dei punti:");
+          
+        colorLegend.selectAll("dots")
+            .data(colorFunction.domain())
+            .enter()
+            .append("circle")
+              .attr("cx", 620)
+              .attr("cy", (d,i) => {return 35 + i*25;})
+              .attr("r", 6)
+              .style("fill", d => {return colorFunction(d);});
+            
+        // Add one dot in the legend for each name
+        colorLegend.selectAll("labels")
+            .data(colorFunction.domain())
+            .enter()
+            .append("text")
+              .attr("x", 630)
+              .attr("y", (d,i) => {return 40 + i*25;})
+              .style("fill", d => {return colorFunction(d);})
+              .text(d => {return d;});
+    }
+
+    drawParallel(){
         var axesT = this.axes;
         var color = this.color;
-        console.log("Color: ",color)
-
-        if(this.axes.length< 2){
-            this.dataVisualizationDiv.append(document.createElement("div"));
-            this.dataVisualizationDiv.firstChild.innerHTML= "Il Parallel Coordinates verrà visualizzato appena avrai selezionato almeno due assi.";
-            return null;
-        }
 
         var margin = {top: 30, right: 10, bottom: 10, left: 0},
         width = 500 - margin.left - margin.right,
@@ -50,6 +77,7 @@ export class ParallelCoordinatesVM{
         // append the svg object to the body of the page
         var svg = d3.select("#parallel")
         .append("svg")
+        .attr("id", "data-visualization")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -73,12 +101,23 @@ export class ParallelCoordinatesVM{
             .domain(axesT);
         
         let colorDomain = d3.extent(this.data, (d) => {return +d[color]; });
-        var palette;
-        if(colorDomain[0] || colorDomain[0] === 0)
+        var palette = undefined;
+        if(Math.abs(colorDomain[1]-colorDomain[0])>10)
             palette =  d3.scaleLinear().domain(colorDomain).range(["yellow", "blue"]);//
         else{
             palette = d3.scaleOrdinal(d3.schemeCategory10);
         }
+
+        var tooltip = d3.select("#data-visualization")
+        .append("div")
+        .style("opacity", 0)
+        .attr("class", "tooltip")
+        .style("background-color", "white")
+        .style("border", "solid")
+        .style("border-width", "2px")
+        .style("border-radius", "5px")
+        .style("padding", "5px")
+        .attr("z-index", 2)
         
 
         var highlight = function(event, d){
@@ -89,20 +128,28 @@ export class ParallelCoordinatesVM{
                 .style("stroke", "lightgrey")
                 .style("opacity", "0.2")
             // Second the hovered specie takes its color
-            var uri = encodeURIComponent(color)
-            d3.selectAll("." + uri)
+            d3.selectAll('[data-color = \"'+d[color]+'\"]')
                 .transition().duration(200)
                 .style("stroke", palette(selected_specie))
                 .style("opacity", "1")
+            tooltip.style("opacity", 1)
             console.log("Valore: ",selected_specie, "Colore: ",palette(selected_specie));
         }
         
-            // Unhighlight
+        // Unhighlight
         var doNotHighlight = function(event, d){
             d3.selectAll(".line")
                 .transition().duration(200).delay(1000)
                 .style("stroke", function(d){ return( palette(d[color]))} )
                 .style("opacity", "1")
+            tooltip.style("opacity", 0)
+        }
+
+        var mousemove = function(event, d) {
+            tooltip
+              .html(color+" is: " + d[color])
+              .style("left", (d3.pointer(event)[0]+70) + "px")
+              .style("top", (d3.pointer(event)[1]) + "px")
         }
 
         // Draw the lines
@@ -110,12 +157,14 @@ export class ParallelCoordinatesVM{
             .selectAll("myPath")
             .data(this.data)
             .enter().append("path")
-            .attr("class", function (d) { return "line " + color } )
+            .attr("class", function (d) { return "line" } )
+            .attr("data-color", function (d){ return d[color]})
             .attr("d",  function(d) { return d3.line()( axesT.map( function (p) { return [x(p),y[p](d[p])]; } )) })
             .style("fill", "none")
             .style("stroke", function(d){ return( palette(d[color]))} )
             .style("opacity", 0.5)
             .on("mouseover", highlight)
+            .on("mousemove", mousemove)
             .on("mouseleave", doNotHighlight )
 
         // Draw the axis:
@@ -134,7 +183,21 @@ export class ParallelCoordinatesVM{
             .attr("y", -9)
             .text(function(d) { return d; })
             .style("fill", "#fdfdfd")
+        
+        this.drawLegend(palette);
+    }
 
-    
+    renderChart(){
+        this.removeParallel();
+
+        if(this.axes.length< 2){
+            this.dataVisualizationDiv.append(document.createElement("div"));
+            this.dataVisualizationDiv.firstChild.innerHTML= "Il Parallel Coordinates verrà visualizzato appena avrai selezionato almeno due assi.";
+            this.dataVisualizationDiv.firstChild.setAttribute("id", "data-visualization");
+            return null;
+        }
+
+        this.drawParallel();
+        
     }
 }
