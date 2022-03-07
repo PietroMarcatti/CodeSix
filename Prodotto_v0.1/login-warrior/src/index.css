@@ -285,6 +285,10 @@ select.form-control{
   padding: 0.3em;
 }
 
+#react-select-2-listbox, #react-select-3-listbox{
+  color: #121317;
+}
+
 
 .form-control option{
   appearance: none;

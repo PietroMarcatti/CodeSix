@@ -47,15 +47,17 @@ const Chart = observer(()=>{
     }
 
     return(
-        <div className="content">
-            <Draggable cancel="button .pref-field">
-                <div className="pref-container">
+        <div className="content bg-dark">
+            <Draggable cancel="button .pref-field" >
+                <div className="pref-container bg-light text-dark rounded p-3">
                     <div className={showPref ? "show-pref": "hide-pref"}>
                         <p className="pref-title">Opzioni</p>
-                        <p>{fileName+"  "+fileSize}</p>
-                        {chartToShow ? renderPreferences() : "Nessuna opzione disponibile,. Scegli una visualizzazione"}
+                        <p>{fileSize === 0 ? "Nessun dataset caricato." : 
+                            fileName+"  "+fileSize 
+                        }</p>
+                        {chartToShow ? renderPreferences() : "Nessuna opzione disponibile. Scegli una visualizzazione."}
                     </div>
-                    <button className="btn-pref" onClick={togglePref.bind(null)}>{prefBtnText()}</button>
+                    <button className="btn-pref btn-lg bg-primary border-0 rounded-pill" onClick={togglePref.bind(null)}>{prefBtnText()}</button>
                 </div>
             </Draggable>
             <div className={chartToShow!== undefined ? "center-graph" : ""}>

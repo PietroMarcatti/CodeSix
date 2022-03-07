@@ -7,6 +7,7 @@ import { useInstance } from "../../../../useInstance";
 import { Modal, ModalBody, ModalFooter, Alert} from "react-bootstrap";
 import { LoadCsvVM } from './LoadCsvVM';
 import { MdUploadFile } from "react-icons/md";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const LoadCsv = observer((props) =>{
     const {

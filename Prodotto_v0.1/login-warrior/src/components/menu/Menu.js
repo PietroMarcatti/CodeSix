@@ -50,23 +50,23 @@ const Menu = observer(() =>{
         <>
             <div id='menu-wrapper'>
                 <h1 id='menu-title'><b>Login</b> Warrior</h1>
-                <nav className='navbar'>
+                <nav className='navbar' id='navigation'>
                     <ul className='navbar-nav'>
                         {names.map((name, index)=>{
                             return(
-                                <li className={id===index ? 'nav-item active' : 'nav-item'} key={name}>
+                                <li className='nav-item my-2 ' key={name} id={"nav-item-"+index}>
                                     {checkToDisabled(index) ?
                                         <OverlayTrigger
                                             overlay={popover}
                                             delay={{show:200, hide:0}}>
                                                 <span className='d-inline-block'>
-                                                    <button className='nav-link disabled' disabled aria-disabled="true" style={{pointerEvents: "none"}}>
+                                                    <button className='nav-link border-0 disabled  px-3 bg-transparent ' disabled aria-disabled="true" style={{pointerEvents: "none"}}>
                                                         {icons[index]}
                                                         <span className='link-text'>{name}</span>
                                                     </button>
                                                 </span>
                                         </OverlayTrigger>:
-                                        <button className='nav-link' onClick={index < 4 ? openModal.bind(null, index): showChart.bind(null,index)}>
+                                        <button className={'nav-link rounded-pill border-0 px-3 text-light '+ (index === id ? 'bg-primary bg-gradient fw-bold' : 'bg-transparent ')} onClick={index < 4 ? openModal.bind(null, index): showChart.bind(null,index)}>
                                             {icons[index]}
                                             <span className='link-text'>{name}</span>
                                         </button>
