@@ -22,7 +22,7 @@ const ParallelCoordinatesPreferencesSelection = observer(() => {
     return (
 		<Form className="chartPreferences">
 			<Form.Label>Seleziona dimensioni da utilizzare</Form.Label>
-            <Select value={axes} options={optionList} isMulti name="parallelCoordinatesAxes"
+            <Select value={axes} options={optionList} isMulti id="selectParallelPref" name="parallelCoordinatesAxes"
                 className="basic-multi-select" classNamePrefix="select" components={makeAnimated()} closeMenuOnSelect={false} onChange={handleSelectChangeDimensions}/>
 			<Form.Group controlId="PCcolor" key={"PCcolor"} className="pref-field">
 				<Form.Label className="labels">Colore del gruppo</Form.Label>

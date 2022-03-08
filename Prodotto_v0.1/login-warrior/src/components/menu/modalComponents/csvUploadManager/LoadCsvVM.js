@@ -1,41 +1,66 @@
-import { observable, makeAutoObservable } from "mobx";
+import { observable, makeAutoObservable, computed } from "mobx";
+import Dimension from "../../../../stores/data/Dimension";
 
 export class LoadCsvVM {
     castChoices = ["Data"];
     constructor(rootStore, closeModal){
         this.datasetStore = rootStore.datasetStore;
-        //this.distanceMatricesStore = rootStore.distanceMatricesStore;
-    	//this.preferencesStore = rootStore.preferencesStore;
+        this.distanceMatricesStore = rootStore.distanceMatricesStore;
+    	this.preferencesStore = rootStore.preferencesStore;
         this.localData = [];
         this.fileName = "";
         this.fileSize = 0;
+        this.sampleSize = 0; 
         this.showSuccess = false;
         this.showDanger = false;
         this.localDimensions = [];
         this.casts = [];
         this.closeModal = closeModal.bind(null);
+        
         makeAutoObservable(this,{
             datasetStore: false,
             casts: false,
-            //distanceMatricesStore: false,
-            //preferencesStore: false,
+            distanceMatricesStore: false,
+            preferencesStore: false,
             localData: observable.shallow,
         }, {autoBind: true});
     }
 
-    castData(){
-        console.log(this.casts.slice());
-        try{
-            this.casts.forEach(value =>{
-                console.log(value)
-                if(value.value === "Data"){
-                    this.localData.forEach((rowObject,index) =>{
-                        rowObject[value.id]= new Date(rowObject[value.id]);
-                    });
-                }
-            })
+    
 
-            
+    castData(){
+        try{
+            if(this.casts.length > 0){
+                let expandedDimensions=[];
+                this.casts.forEach(item =>{
+                    if(item.value === "Data"){
+                        console.log("Aggiungo le dimensioni per: "+item.id);
+                        let dYear = new Dimension(item.id+"-year");
+                        let dMonth = new Dimension(item.id+"-month");
+                        let dDay = new Dimension(item.id+"-day");
+                        let dWeekday = new Dimension(item.id+"-weekday");
+                        dYear.isNumeric = true; dMonth.isNumeric=true; dDay.isNumeric=true; dWeekday.isNumeric = true;
+                        expandedDimensions.push(dYear);
+                        expandedDimensions.push(dMonth);
+                        expandedDimensions.push(dDay);
+                        expandedDimensions.push(dWeekday);
+                        this.localDimensions.replace(this.localDimensions.concat(expandedDimensions));
+                    }
+                })
+                this.localData.forEach((rowObject,index)=>{
+                    console.log(rowObject);
+                    this.casts.forEach(item =>{
+                        if(item.value === "Data"){
+                            let date = new Date(rowObject[item.id]);
+                            rowObject[item.id] = date;
+                            rowObject[item.id.concat("-year")] = date.getFullYear();
+                            rowObject[item.id.concat("-month")] = date.getMonth();
+                            rowObject[item.id.concat("-day")]= date.getDate();
+                            rowObject[item.id.concat("-weekday")] = date.getDay();
+                        }
+                    })
+                })
+            }
         }catch(e){
             console.log("Error: ",e);
         }
@@ -44,8 +69,9 @@ export class LoadCsvVM {
     loadDataAndDims=()=>{
         if(this.localData.length > 0){
             this.datasetStore.reset();
-            //this.distanceMatricesStore.reset();
-            //this.preferencesStore.reset();
+            this.distanceMatricesStore.reset();
+            this.preferencesStore.reset();
+            this.sampleData();
             this.castData();
             this.datasetStore.loadCasts([...this.localCasts]);
             this.datasetStore.loadData([...this.localData]);
@@ -54,11 +80,25 @@ export class LoadCsvVM {
             this.datasetStore.loadFileSize(this.fileSize);
             this.datasetStore.updateSelectedData();
         }else{
-            //this.preferencesStore.reset();
+            this.preferencesStore.reset();
             this.datasetStore.loadDimensions([...this.localDimensions]);
             this.datasetStore.updateSelectedData();
         }
     };
+
+    sampleData(){
+        let selectedRows = 0;
+        let index = Math.random()*this.datasetLength;
+        let next = 0;
+        var sampledData = [];
+        while(selectedRows < this.sampleSize){
+            next = (index + Math.random()*this.sampleSize) % this.datasetLength;
+            sampledData.push(this.localData[next]);
+            index = next;
+            ++selectedRows;
+        }
+        this.localData.replace(sampledData);
+    }
 
     get isDataLoaded() {
         return this.datasetStore.dimensions.length>0 || this.localDimensions.length >0;
@@ -79,6 +119,10 @@ export class LoadCsvVM {
             return this.casts.slice().sort((a,b)=> a.id-b.id);
     }
 
+    get datasetLength(){
+        return this.localData.length;
+    }
+
     resetAndClose=()=>{
         this.localData.clear();
         this.localDimensions.clear();
@@ -90,6 +134,7 @@ export class LoadCsvVM {
         this.localDimensions.replace(newDims);
         this.fileName=fileName;
         this.fileSize=fileSize;
+        this.sampleSize = newData.length;
     };
 
     selectAllDimensions=event=>{
@@ -112,7 +157,10 @@ export class LoadCsvVM {
         }else{
             this.casts.push({value:event.target.value, id: dim});
         }
-        console.log(this.casts.slice());
+    }
+
+    handleSampleSizeChange = (value) =>{
+        this.sampleSize = value;
     }
 
     handleConfirm=()=>{

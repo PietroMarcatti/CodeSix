@@ -52,8 +52,8 @@ const Chart = observer(()=>{
                 <div className="pref-container">
                     <div className={showPref ? "show-pref": "hide-pref"}>
                         <p className="pref-title">Opzioni</p>
-                        <p>{fileName+"  "+fileSize}</p>
-                        {chartToShow ? renderPreferences() : "Nessuna opzione disponibile,. Scegli una visualizzazione"}
+                        <p>{fileSize === 0 ? "Nessun dataset caricato." : fileName+"  "+fileSize}</p>
+                        {chartToShow ? renderPreferences() : "Nessuna opzione disponibile. Scegli una visualizzazione"}
                     </div>
                     <button className="btn-pref" onClick={togglePref.bind(null)}>{prefBtnText()}</button>
                 </div>

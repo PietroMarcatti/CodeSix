@@ -37,7 +37,7 @@ class DistanceMatricesStore {
     }
 
     fromJSON(store){
-        store.forEact(matrix => {
+        store.forEach(matrix => {
             let temp = new DistanceMatrix();
             temp.fromJSON(matrix);
             this.addDistanceMatrix(temp);

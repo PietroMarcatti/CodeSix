@@ -1,7 +1,8 @@
-import React, {useEffect} from "react";
+import React, {useDebugValue, useEffect} from "react";
 import {observer} from 'mobx-react-lite';
 import CsvReader from './CsvReader';
 import DimensionsList from './DimensionsList';
+import SampleSelector from './SampleSelector';
 import { useStore } from "../../../../ContextProvider";
 import { useInstance } from "../../../../useInstance";
 import { Modal, ModalBody, ModalFooter, Alert} from "react-bootstrap";
@@ -14,7 +15,9 @@ const LoadCsv = observer((props) =>{
         closeModal
     } = props;
     const {
-        dimensions, 
+        dimensions,
+        sampleSize,
+        datasetLength,
         showSuccess,
         setShowSuccess,
         showDanger,
@@ -25,6 +28,7 @@ const LoadCsv = observer((props) =>{
         castChoices,
         localCasts,
         handleSelectChangeCast,
+        handleSampleSizeChange,
         handleConfirm,
         handleDismiss,
         isDataLoaded,
@@ -54,7 +58,8 @@ const LoadCsv = observer((props) =>{
                 <ModalBody>
                     <div>
                         <CsvReader setLocalStates = {setLocalStates.bind(null)}/>
-                        <DimensionsList isDataLoaded={isDataLoaded} dimensions = {dimensions} selectAllDimensions={selectAllDimensions.bind(null)} selectDimension={selectDimension.bind(null)} handleSelectChangeCast={handleSelectChangeCast.bind(null)} castChoices={castChoices} localCasts={localCasts}/>
+                        <SampleSelector isDataLoaded={isDataLoaded} sampleSize={sampleSize} datasetLength={datasetLength} handleSampleSizeChange={handleSampleSizeChange.bind(null)} />
+                        <DimensionsList datasetLength={datasetLength} isDataLoaded={isDataLoaded} dimensions = {dimensions} selectAllDimensions={selectAllDimensions.bind(null)} selectDimension={selectDimension.bind(null)} handleSelectChangeCast={handleSelectChangeCast.bind(null)} castChoices={castChoices} localCasts={localCasts}/>
                     </div>
                 </ModalBody>
                 <ModalFooter>
