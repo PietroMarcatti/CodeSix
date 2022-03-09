@@ -10,6 +10,8 @@ import ScatterplotPreferencesSelection from "./preferences/ScatterplotPreference
 import ParallelCoordinates from "./charts/ParallelCoordinates";
 import ParallelCoordinatesPreferencesSelection from "./preferences/ParallelCoordinatesPreferencesSelection";
 import Draggable from "react-draggable"
+import SankeyDiagram from "./charts/SankeyDiagram";
+import SankeyDiagramPreferencesSelection from "./preferences/SankeyDiagramPreferencesSelection";
 
 const Chart = observer(()=>{
     const {
@@ -28,6 +30,8 @@ const Chart = observer(()=>{
         switch(chartToShow){
             case ChartType.Scatterplot:
                 return <ScatterplotPreferencesSelection/>;
+            case ChartType.SankeyDiagram:
+                return <SankeyDiagramPreferencesSelection/>;
             case ChartType.ParallelCoordinates:
                 return <ParallelCoordinatesPreferencesSelection/>;
             default:
@@ -39,6 +43,8 @@ const Chart = observer(()=>{
         switch(chartToShow){
             case ChartType.Scatterplot:
                 return <Scatterplot/>;
+            case ChartType.SankeyDiagram:
+                return <SankeyDiagram/>;
             case ChartType.ParallelCoordinates:
                 return <ParallelCoordinates/>;
             default:
