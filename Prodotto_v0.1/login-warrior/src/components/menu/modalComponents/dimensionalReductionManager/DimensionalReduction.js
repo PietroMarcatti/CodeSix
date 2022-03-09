@@ -65,15 +65,15 @@ const DimensionalReduction = observer((props)=>{
                 return(
                     <>
                         <Form.Group>
-                            <Form.Label>Local Connection</Form.Label>
+                            <Form.Label>Local Connection: {localConnection}</Form.Label>
                             <Slider value={localConnection} min={1} max={100} onChange={handleChangeLocalConnection}/>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Distanze Minima</Form.Label>
+                            <Form.Label>Distanze Minima: {minDistance}</Form.Label>
                             <Slider value={minDistance} min={0.05} max={1.5} step={0.05} onChange={handleChangeMinDist}/>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Neighbours</Form.Label>
+                            <Form.Label>Neighbours: {neighbours}</Form.Label>
                             <Slider value={neighbours} min={20} max={200} onChange={handleChangeNeighbours}/>
                         </Form.Group>
                     </>
@@ -135,7 +135,6 @@ const DimensionalReduction = observer((props)=>{
                         <Form.Group controlId="newDimensionsName">
                             <Form.Label>Nome nuove dimensioni: </Form.Label>
                             <Form.Control required type="text" value={newDimensionsName} onChange={handleChangeNewDimensionsName} isInvalid={nameError}/>
-                            <Form.Control.Feedback type="invalid">Nome invalido o già utilizzato</Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId="newDimensionsNumber">
                             <Form.Label>Numero di nuove dimensioni: {newDimensionsNumber}</Form.Label>

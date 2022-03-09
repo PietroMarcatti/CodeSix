@@ -113,7 +113,7 @@ export default class DatasetStore {
         this.uploadedData.replace(store.data);
         this.selectedData.replace(store.selected);
         this.fileName.replace(store.fileName);
-        this.fileSize.replace(store.fileSize);
+        this.fileSize= store.fileSize;
     };
 
 }

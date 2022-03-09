@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import * as d3 from "d3";
+import { FaThemeisle } from "react-icons/fa";
 
 export class ScatterplotVM{
     constructor(rootStore){
@@ -86,13 +87,26 @@ export class ScatterplotVM{
 		}
 
         // Check color
-        if(this.color !== undefined){            
-            var color_f = d3.scaleOrdinal(this.data.map(d => d[this.color]), d3.schemeCategory10);
+        if(this.color !== undefined){
+            let colorDomain = d3.extent(this.data, (d) => {return +d[this.color]; });
+            const distinctValues = [...new Set(this.data.map((d) => d[this.color]))];
+            var color_f = undefined;
+            console.log("Dominio colore: ", colorDomain)
+            if(distinctValues.length > 10)
+                color_f =  d3.scaleLinear().domain(colorDomain).range(["yellow", "blue"]);//
+            else{
+                color_f = d3.scaleOrdinal(d3.schemeCategory10).domain(distinctValues.sort());
+            }            
         }
 
         // Check shape
         if(this.shape !== undefined){
-            var shape_f = d3.scaleOrdinal(this.data.map(d => d[this.shape]), d3.symbols.map(s => s));
+            let shapeDomain = d3.extent(this.data, (d) => {return +d[this.shape]; });
+            let uniqueValues = [...new Set(this.data.map(d => d[this.shape]))];
+            
+            var shape_f = d3.scaleQuantile()
+            .domain(shapeDomain)
+            .range(uniqueValues.length > 7 ? d3.range(7) : d3.range(uniqueValues.length));
         }
         
         // Add dots
@@ -110,7 +124,7 @@ export class ScatterplotVM{
             .attr("fill", d => {return color_f === undefined ? "white" : color_f(d[clr]);})
             .attr("d", d => {
                 let sz= size_f === undefined ? 40 : size_f(d[ptSz]);     
-                return shape_f === undefined ? d3.symbol().type(d3.symbolCircle).size(sz)() : d3.symbol().type(shape_f(d[shp])).size(sz)();
+                return shape_f === undefined ? d3.symbol().type(d3.symbolCircle).size(sz)() : d3.symbol().type(d3.symbols[shape_f(d[shp])]).size(sz)();
             });
         
         // Add legend
@@ -128,6 +142,7 @@ export class ScatterplotVM{
             .style("fill", "white")
             .text(this.color+" - colore dei punti:");
           
+        console.log("Range colori: ", colorFunction.range());
         colorLegend.selectAll("dots")
             .data(colorFunction.domain())
             .enter()
@@ -148,6 +163,10 @@ export class ScatterplotVM{
               .text(d => {return d;});
     }
 
+    roundNumber(value, precision){
+        return Math.round((value + Number.EPSILON) * Math.pow(10,precision)) / Math.pow(10,precision);
+    }
+
     drawShapeLegend(shapeFunction){
         var shapeLegend= d3.select("#data-visualization")
             .append("g")
@@ -160,22 +179,35 @@ export class ScatterplotVM{
             .text(this.shape+" - forma dei punti:");
           
         shapeLegend.selectAll("shape")
-            .data(shapeFunction.domain())
+            .data(shapeFunction.quantiles())
             .join("path")
             .attr("transform", (d,i) => {return "translate(870,"+(35 + i*25)+")";})
               .style("fill", "white")
-              .attr("d", d => {return d3.symbol().type(shapeFunction(d)).size(100)();});
+              .attr("d", d => {return d3.symbol().type(d3.symbols[shapeFunction(d)]).size(100)();});
             
+
+           
+            console.log("Quantili: ",shapeFunction.quantiles());
         // Add one dot in the legend for each name
         shapeLegend.selectAll("labels")
-            .data(shapeFunction.domain())
+            .data(shapeFunction.quantiles())
             .enter()
             .append("text")
               .attr("x", 880)
               .attr("y", (d,i) => {return 40 + i*25;})
               .style("fill", "white")
-              .text(d => {return d;});
+              .text((d, i) => {
+                if(i===0){
+                    return this.roundNumber(shapeFunction.domain()[0],3)+" <= x < "+this.roundNumber(d,3);
+                }else if (i< (shapeFunction.quantiles().length-1)){
+                    return this.roundNumber(shapeFunction.quantiles()[i-1],3)+ " <= x < "+this.roundNumber(d,3);
+                }else{
+                    return this.roundNumber(d,3)+" <= x < "+this.roundNumber(shapeFunction.domain()[1],3);
+                }
+            });
     }
+
+    
 
     drawAxisLegend(){
         var axisXLegend= d3.select("#data-visualization")

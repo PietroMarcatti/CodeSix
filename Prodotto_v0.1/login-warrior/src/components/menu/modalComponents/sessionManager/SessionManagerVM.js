@@ -4,13 +4,13 @@ export class SessionManagerVM{
     constructor(rootStore, closeModal){
         this.rootStore = rootStore;
 		this.datasetStore = rootStore.datasetStore;
-		//this.preferencesStore = rootStore.preferencesStore;
-		//this.distanceMatricesStore = rootStore.distanceMatricesStore;
+		this.preferencesStore = rootStore.preferencesStore;
+		this.distanceMatricesStore = rootStore.distanceMatricesStore;
 		this.showDanger = false;
 		this.showSuccess = false;
 		this.closeModal = closeModal.bind(null);
         this.fileName = "sessione";
-		makeAutoObservable(this, {rootStore: false, /*preferencesStore: false,*/ datasetStore: false, /*distanceMatricesStore: false*/}, {autoBind: true});
+		makeAutoObservable(this, {rootStore: false, preferencesStore: false, datasetStore: false, distanceMatricesStore: false}, {autoBind: true});
     };
 
     handleExport=()=>{
@@ -33,13 +33,13 @@ export class SessionManagerVM{
         
         try{
             this.datasetStore.fromJSON(JSON.parse(json).datasetStore);
-            //this.preferencesStore.fromJSON(JSON.parse(json).preferencesStore);
-            //this.distanceMatricesStore.fromJSON(JSON.parse(json).distanceMatricesStore);
+            this.preferencesStore.fromJSON(JSON.parse(json).preferencesStore);
+            this.distanceMatricesStore.fromJSON(JSON.parse(json).distanceMatricesStore);
             this.openAlertSuccess();
         }catch(e){
             this.datasetStore.reset();
-            //this.preferencesStore.reset();
-            //this.distanceMatricesStore.reset();
+            this.preferencesStore.reset();
+            this.distanceMatricesStore.reset();
             console.log(e);
             this.openAlertDanger();
         }finally{

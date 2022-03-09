@@ -106,11 +106,9 @@ export class DimensionalReductionVM{
                 default: dimReductor.setAlgorithm(new TsneAlgorithm());
                     params = new TsneParameters(parameters); break;
             }
-            console.log("Provo ad eseguire l'algoritmo ")
             const reduction = dimReductor.executeAlgorithm(params, data);
-            console.log("Risultato ", reduction)
             let newDimsFromReduction = [];
-            for(let i = 1; i<reduction._cols; i++){
+            for(let i = 1; i<=reduction._cols; i++){
                 let d = new Dimension(parameters.name+i);
                 d.isRedux= true;
                 newDimsFromReduction.push(d);

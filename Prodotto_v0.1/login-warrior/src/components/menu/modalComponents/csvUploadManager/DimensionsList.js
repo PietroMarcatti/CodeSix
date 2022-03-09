@@ -42,9 +42,9 @@ const DimensionsList = observer((props)=>{
                                                 <Col key={dimId}>
                                                     <Form.Label>Interpreta come:</Form.Label>
                                                     <Form.Control  label="Intepreta come:" custom="true" as="select" value={localCasts[dimId]} onChange={handleSelectChangeCast.bind(null)}>
-                                                        <option id={dimId+"-"+0} value={"auto"} key={"noCast"}>Auto</option>
+                                                        <option id={dim.value+"-"+0} value={"auto"} key={"noCast"}>Auto</option>
                                                         {castChoices.map((d,i) => {
-                                                            return <option id={dimId+"-"+(i+1)} value={d} key={d+i+1}>{d}</option>
+                                                            return <option id={dim.value+"-"+(i+1)} value={d} key={d+i+1}>{d}</option>
                                                         })}
                                                     </Form.Control>
                                                 </Col>
