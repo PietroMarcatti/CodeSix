@@ -1,6 +1,0 @@
-col a = utente
-col c = data evento
-col d = tipo evento : 1 = login, 2 = errore login, 3 = logout
-col e = applicazione (ERM)
-col g = ip sorgente
-
