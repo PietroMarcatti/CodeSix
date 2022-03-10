@@ -9,6 +9,8 @@ import Scatterplot from "./charts/Scatterplot";
 import ScatterplotPreferencesSelection from "./preferences/ScatterplotPreferencesSelection";
 import ParallelCoordinates from "./charts/ParallelCoordinates";
 import ParallelCoordinatesPreferencesSelection from "./preferences/ParallelCoordinatesPreferencesSelection";
+import ForceDirected from "./charts/ForceDirected";
+import ForceDirectedPreferencesSelection from "./preferences/ForceDirectedPreferencesSelection";
 import Draggable from "react-draggable"
 
 const Chart = observer(()=>{
@@ -30,17 +32,22 @@ const Chart = observer(()=>{
                 return <ScatterplotPreferencesSelection/>;
             case ChartType.ParallelCoordinates:
                 return <ParallelCoordinatesPreferencesSelection/>;
+            case ChartType.ForceDirected:
+                return <ForceDirectedPreferencesSelection/>;
             default:
                 return null;
         }
     };
 
     function renderCharts(){
+        console.log("Chart to show: ", chartToShow);
         switch(chartToShow){
             case ChartType.Scatterplot:
                 return <Scatterplot/>;
             case ChartType.ParallelCoordinates:
                 return <ParallelCoordinates/>;
+            case ChartType.ForceDirected:
+                    return <ForceDirected />
             default:
                 return null;
         }

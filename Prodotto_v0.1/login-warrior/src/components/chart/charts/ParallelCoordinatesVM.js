@@ -10,7 +10,7 @@ export class ParallelCoordinatesVM{
     }
 
     get data(){
-		return this.datasetStore.selectedData.slice(0,1000);
+		return this.datasetStore.selectedData;
 	};
 
     get axes(){

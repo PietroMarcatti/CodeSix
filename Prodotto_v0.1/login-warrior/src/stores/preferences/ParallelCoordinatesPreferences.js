@@ -17,9 +17,6 @@ class ParallelCoordinatesPreferences{
 
     setPreferenceById(id, value){
         this[id] = value;
-        if(id ==="PCcolor"){
-            console.log("PCcolor: ",value);
-        }
     };
 
     toJSON(){

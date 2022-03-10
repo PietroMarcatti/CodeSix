@@ -14,15 +14,15 @@ export class MenuVM{
 
     modalIsOpen = false;
     id=-1;
-    names=["Carica dati da CSV", "Gestisci Sessione", "Riduzione Dimensionale","Calcolo delle distanze", "Scatterplot", "Sankey Diagram", "Force Directed Field", "Parallell Coordinates"];
+    names=["Carica dati da CSV", "Gestisci Sessione", "Riduzione Dimensionale","Calcolo delle distanze", "Scatterplot","Parallell Coordinates", "Force Directed Field", "Sankey Diagram",];
     icons=[<MdUploadFile size={32} className="icons"/>, 
         <AiOutlineCloudSync size={32} className="icons"/>,
         <SiRedux size={30}/>,
         <FaSquareRootAlt size={32} className="icons"/>,
         <MdScatterPlot size={32} className="icons" />,
-        <TiFlowSwitch size={32} className="icons" />,
+        <AiOutlineBranches size={32} className="icons"/>,
         <SiGraphql size={32} className="icons"/>,
-        <AiOutlineBranches size={32} className="icons"/>
+        <TiFlowSwitch size={32} className="icons" />
     ];
     fileName = "";
 
@@ -61,17 +61,18 @@ export class MenuVM{
     	case 4:
     		this.preferencesStore.chart = ChartType.Scatterplot;
     		break;
-    	case 7:
-    		this.preferencesStore.chart = ChartType.ParallelCoordinates;
-    		break;
+        case 5:
+            this.preferencesStore.chart = ChartType.ParallelCoordinates;
+                break;
+        case 6:
+            this.preferencesStore.chart = ChartType.ForceDirected;
+            break;
         /*
-        case 8:
-    		this.preferencesStore.chart = ChartType.ForceField;
-    		break;
     	case 7:
     		this.preferencesStore.chart = ChartType.SankeyDiagram;
     		break;*/
     	
+        
     	default: 
             break;
     	}
@@ -86,6 +87,6 @@ export class MenuVM{
     }
 
     checkToDisabled = index =>{
-        return (index >=2 && this.isDataLoaded) || ((index === 9|| index ===8) && this.distanceMatricesNumber);
+        return (index >=2 && index <6 && this.isDataLoaded) || ((index === 6|| index ===7) && this.distanceMatricesNumber);
     }
 }
