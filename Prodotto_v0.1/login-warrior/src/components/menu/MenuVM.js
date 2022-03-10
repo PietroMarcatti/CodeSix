@@ -72,7 +72,6 @@ export class MenuVM{
     		this.preferencesStore.chart = ChartType.SankeyDiagram;
     		break;*/
     	
-        
     	default: 
             break;
     	}
