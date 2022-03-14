@@ -26,8 +26,19 @@ export class SankeyDiagramVM{
         return this.preferencesStore.sankeyDiagramPreferences.linkColor;
     }
 
+    get distMin(){
+    	return this.preferencesStore.sankeyDiagramPreferences.distMin;
+	}
+	get distMax(){
+    	return this.preferencesStore.sankeyDiagramPreferences.distMax;
+	}
+
     get align(){
         return this.preferencesStore.sankeyDiagramPreferences.align;
+    }
+
+    get selectedLinks(){
+        return this.distanceMatrix.links.filter((element) => { return element.value >= this.distMin && element.value <= this.distMax ? element : null} );
     }
 
     get sankeyDiagramDiv(){
@@ -62,7 +73,7 @@ export class SankeyDiagramVM{
         linkPath = d3Sankey.sankeyLinkHorizontal(), // given d in (computed) links, returns the SVG path
         linkTitle = d => `${d.source.id} → ${d.target.id}\n${format(d.value)}`, // given d in (computed) links
         linkColor = "source-target", // source, target, source-target, or static color
-        linkStrokeOpacity = 0.5, // link stroke opacity
+        linkStrokeOpacity = 0.95, // link stroke opacity
         linkMixBlendMode = "multiply", // link blending mode
         colors = d3.schemeTableau10, // array of colors
         width = 640, // outer width, in pixels
@@ -214,7 +225,7 @@ export class SankeyDiagramVM{
         ];*/
 
         this.SankeyChart({
-            links: this.distanceMatrix.links
+            links: this.selectedLinks,
           }, {
             nodeGroup: d => d.id.split(/\W/)[0], // take first word for color
             nodeAlign: this.align,

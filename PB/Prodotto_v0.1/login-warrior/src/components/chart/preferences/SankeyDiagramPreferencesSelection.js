@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite";
 import Form from "react-bootstrap/Form";
 import { SankeyDiagramPreferencesSelectionVM } from "./SankeyDiagramPreferencesSelectionVM";
 import { useInstance } from "../../../useInstance";
+import NumericInput from "react-numeric-input";
 
 const SankeyDiagramPreferencesSelection = observer(() => {
 	const {
@@ -11,7 +12,13 @@ const SankeyDiagramPreferencesSelection = observer(() => {
         distanceMatricesNames,
 		distanceMatrixName,
 		linkColor,
-		align
+		align,
+		handleMinDistChange,
+		handleMaxDistChange,
+		distMin,
+		distMax,
+		max,
+		min,
 	} = useInstance(new SankeyDiagramPreferencesSelectionVM(useStore()));
 
 
@@ -48,7 +55,7 @@ const SankeyDiagramPreferencesSelection = observer(() => {
 				</div>
 			</Form.Group>
 			<Form.Group controlId="SDalign" key={"SDalign"} className="pref-field">
-				<Form.Label className="labels">Colore degli archi</Form.Label>
+				<Form.Label className="labels">Allineamento nodi</Form.Label>
 				<div className="select-wrapper">
 					<Form.Control
 						as="select"
@@ -61,6 +68,16 @@ const SankeyDiagramPreferencesSelection = observer(() => {
 						<option value={"center"} key={"center"}>Centro</option>
 					</Form.Control>
 				</div>
+			</Form.Group>
+
+			<Form.Group controlId="distMax">
+				<Form.Label>Distanza massima (max {max})</Form.Label>
+				<NumericInput value={distMax} min={Math.max(min, distMin)} max={max} step={Math.round(max/10)} onChange={handleMaxDistChange}/>
+				
+			</Form.Group>
+			<Form.Group controlId="distMin">
+				<Form.Label>Distanza minima (min {min})</Form.Label>
+				<NumericInput value={distMin} min={min} max={Math.min(max,distMax)} step={Math.round(max/10)} onChange={handleMinDistChange}/>
 			</Form.Group>
         </Form>
 	);

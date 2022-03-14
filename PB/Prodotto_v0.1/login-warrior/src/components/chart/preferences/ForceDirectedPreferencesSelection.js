@@ -4,12 +4,15 @@ import { observer } from "mobx-react-lite";
 import Form from "react-bootstrap/Form";
 import { ForceDirectedPreferencesSelectionVM } from "./ForceDirectedPreferencesSelectionVM";
 import { useInstance } from "../../../useInstance";
+import NumericInput from "react-numeric-input";
 
 
 const ForceDirectedPreferencesSelection = observer(() => {
 
 	const {
 		handleSelectChange,
+		handleMinDistChange,
+		handleMaxDistChange,
 		keys,
 		matrixName,
 		matrices,
@@ -52,24 +55,13 @@ const ForceDirectedPreferencesSelection = observer(() => {
 				</Form.Control>
 			</Form.Group>
 			<Form.Group controlId="distMax">
-				<Form.Label>Distanza massima</Form.Label>
-				<p>{max}</p>
-				<Form.Control
-					as="input"
-					value={distMax}
-					onChange={handleSelectChange}
-				>
-				</Form.Control>
+				<Form.Label>Distanza massima (max {max})</Form.Label>
+				<NumericInput value={distMax} min={Math.max(min, distMin)} max={max} step={Math.round(max/10)} onChange={handleMaxDistChange}/>
+				
 			</Form.Group>
 			<Form.Group controlId="distMin">
-				<Form.Label>Distanza minima</Form.Label>
-				<p>{min}</p>
-				<Form.Control
-					as="input"
-					value={distMin}
-					onChange={handleSelectChange}
-				>
-				</Form.Control>
+				<Form.Label>Distanza minima (min {min})</Form.Label>
+				<NumericInput value={distMin} min={min} max={Math.min(max,distMax)} step={Math.round(max/10)} onChange={handleMinDistChange}/>
 			</Form.Group>
 		</Form>
 	);

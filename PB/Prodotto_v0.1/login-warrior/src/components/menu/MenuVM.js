@@ -67,10 +67,9 @@ export class MenuVM{
         case 6:
             this.preferencesStore.chart = ChartType.ForceDirected;
             break;
-        /*
-    	case 7:
+        case 7:
     		this.preferencesStore.chart = ChartType.SankeyDiagram;
-    		break;*/
+    		break;
     	
     	default: 
             break;

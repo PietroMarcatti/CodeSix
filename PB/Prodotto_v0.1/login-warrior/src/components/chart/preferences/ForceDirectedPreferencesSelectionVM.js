@@ -38,18 +38,22 @@ export class ForceDirectedPreferencesSelectionVM {
 		return this.preferencesStore.forceDirectedPreferences.distMin;
 	}
 
+	roundNumber(value, precision){
+        return Math.round((value + Number.EPSILON) * Math.pow(10,precision)) / Math.pow(10,precision);
+    }
+
 	getDistanceMatricesByName(matrixName){
 		return this.distanceMatricesStore.getDistanceMatrixByName(matrixName);
 	}
 
 	get min(){
 		const matrix = this.getDistanceMatricesByName(this.matrixName);
-		return matrix ? Math.min.apply(Math, matrix.links.map(link =>link.value)) : undefined;
+		return matrix ? this.roundNumber(Math.min.apply(Math, matrix.links.map(link =>link.value)),2) : undefined;
 	} 
 
 	get max(){
 		const matrix = this.getDistanceMatricesByName(this.matrixName);
-		return matrix ? Math.max.apply(Math, matrix.links.map(link =>link.value)) : undefined;
+		return matrix ? this.roundNumber(Math.max.apply(Math, matrix.links.map(link =>link.value)),2) : undefined;
 	}
 
     setForceDirectedPreferences(identifier, value){
@@ -75,5 +79,17 @@ export class ForceDirectedPreferencesSelectionVM {
 		const value = e.target.value==="undefined" ? undefined : e.target.value,
 			identifier = e.target.id;
 		this.setForceDirectedPreferences(identifier, value);
+	}
+
+	handleMinDistChange = (value) =>{
+		if(value){
+			this.preferencesStore.forceDirectedPreferences.distMin = value;
+		}
+	}
+
+	handleMaxDistChange = (value) =>{
+		if(value){
+			this.preferencesStore.forceDirectedPreferences.distMax = value;
+		}
 	}
 }

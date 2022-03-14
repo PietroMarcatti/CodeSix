@@ -18,6 +18,8 @@ export class ParallelCoordinatesPreferencesSelectionVM {
     get color(){
         return this.preferencesStore.parallelCoordinatesPreferences.color;
     }
+
+    
 	
     handleSelectChangeDimensions = (value,handler) => {
         switch(handler.action){
@@ -46,4 +48,6 @@ export class ParallelCoordinatesPreferencesSelectionVM {
     get optionList(){
         return this.datasetStore.numericDimensions.map(d=>{return {value:d.value, label: d.value}});
     }
+
+    
 }

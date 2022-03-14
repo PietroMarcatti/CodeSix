@@ -185,9 +185,6 @@ export class ScatterplotVM{
               .style("fill", "white")
               .attr("d", d => {return d3.symbol().type(d3.symbols[shapeFunction(d)]).size(100)();});
             
-
-           
-            console.log("Quantili: ",shapeFunction.quantiles());
         // Add one dot in the legend for each name
         shapeLegend.selectAll("labels")
             .data(shapeFunction.quantiles())
@@ -206,8 +203,6 @@ export class ScatterplotVM{
                 }
             });
     }
-
-    
 
     drawAxisLegend(){
         var axisXLegend= d3.select("#data-visualization")

@@ -7,15 +7,15 @@ import {ForceDirectedVM} from "./ForceDirectedVM";
 const ForceDirected = observer(()=>{
     const{
         renderChart,
-        matrix,
+        distanceMatrix,
+        distMin,
+        distMax
     }=useInstance(new ForceDirectedVM(useStore()));
 
-    useEffect(()=>{renderChart();},[matrix]);
+    useEffect(()=>{renderChart();},[distanceMatrix, distMax, distMin]);
 
     return(
-        <div id="forceDirected" className="chart forceDirected">
-            <canvas className="plot" id="fd-canvas"></canvas>
-        </div>
+        <div id="forceDirected" className="chart"></div>
     );
 });
 

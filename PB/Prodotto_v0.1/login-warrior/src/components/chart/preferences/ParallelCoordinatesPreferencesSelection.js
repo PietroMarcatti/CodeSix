@@ -37,6 +37,7 @@ const ParallelCoordinatesPreferencesSelection = observer(() => {
 					})}
 				</Form.Control>
 			</Form.Group>
+			
 		</Form>
 	);
 });

@@ -9,10 +9,12 @@ const SankeyDiagram = observer(()=>{
         renderChart,
         distanceMatrixName,
         linkColor,
+        distMin,
+        distMax,
         align
     }=useInstance(new SankeyDiagramVM(useStore()));
 
-    useEffect(()=>{renderChart();},[distanceMatrixName, linkColor, align]);
+    useEffect(()=>{renderChart();},[distanceMatrixName, linkColor, align,distMin,distMax]);
 
     return(
         <div id="sankeyDiagram" className="chart"></div>
