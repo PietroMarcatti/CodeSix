@@ -6,7 +6,7 @@ import SampleSelector from './SampleSelector';
 import { useStore } from "../../../../ContextProvider";
 import { useInstance } from "../../../../useInstance";
 import { Modal, ModalBody, ModalFooter, Alert} from "react-bootstrap";
-import { LoadCsvVM } from './LoadCsvVM';
+import LoadCsvVM from './LoadCsvVM';
 import { MdUploadFile } from "react-icons/md";
 
 const LoadCsv = observer((props) =>{

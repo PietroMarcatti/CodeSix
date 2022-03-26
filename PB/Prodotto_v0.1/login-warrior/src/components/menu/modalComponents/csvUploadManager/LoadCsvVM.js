@@ -1,7 +1,7 @@
 import { observable, makeAutoObservable, computed } from "mobx";
 import Dimension from "../../../../stores/data/Dimension";
 
-export class LoadCsvVM {
+export default class LoadCsvVM {
     castChoices = ["Data"];
     constructor(rootStore, closeModal){
         this.datasetStore = rootStore.datasetStore;
@@ -87,6 +87,9 @@ export class LoadCsvVM {
     };
 
     sampleData(){
+        if(this.sampleSize == this.datasetLength)
+            return null;
+
         let selectedRows = 0;
         let index = Math.random()*this.datasetLength;
         let next = 0;

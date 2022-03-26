@@ -1,5 +1,5 @@
 import ReductionAlgorithm from "./ReductionAlgorithm";
-const druid = require("@saehrimnir/druidjs")
+const druid = require("@saehrimnir/druidjs");
 
 class UmapAlgorithm extends ReductionAlgorithm {
     startDimensionalReduction(parameters, data){
