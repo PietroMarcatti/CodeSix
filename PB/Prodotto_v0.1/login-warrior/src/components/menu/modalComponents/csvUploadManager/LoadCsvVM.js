@@ -1,4 +1,4 @@
-import { observable, makeAutoObservable, computed } from "mobx";
+import { observable, makeAutoObservable,} from "mobx";
 import Dimension from "../../../../stores/data/Dimension";
 
 export default class LoadCsvVM {
@@ -87,16 +87,18 @@ export default class LoadCsvVM {
     };
 
     sampleData(){
-        if(this.sampleSize == this.datasetLength)
+        if(this.sampleSize === this.datasetLength)
             return null;
 
         let selectedRows = 0;
         let index = Math.random()*this.datasetLength;
         let next = 0;
+        var arr = [...Array(this.datasetLength).keys()];
         var sampledData = [];
         while(selectedRows < this.sampleSize){
-            next = (index + Math.random()*this.sampleSize) % this.datasetLength;
-            sampledData.push(this.localData[next]);
+            next = Math.floor((index + Math.random()*arr.length) % arr.length);
+            sampledData.push(this.localData[arr[next]]);
+            arr.pop(next);
             index = next;
             ++selectedRows;
         }
