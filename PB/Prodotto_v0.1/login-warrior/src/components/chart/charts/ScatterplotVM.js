@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx";
 import * as d3 from "d3";
-import { FaThemeisle } from "react-icons/fa";
 
 export class ScatterplotVM{
     constructor(rootStore){

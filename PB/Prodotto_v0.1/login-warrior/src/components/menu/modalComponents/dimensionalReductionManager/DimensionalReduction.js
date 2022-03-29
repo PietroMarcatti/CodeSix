@@ -111,6 +111,7 @@ const DimensionalReduction = observer((props)=>{
         <>
             <Modal show={modalIsOpen} onHide={closeModal}>
                 <Form onSubmit={(e)=>{
+                    console.log("submit")
                     e.preventDefault();
                     setIsLoading(true);
                 }} noValidate>
@@ -143,7 +144,7 @@ const DimensionalReduction = observer((props)=>{
                         {renderParams()}
                     </ModalBody>
                     <ModalFooter>
-                        <button  onClick={closeModal} className="red">Torna al menù</button>
+                        <button type="button" onClick={closeModal} class="red">Torna al menù</button>
 						<button type="submit" className="green" >
 							{isLoading? <><Spinner animation="border" size="sm"></Spinner><span>Riduzione in corso...</span></> : <span>Esegui riduzione</span>}
 						</button>

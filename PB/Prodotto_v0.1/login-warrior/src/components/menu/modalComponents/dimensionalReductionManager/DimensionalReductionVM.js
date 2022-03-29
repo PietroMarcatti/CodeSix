@@ -70,9 +70,9 @@ export class DimensionalReductionVM{
     }
 
     handleSubmit = () =>{
+        console.log("Sono stato chiamato");
         try{
             let data = this.datasetStore.selectedData.map(obj => this.dimensionsToRedux.map((dim)=> obj[dim.value]));
-            console.log("Data: ",data);
             if(this.normalize){
                 data = this.normalizeData(data);
                 this.normalize = false;
