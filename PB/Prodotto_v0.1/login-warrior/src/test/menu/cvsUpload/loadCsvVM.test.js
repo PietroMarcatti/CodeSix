@@ -1,6 +1,6 @@
-import RootStore from "../../stores/RootStore";
-import LoadCsvVM from "../../components/menu/modalComponents/csvUploadManager/LoadCsvVM";
-import Dimension from "../../stores/data/Dimension";
+import RootStore from "../../../stores/RootStore";
+import LoadCsvVM from "../../../components/menu/modalComponents/csvUploadManager/LoadCsvVM";
+import Dimension from "../../../stores/data/Dimension";
 
 let rootStore;
 let loadCsv;

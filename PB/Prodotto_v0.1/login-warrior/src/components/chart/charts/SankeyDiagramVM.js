@@ -212,19 +212,6 @@ export class SankeyDiagramVM{
         }
         this.sankeyDiagramDiv.setAttribute("class", "white")
 
-        /*
-        Per provare che funzioni l'allineamento. Con grafi completamente connessi non si percepisce la diffrenza di allineamento
-        let energy= [
-            {source: "Agricultural 'waste'", target: "Bio-conversion", value: 124.729},
-            {source: "Bio-conversion", target: "Liquid", value: 0.597},
-            {source: "Bio-conversion", target: "Losses", value: 26.862},
-            {source: "Bio-conversion", target: "Solid", value: 280.322},
-            {source: "Bio-conversion", target: "Gas", value: 81.144}, 
-            {source: "Biofuel imports", target: "Liquid", value: 35},
-            {source: "Biomass imports", target: "Solid", value: 35},
-            {source: "Coal imports", target: "Coal", value: 11.606} 
-        ];*/
-
         this.SankeyChart({
             links: this.selectedLinks,
           }, {
