@@ -20,6 +20,11 @@ export class ChartVM{
         this.showPreferences = !this.showPreferences;
     };
 
+    changeSample=()=>{
+        this.datasetStore.sampleData();
+        this.datasetStore.castData();
+    }
+
     get chartToShow(){
         return this.preferencesStore.chart;
     };

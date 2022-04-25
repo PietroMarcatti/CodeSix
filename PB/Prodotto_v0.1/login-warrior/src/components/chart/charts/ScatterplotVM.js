@@ -9,7 +9,7 @@ export class ScatterplotVM{
     }
 
     get data(){
-		return this.datasetStore.selectedData.slice(0,1000);
+		return this.datasetStore.selectedData.slice();
 	}
 
     get axisX(){

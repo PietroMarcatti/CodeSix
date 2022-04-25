@@ -21,7 +21,8 @@ const Chart = observer(()=>{
         showPref,
         fileName,
         fileSize,
-        chartToShow
+        chartToShow,
+        changeSample,
     } = useInstance(new ChartVM(useStore()));
 
     function prefBtnText(){
@@ -67,7 +68,11 @@ const Chart = observer(()=>{
                         <p>{fileSize === 0 ? "Nessun dataset caricato." : fileName+"  "+fileSize}</p>
                         {chartToShow ? renderPreferences() : "Nessuna opzione disponibile. Scegli una visualizzazione"}
                     </div>
-                    <button className="btn-pref" onClick={togglePref.bind(null)}>{prefBtnText()}</button>
+                    <div className="row" >
+                        <button className="btn-pref" onClick={changeSample.bind(null)}>Ricampiona dati</button>
+                        <button className="btn-pref" onClick={togglePref.bind(null)}>{prefBtnText()}</button>
+                    </div>
+                    
                 </div>
             </Draggable>
             <div className={chartToShow!== undefined ? "center-graph" : ""}>
