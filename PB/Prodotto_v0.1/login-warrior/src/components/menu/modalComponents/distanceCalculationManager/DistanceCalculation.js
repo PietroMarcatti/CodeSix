@@ -84,7 +84,7 @@ const DistanceCalculation = observer((props)=>{
                         <Form.Group controlId="newDistanceMatrixName">
                             <Form.Label>Nome matrice delle distanze</Form.Label>
                             <Form.Control required type="text" value={newDistanceMatrixName} onChange={handleChangeNewDistanceMatrixName} isInvalid={nameError}/>
-                            <Form.Control.Feedback type="invalid">Nome invalido o già utilizzato.</Form.Control.Feedback>
+                            {/*<Form.Control.Feedback type="invalid">Nome invalido o già utilizzato.</Form.Control.Feedback>*/}
                         </Form.Group>
                     </ModalBody>
                     <ModalFooter>
@@ -95,13 +95,13 @@ const DistanceCalculation = observer((props)=>{
 					</ModalFooter>
                 </Form>
             </Modal>
-            <Alert show={showSuccess} variant="success" className="alert" dismissible onClose={setShowSuccess.bind(null,false)}>
+            <Alert show={showSuccess} variant="success" className="alert success" dismissible onClose={setShowSuccess.bind(null,false)}>
 				<Alert.Heading>Operazione completata con successo</Alert.Heading>
 				<p>
                     La matrice delle distanze è stata calcolata con successo. Puoi ora visualizzarla nei grafici.
 				</p>
 			</Alert>
-			<Alert show={showDanger} variant="danger" className="alert" dismissible onClose={setShowDanger.bind(null,false)}>
+			<Alert show={showDanger} variant="danger" className="alert danger" dismissible onClose={setShowDanger.bind(null,false)}>
 				<Alert.Heading>Avviso</Alert.Heading>
 				<p>
                     Il calcolo della matrice delle distanze è fallito. Controlla di avere un dataset ben formattato.

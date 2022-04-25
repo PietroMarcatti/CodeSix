@@ -34,7 +34,6 @@ export default class LoadCsvVM {
                 let expandedDimensions=[];
                 this.casts.forEach(item =>{
                     if(item.value === "Data"){
-                        console.log("Aggiungo le dimensioni per: "+item.id);
                         let dYear = new Dimension(item.id+"-year");
                         let dMonth = new Dimension(item.id+"-month");
                         let dDay = new Dimension(item.id+"-day");
@@ -48,7 +47,6 @@ export default class LoadCsvVM {
                     }
                 })
                 this.localData.forEach((rowObject,index)=>{
-                    console.log(rowObject);
                     this.casts.forEach(item =>{
                         if(item.value === "Data"){
                             let date = new Date(rowObject[item.id]);

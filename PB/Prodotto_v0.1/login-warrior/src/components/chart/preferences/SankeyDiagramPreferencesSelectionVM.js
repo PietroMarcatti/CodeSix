@@ -1,4 +1,4 @@
-import { computed, makeAutoObservable } from "mobx";
+import { makeAutoObservable } from "mobx";
 
 export class SankeyDiagramPreferencesSelectionVM {
     constructor(rootStore){
@@ -59,23 +59,32 @@ export class SankeyDiagramPreferencesSelectionVM {
 		const identifier = e.target.id;
         const value = e.target.value==="undefined" ? undefined : e.target.value;
 		this.preferencesStore.sankeyDiagramPreferences.setPreferenceById(identifier, value);
+
+		if(identifier === "SDdistanceMatrixName"){
+			this.preferencesStore.sankeyDiagramPreferences.distMax = this.max;
+			this.preferencesStore.sankeyDiagramPreferences.distMin = this.min;
+		}
+			
 	}
 
     handleMinDistChange = (value) =>{
+		console.log("Valore min: ", value);
 		if(value){
-			this.preferencesStore.sankeyDiagramPreferences.distMin = value;
-			if(this.preferencesStore.sankeyDiagramPreferences.distMax < value){
-				this.preferencesStore.sankeyDiagramPreferences.distMax = value;
+			if(this.preferencesStore.sankeyDiagramPreferences.distMax <= value){
+				this.preferencesStore.sankeyDiagramPreferences.distMax = value+value/10;
+				console.log("Cambio il max a : ", value+value/10);
 			}
+			this.preferencesStore.sankeyDiagramPreferences.distMin = value;
+			
 		}
 	}
 
 	handleMaxDistChange = (value) =>{
 		if(value){
-			this.preferencesStore.sankeyDiagramPreferences.distMax = value;
-			if(this.preferencesStore.sankeyDiagramPreferences.distMin > value){
-				this.preferencesStore.sankeyDiagramPreferences.distMin = value;
+			if(this.preferencesStore.sankeyDiagramPreferences.distMin >= value){
+				this.preferencesStore.sankeyDiagramPreferences.distMin = value-value/10;
 			}
+			this.preferencesStore.sankeyDiagramPreferences.distMax = value;
 		}
 	}
 }

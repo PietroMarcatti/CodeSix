@@ -210,6 +210,7 @@ export class SankeyDiagramVM{
             this.sankeyDiagramDiv.firstChild.setAttribute("id", "data-visualization");
             return null;
         }
+        this.sankeyDiagramDiv.setAttribute("class", "white")
 
         /*
         Per provare che funzioni l'allineamento. Con grafi completamente connessi non si percepisce la diffrenza di allineamento

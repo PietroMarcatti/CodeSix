@@ -52,7 +52,6 @@ export class MenuVM{
     };
 
     closeModal = () => {
-        console.log("SOno stato chiamato");
         this.modalIsOpen = false;
     }
 

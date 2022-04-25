@@ -60,6 +60,8 @@ export class ForceDirectedPreferencesSelectionVM {
 		switch(identifier){
 		case "distanceMatrix":
 			this.preferencesStore.forceDirectedPreferences.matrix = value;
+			this.preferencesStore.forceDirectedPreferences.distMax = this.max;
+			this.preferencesStore.forceDirectedPreferences.distMin = this.min;
 			break;
 		case "color":
 			this.preferencesStore.forceDirectedPreferences.color = value;
@@ -83,6 +85,7 @@ export class ForceDirectedPreferencesSelectionVM {
 
 	handleMinDistChange = (value) =>{
 		if(value){
+			
 			this.preferencesStore.forceDirectedPreferences.distMin = value;
 		}
 	}

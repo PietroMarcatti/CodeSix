@@ -345,3 +345,7 @@ div.chart{
   background-color: var(--background-danger-opacity);
   opacity: 0.5;
 }
+
+.white{
+  background-color: var(--text-primary);
+}

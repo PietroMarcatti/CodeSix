@@ -135,7 +135,7 @@ const DimensionalReduction = observer((props)=>{
                         </Form.Group>
                         <Form.Group controlId="newDimensionsName">
                             <Form.Label>Nome nuove dimensioni: </Form.Label>
-                            <Form.Control required type="text" value={newDimensionsName} onChange={handleChangeNewDimensionsName} isInvalid={nameError}/>
+                            {/*<Form.Control required type="text" value={newDimensionsName} onChange={handleChangeNewDimensionsName} isInvalid={nameError}/>*/}
                         </Form.Group>
                         <Form.Group controlId="newDimensionsNumber">
                             <Form.Label>Numero di nuove dimensioni: {newDimensionsNumber}</Form.Label>
@@ -151,13 +151,13 @@ const DimensionalReduction = observer((props)=>{
                     </ModalFooter>
                 </Form>
             </Modal>
-            <Alert show={showSuccess} variant="success" className="alert" dismissible onClose={setShowSuccess.bind(null,false)}>
+            <Alert show={showSuccess} variant="success" className="alert success" dismissible onClose={setShowSuccess.bind(null,false)}>
 				<Alert.Heading>Operazione completata con successo</Alert.Heading>
 				<p>
 					La riduzione dimensionale è avvenuta con successo. Puoi ora visualizzare le tue nuove dimensioni.
 				</p>
 			</Alert>
-			<Alert show={showDanger} variant="danger" className="alert" dismissible onClose={setShowDanger.bind(null,false)}>
+			<Alert show={showDanger} variant="danger" className="alert danger" dismissible onClose={setShowDanger.bind(null,false)}>
 				<Alert.Heading>Avviso</Alert.Heading>
 				<p>
 					La riduzione dimensionale è fallita. Controlla di avere un dataset ben formattato.

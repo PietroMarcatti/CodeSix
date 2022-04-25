@@ -44,7 +44,6 @@ const Chart = observer(()=>{
     };
 
     function renderCharts(){
-        console.log("Chart to show: ", chartToShow);
         switch(chartToShow){
             case ChartType.Scatterplot:
                 return <Scatterplot/>;

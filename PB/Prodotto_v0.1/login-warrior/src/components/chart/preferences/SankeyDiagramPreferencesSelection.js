@@ -15,6 +15,7 @@ const SankeyDiagramPreferencesSelection = observer(() => {
 		align,
 		handleMinDistChange,
 		handleMaxDistChange,
+		roundNumber,
 		distMin,
 		distMax,
 		max,
@@ -72,12 +73,12 @@ const SankeyDiagramPreferencesSelection = observer(() => {
 
 			<Form.Group controlId="distMax">
 				<Form.Label>Distanza massima (max {max})</Form.Label>
-				<NumericInput value={distMax} min={Math.max(min, distMin)} max={max} step={Math.round(max/10)} onChange={handleMaxDistChange}/>
+				<NumericInput value={roundNumber(distMax,2)} min={Math.max(min, distMin)} max={max} step={roundNumber(max/10,2)} onChange={handleMaxDistChange}/>
 				
 			</Form.Group>
 			<Form.Group controlId="distMin">
 				<Form.Label>Distanza minima (min {min})</Form.Label>
-				<NumericInput value={distMin} min={min} max={Math.min(max,distMax)} step={Math.round(max/10)} onChange={handleMinDistChange}/>
+				<NumericInput value={roundNumber(distMin,2)} min={min} max={Math.min(max,distMax)} step={roundNumber(max/10,2)} onChange={handleMinDistChange}/>
 			</Form.Group>
         </Form>
 	);
