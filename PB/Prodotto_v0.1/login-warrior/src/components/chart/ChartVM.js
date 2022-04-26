@@ -5,6 +5,7 @@ export class ChartVM{
         this.showPreferences = true;
         this.preferencesStore = rootStore.preferencesStore;
         this.datasetStore = rootStore.datasetStore;
+        this.distanceMatricesStore = rootStore.distanceMatricesStore;
         
         makeObservable(this,{
             showPreferences: observable,
@@ -21,8 +22,10 @@ export class ChartVM{
     };
 
     changeSample=()=>{
+        this.datasetStore.deleteReduxedDimensions();
         this.datasetStore.sampleData();
         this.datasetStore.castData();
+        this.distanceMatricesStore.reEvalueDistanceMatrices();
     }
 
     get chartToShow(){

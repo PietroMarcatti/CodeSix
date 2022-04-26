@@ -38,6 +38,6 @@ export class ScatterplotPreferencesSelectionVM {
 	}
 
     get dimensions(){
-		return this.datasetStore.numericDimensions.map(dim => dim.value);
+		return this.datasetStore.numericDimensions.map(dim => dim.value).slice();
 	}
 }

@@ -32,6 +32,7 @@ export default class DatasetStore {
             loadSampleSize: action,
             sampleData: action,
             castData: action,
+            deleteReduxedDimensions: action,
             addDimensionsToDataset: action,
             reset: action,
             fromJSON: action
@@ -51,11 +52,11 @@ export default class DatasetStore {
     };
 
     get selectedDimensions(){
-        return this.dimensions.filter(dim => dim.isChecked && !dim.isReduced);
+        return this.dimensions.filter(dim => dim.isChecked && !dim.isRedux);
     };
 
     get notReducedDimensions(){
-        return this.dimensions.filter(dim => !dim.isReduced)
+        return this.dimensions.filter(dim => !dim.isRedux)
     };
 
     loadSampleSize(value){
@@ -116,6 +117,12 @@ export default class DatasetStore {
         }catch(e){
             console.log("Error: ",e);
         }
+    }
+
+    deleteReduxedDimensions(){
+        console.log(this.dimensions.slice())
+        this.dimensions.replace(this.notReducedDimensions);
+        console.log(this.dimensions.slice())
     }
 
     isDataLoaded(){

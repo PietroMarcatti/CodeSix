@@ -41,6 +41,7 @@ class ForceDirectedPreferences{
 		this.FDmatrix = value;
 	}
 
+
     toJSON(){
         return{
             FDmatrix : this.FDmatrix ? this.FDmatrix : "undefined",

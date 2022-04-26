@@ -69,8 +69,8 @@ const Chart = observer(()=>{
                         {chartToShow ? renderPreferences() : "Nessuna opzione disponibile. Scegli una visualizzazione"}
                     </div>
                     <div className="row" >
-                        <button className="btn-pref" onClick={changeSample.bind(null)}>Ricampiona dati</button>
                         <button className="btn-pref" onClick={togglePref.bind(null)}>{prefBtnText()}</button>
+                        {chartToShow ? <button className="btn-pref" onClick={changeSample.bind(null)}>Ricampiona dati</button> : ""}
                     </div>
                     
                 </div>

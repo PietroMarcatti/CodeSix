@@ -9,10 +9,11 @@ const ForceDirected = observer(()=>{
         renderChart,
         distanceMatrix,
         distMin,
-        distMax
+        distMax,
+        matrices
     }=useInstance(new ForceDirectedVM(useStore()));
 
-    useEffect(()=>{renderChart();},[distanceMatrix, distMax, distMin]);
+    useEffect(()=>{renderChart();},[distanceMatrix, distMax, distMin,matrices]);
 
     return(
         <div id="forceDirected" className="chart"></div>
