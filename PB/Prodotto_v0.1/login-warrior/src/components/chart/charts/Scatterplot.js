@@ -14,6 +14,7 @@ const ScatterPlot = observer(()=>{
         shape
     }=useInstance(new ScatterplotVM(useStore()));
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=>{renderChart();},[axisX,axisY,pointSize,color,shape]);
 
     return(

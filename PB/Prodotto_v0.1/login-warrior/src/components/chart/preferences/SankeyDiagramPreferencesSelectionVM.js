@@ -61,8 +61,8 @@ export class SankeyDiagramPreferencesSelectionVM {
 		this.preferencesStore.sankeyDiagramPreferences.setPreferenceById(identifier, value);
 
 		if(identifier === "SDdistanceMatrixName"){
-			this.preferencesStore.sankeyDiagramPreferences.distMax = this.max;
-			this.preferencesStore.sankeyDiagramPreferences.distMin = this.min;
+			this.preferencesStore.sankeyDiagramPreferences.distMax = 0.52*this.max;
+			this.preferencesStore.sankeyDiagramPreferences.distMin = 0.48*this.max;
 		}
 			
 	}

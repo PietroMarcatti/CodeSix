@@ -14,6 +14,7 @@ const SankeyDiagram = observer(()=>{
         align
     }=useInstance(new SankeyDiagramVM(useStore()));
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=>{renderChart();},[distanceMatrixName, linkColor, align,distMin,distMax]);
 
     return(

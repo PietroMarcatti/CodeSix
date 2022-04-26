@@ -11,6 +11,7 @@ const ParallelCoordinates = observer(()=>{
         color,
     }=useInstance(new ParallelCoordinatesVM(useStore()));
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=>{renderChart();},[axes,color]);
 
     return(

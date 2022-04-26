@@ -1,4 +1,4 @@
-import { computed, makeAutoObservable } from "mobx";
+import {makeAutoObservable } from "mobx";
 
 export class ForceDirectedPreferencesSelectionVM {
     
@@ -60,8 +60,8 @@ export class ForceDirectedPreferencesSelectionVM {
 		switch(identifier){
 		case "distanceMatrix":
 			this.preferencesStore.forceDirectedPreferences.matrix = value;
-			this.preferencesStore.forceDirectedPreferences.distMax = this.max;
-			this.preferencesStore.forceDirectedPreferences.distMin = this.min;
+			this.preferencesStore.forceDirectedPreferences.distMax = 0.52*this.max;
+			this.preferencesStore.forceDirectedPreferences.distMin = 0.48*this.max;
 			break;
 		case "color":
 			this.preferencesStore.forceDirectedPreferences.color = value;
@@ -85,7 +85,6 @@ export class ForceDirectedPreferencesSelectionVM {
 
 	handleMinDistChange = (value) =>{
 		if(value){
-			
 			this.preferencesStore.forceDirectedPreferences.distMin = value;
 		}
 	}

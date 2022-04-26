@@ -105,6 +105,7 @@ const DimensionalReduction = observer((props)=>{
 			start();
 			setIsLoading(false);
 		}
+        // eslint-disable-next-line react-hooks/exhaustive-deps
 	},[isLoading]);
 
     return(

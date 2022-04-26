@@ -1,4 +1,4 @@
-import React, {useDebugValue, useEffect} from "react";
+import React, {useEffect} from "react";
 import {observer} from 'mobx-react-lite';
 import CsvReader from './CsvReader';
 import DimensionsList from './DimensionsList';

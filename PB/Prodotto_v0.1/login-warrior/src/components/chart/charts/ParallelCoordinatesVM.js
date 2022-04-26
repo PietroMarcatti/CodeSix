@@ -181,7 +181,7 @@ export class ParallelCoordinatesVM{
             .on("mousemove", this.color !== undefined ? mousemove : function() {})
             .on("mouseleave", this.color !== undefined ? doNotHighlight : function() {} )
 
-        var scale = function(d){
+        /*var scale = function(d){
             if(orientations.length > 0 && orientations[d] !== undefined)
                 if(orientations[d] === 1)
                     return d3.select(this).call(d3.axisLeft().scale(y[d]));
@@ -191,7 +191,7 @@ export class ParallelCoordinatesVM{
                 orientations.push({id: 1});
                 return 
             }
-        }
+        }*/
 
         var setOrientation = function(e){
             var element = e.target

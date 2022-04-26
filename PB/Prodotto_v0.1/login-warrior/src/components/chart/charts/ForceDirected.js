@@ -12,6 +12,7 @@ const ForceDirected = observer(()=>{
         distMax
     }=useInstance(new ForceDirectedVM(useStore()));
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=>{renderChart();},[distanceMatrix, distMax, distMin]);
 
     return(
