@@ -53,6 +53,10 @@ export default class LoadCsvVM {
         
     }
 
+    get sampleSize(){
+        return this.datasetStore.sampleSize;
+    }
+
     get datasetLength(){
         return this.localData.length;
     }
@@ -68,6 +72,8 @@ export default class LoadCsvVM {
     };
 
     setLocalStates = (newData, newDims, fileName, fileSize) => {
+        newData = newData.slice(0,newData.length-1);
+        console.log("Ultima riga: ", newData[newData.length-1])
         this.localData.replace(newData);
         this.localDimensions.replace(newDims);
         this.datasetStore.loadFileName(fileName);

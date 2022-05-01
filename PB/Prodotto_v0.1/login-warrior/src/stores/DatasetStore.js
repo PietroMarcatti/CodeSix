@@ -39,6 +39,10 @@ export default class DatasetStore {
         });
     };
 
+    get canResample(){
+        return !this.sampleSize === this.uploadedData.length
+    }
+
     get checkedDimensions(){
         return this.dimensions.filter(dim => dim.isChecked);
     };
@@ -64,26 +68,27 @@ export default class DatasetStore {
     }
 
     sampleData(){
-        if(this.sampleSize === this.uploadedData.length)
-            return null;
-
-        let selectedRows = 0;
-        let index = Math.random()*this.uploadedData.length;
-        let next = 0;
-        var arr = [...Array(this.uploadedData.length).keys()];
-        var sampledData = [];
-        while(selectedRows < this.sampleSize){
-            next = Math.floor((index + Math.random()*arr.length) % arr.length);
-            sampledData.push(this.uploadedData[arr[next]]);
-            arr.splice(next,1);
-            index = next;
-            ++selectedRows;
+        if(!this.canResample)
+            this.selectedData.replace(this.uploadedData);
+        else{
+            let selectedRows = 0;
+            let index = Math.random()*this.uploadedData.length;
+            let next = 0;
+            var arr = [...Array(this.uploadedData.length).keys()];
+            var sampledData = [];
+            while(selectedRows < this.sampleSize){
+                next = Math.floor((index + Math.random()*arr.length) % arr.length);
+                sampledData.push(this.uploadedData[arr[next]]);
+                arr.splice(next,1);
+                index = next;
+                ++selectedRows;
+            }
+            this.selectedData.replace(sampledData);
         }
-        this.selectedData.replace(sampledData);
+        
     }
 
     castData(){
-        console.log("Cast trovati: ",this.casts.slice())
         try{
             if(this.casts.length > 0){
                 let expandedDimensions=[];
@@ -120,9 +125,7 @@ export default class DatasetStore {
     }
 
     deleteReduxedDimensions(){
-        console.log(this.dimensions.slice())
         this.dimensions.replace(this.notReducedDimensions);
-        console.log(this.dimensions.slice())
     }
 
     isDataLoaded(){
@@ -140,7 +143,6 @@ export default class DatasetStore {
     loadCasts(casts){
         
         this.casts.replace(casts);
-        console.log("Cast arrivati: ",this.casts)
     }
 
     loadFileName(fileName){

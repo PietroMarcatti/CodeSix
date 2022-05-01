@@ -15,7 +15,7 @@ const ScatterPlot = observer(()=>{
         data
     }=useInstance(new ScatterplotVM(useStore()));
 
-    useEffect(()=>{renderChart(); console.log("Sono ripartito")},[axisX,axisY,pointSize,color,shape,data]);
+    useEffect(()=>{renderChart();},[axisX,axisY,pointSize,color,shape,data]);
 
     return(
         <div id="scatterplot" className="chart"></div>

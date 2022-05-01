@@ -23,7 +23,7 @@
     "react-icons": "^4.3.1",
     "react-numeric-input": "^2.2.3",
     "react-papaparse": "^4.0.2",
-    "react-scripts": "^5.0.0",
+    "react-scripts": "^5.0.1",
     "react-select": "^5.2.2",
     "web-vitals": "^2.1.4"
   },

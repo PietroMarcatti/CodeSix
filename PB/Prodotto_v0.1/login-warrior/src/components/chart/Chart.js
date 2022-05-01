@@ -23,6 +23,7 @@ const Chart = observer(()=>{
         fileSize,
         chartToShow,
         changeSample,
+        canResample,
     } = useInstance(new ChartVM(useStore()));
 
     function prefBtnText(){
@@ -70,7 +71,7 @@ const Chart = observer(()=>{
                     </div>
                     <div className="row" >
                         <button className="btn-pref" onClick={togglePref.bind(null)}>{prefBtnText()}</button>
-                        {chartToShow ? <button className="btn-pref" onClick={changeSample.bind(null)}>Ricampiona dati</button> : ""}
+                        {canResample ? <button className="btn-pref" onClick={changeSample.bind(null)}>Ricampiona dati</button> : ""}
                     </div>
                     
                 </div>

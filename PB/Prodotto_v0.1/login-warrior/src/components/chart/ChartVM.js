@@ -14,8 +14,13 @@ export class ChartVM{
             togglePref: action,
             fileName: computed,
             fileSize: computed,
+            canResample: computed,
         });
     };
+
+    get canResample(){
+        return this.datasetStore.canResample;
+    }
 
     togglePref=() =>{
         this.showPreferences = !this.showPreferences;
