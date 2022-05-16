@@ -2,7 +2,12 @@ import { makeAutoObservable } from "mobx";
 import * as d3 from "d3";
 
 export class ScatterplotVM{
+
     constructor(rootStore){
+        this.scaleType={
+            ORDINAL: "ORDINAL",
+            QUANTILE: "QUANTILE"
+        };
         this.datasetStore = rootStore.datasetStore;
 		this.preferencesStore = rootStore.preferencesStore;
         makeAutoObservable(this, {datasetStore: false, preferencesStore:false}, {autoBind: true});
@@ -103,9 +108,18 @@ export class ScatterplotVM{
             let shapeDomain = d3.extent(this.data, (d) => {return +d[this.shape]; });
             let uniqueValues = [...new Set(this.data.map(d => d[this.shape]))];
             
-            var shape_f = d3.scaleQuantile()
-            .domain(shapeDomain)
-            .range(uniqueValues.length > 7 ? d3.range(7) : d3.range(uniqueValues.length));
+            var shape_f=d3.scaleOrdinal()
+            .domain(uniqueValues)
+            .range([...Array(uniqueValues.length).keys()]);
+            shape_f.type=this.scaleType.ORDINAL;
+
+            if(uniqueValues.length > 7){
+                shape_f = d3.scaleQuantile()
+                .domain(shapeDomain)
+                .range(d3.range(7));
+                shape_f.type=this.scaleType.QUANTILE;
+            }
+            
         }
         
         // Add dots
@@ -139,7 +153,7 @@ export class ScatterplotVM{
             .attr("x", 600)
             .attr("y", 15)
             .style("fill", "white")
-            .text(this.color+" - colore dei punti:");
+            .text(this.color+" - colore:");
           
         console.log("Range colori: ", colorFunction.range());
         colorLegend.selectAll("dots")
@@ -175,32 +189,57 @@ export class ScatterplotVM{
             .attr("x", 850)
             .attr("y", 15)
             .style("fill", "white")
-            .text(this.shape+" - forma dei punti:");
+            .text(this.shape+" - forma:");
           
-        shapeLegend.selectAll("shape")
+        
+        if(shapeFunction.type === this.scaleType.ORDINAL){
+            shapeLegend.selectAll("shape")
+            .data(shapeFunction.domain().sort((a,b)=>a-b))
+            .join("path")
+            .attr("transform", (d,i) => {return "translate(870,"+(35 + i*25)+")";})
+              .style("fill", "white")
+              .attr("d", d => {return d3.symbol().type(d3.symbols[shapeFunction(d)]).size(100)();});
+        }else if(shapeFunction.type === this.scaleType.QUANTILE) {
+            
+            shapeLegend.selectAll("shape")
             .data(shapeFunction.quantiles())
             .join("path")
             .attr("transform", (d,i) => {return "translate(870,"+(35 + i*25)+")";})
               .style("fill", "white")
               .attr("d", d => {return d3.symbol().type(d3.symbols[shapeFunction(d)]).size(100)();});
-            
-        // Add one dot in the legend for each name
-        shapeLegend.selectAll("labels")
+        }
+        
+        if(shapeFunction.type === this.scaleType.ORDINAL){
+            shapeLegend.selectAll("labels")
+            .data(shapeFunction.domain().sort((a,b)=>a-b))
+            .enter()
+            .append("text")
+            .attr("x", 880)
+            .attr("y", (d,i) => {return 40 + i*25;})
+            .style("fill", "white")
+            .text((d, i) => {
+                return d;
+            });
+        }else if( shapeFunction.type === this.scaleType.QUANTILE){
+            // Add one dot in the legend for each name
+            shapeLegend.selectAll("labels")
             .data(shapeFunction.quantiles())
             .enter()
             .append("text")
-              .attr("x", 880)
-              .attr("y", (d,i) => {return 40 + i*25;})
-              .style("fill", "white")
-              .text((d, i) => {
+            .attr("x", 880)
+            .attr("y", (d,i) => {return 40 + i*25;})
+            .style("fill", "white")
+            .text((d, i) => {
                 if(i===0){
                     return this.roundNumber(shapeFunction.domain()[0],3)+" <= x < "+this.roundNumber(d,3);
                 }else if (i< (shapeFunction.quantiles().length-1)){
                     return this.roundNumber(shapeFunction.quantiles()[i-1],3)+ " <= x < "+this.roundNumber(d,3);
                 }else{
-                    return this.roundNumber(d,3)+" <= x < "+this.roundNumber(shapeFunction.domain()[1],3);
+                    return this.roundNumber(d,3)+" <= x <= "+this.roundNumber(shapeFunction.domain()[1],3);
                 }
             });
+        }
+        
     }
 
     drawAxisLegend(){

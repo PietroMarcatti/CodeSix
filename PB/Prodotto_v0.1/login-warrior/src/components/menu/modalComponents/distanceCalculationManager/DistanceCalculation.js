@@ -70,7 +70,7 @@ const DistanceCalculation = observer((props)=>{
                         <Form.Check custom="true" type="checkbox" key="normalize" value="normalize" id="normalize" label="Normalizza i dati" onChange={handleNormalize}/>
                         <Form.Group controlId="dimensionsToRedux">
                             <Form.Label>Seleziona dimensioni da utilizzare</Form.Label>
-                            <Select classname="basic-multi-select" value={dimensionsToRedux} options={optionList} isMulti name="toReduxDimensionsList" classNamePrefix="select" components={makeAnimated()}
+                            <Select className="basic-multi-select" value={dimensionsToRedux} options={optionList} isMulti name="toReduxDimensionsList" components={makeAnimated()}
                             closeMenuOnSelect={false} onChange={handleChangeDimensionsToRedux} />
                         </Form.Group>
                         <Form.Group controlId="distanceType">

@@ -26,7 +26,6 @@ export default class LoadCsvVM {
         }, {autoBind: true});
     }
 
-    
 
     castData(){
         try{

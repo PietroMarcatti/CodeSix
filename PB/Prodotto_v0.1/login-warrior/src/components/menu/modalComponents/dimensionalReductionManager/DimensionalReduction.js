@@ -125,7 +125,7 @@ const DimensionalReduction = observer((props)=>{
                         <Form.Group controlId="dimensionsToRedux">
                             <Form.Label>Seleziona dimensioni da utilizzare</Form.Label>
                             <Select value={dimensionsToRedux} options={optionList} isMulti name="toReduxDimensionsList"
-                            className="basic-multi-select" classNamePrefix="select" components={makeAnimated()} closeMenuOnSelect={false} onChange={handleChangeDimensionsToRedux}/>
+                            className="basic-multi-select" components={makeAnimated()} closeMenuOnSelect={false} onChange={handleChangeDimensionsToRedux}/>
                         </Form.Group>
                         <Form.Group controlId="algorithmType" id="alg">
                             <Form.Label>Algoritmo: </Form.Label>
