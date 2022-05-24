@@ -23,10 +23,10 @@ export class ParallelCoordinatesPreferencesSelectionVM {
     }
 
     checkAxisExistence(){
-        console.log(this.preferencesStore.parallelCoordinatesPreferences.axes)
+        console.log("Axes before: ", this.preferencesStore.parallelCoordinatesPreferences.axes.slice());
         let axes = this.preferencesStore.parallelCoordinatesPreferences.axes.filter(dim => this.dimensions.find(d => dim === d))
-        console.log(axes)
         this.preferencesStore.parallelCoordinatesPreferences.setPreferenceById("PCaxes", axes);
+        console.log("Axes after: ", axes);
     }
 
     get axes(){
