@@ -11,11 +11,11 @@ const ScatterPlot = observer(()=>{
         axisY,
         pointSize,
         color,
-        shape
+        shape,
+        data
     }=useInstance(new ScatterplotVM(useStore()));
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(()=>{renderChart();},[axisX,axisY,pointSize,color,shape]);
+    useEffect(()=>{renderChart();},[axisX,axisY,pointSize,color,shape,data]);
 
     return(
         <div id="scatterplot" className="chart"></div>

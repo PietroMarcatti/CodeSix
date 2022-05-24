@@ -5,6 +5,7 @@ export class ChartVM{
         this.showPreferences = true;
         this.preferencesStore = rootStore.preferencesStore;
         this.datasetStore = rootStore.datasetStore;
+        this.distanceMatricesStore = rootStore.distanceMatricesStore;
         
         makeObservable(this,{
             showPreferences: observable,
@@ -13,12 +14,24 @@ export class ChartVM{
             togglePref: action,
             fileName: computed,
             fileSize: computed,
+            canResample: computed,
         });
     };
+
+    get canResample(){
+        return this.datasetStore.canResample;
+    }
 
     togglePref=() =>{
         this.showPreferences = !this.showPreferences;
     };
+
+    changeSample=()=>{
+        this.datasetStore.deleteReduxedDimensions();
+        this.datasetStore.sampleData();
+        this.datasetStore.castData();
+        this.distanceMatricesStore.reEvalueDistanceMatrices();
+    }
 
     get chartToShow(){
         return this.preferencesStore.chart;

@@ -1,7 +1,12 @@
+import { DistanceType } from "../../utils";
+
 class DistanceMatrix {
     #nodes = [];
     #links = [];
     #name = "";
+    #distanceType=DistanceType.Euclidean;
+    #dimensionsToRedux = [];
+    #normalize = false;
 
     get nodes(){
         return this.#nodes;
@@ -19,6 +24,30 @@ class DistanceMatrix {
         this.#name = value;
     };
 
+    get distanceType(){
+        return this.#distanceType;
+    }
+
+    set distanceType(value){
+        this.#distanceType=value;
+    }
+
+    get dimensionsToRedux(){
+        return this.#dimensionsToRedux;
+    }
+
+    set dimensionsToRedux(value){
+        this.#dimensionsToRedux = value;
+    }
+
+    get normalize(){
+        return this.#normalize;
+    }
+
+    set normalize(value){
+        this.#normalize = value;
+    }
+
     pushNode(node){
         this.#nodes.push(node);
     };
@@ -26,6 +55,15 @@ class DistanceMatrix {
     pushLink(link){
         this.#links.push(link);
     };
+
+    clearLinks(){
+        this.#links.splice(0,this.#links.length)
+    }
+
+    clearNodes(){
+        this.#nodes.splice(0,this.#nodes.length)
+    }
+
 
     toJSON(){
         return {

@@ -5,18 +5,18 @@ export class ForceDirectedVM{
     constructor(rootStore){
         this.preferencesStore = rootStore.preferencesStore;
         this.distanceMatricesStore = rootStore.distanceMatricesStore;
-        makeAutoObservable(this,{preferencesStore: false}, {autoBind: true});
+        makeAutoObservable(this,{preferencesStore: false, distanceMatricesStore: false}, {autoBind: true});
     }
 
-    get matrices(){
-        return this.distanceMatricesStore.distMatrices;
-    }
+  get matrices(){
+    return this.distanceMatricesStore.distanceMatrices.slice();
+  }
 
-    get distMin(){
-    	return this.preferencesStore.forceDirectedPreferences.distMin;
+  get distMin(){
+    return this.preferencesStore.forceDirectedPreferences.distMin;
 	}
 	get distMax(){
-    	return this.preferencesStore.forceDirectedPreferences.distMax;
+    return this.preferencesStore.forceDirectedPreferences.distMax;
 	}
 
 	get color(){

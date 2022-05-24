@@ -42,7 +42,6 @@ export class DimensionalReductionVM{
     }
 
     set dimensionsToRedux(value){
-        console.log(value);
         this._dimensionsToRedux = value;
     }
 
@@ -70,7 +69,6 @@ export class DimensionalReductionVM{
     }
 
     handleSubmit = () =>{
-        console.log("Sono stato chiamato");
         try{
             let data = this.datasetStore.selectedData.map(obj => this.dimensionsToRedux.map((dim)=> obj[dim.value]));
             if(this.normalize){
@@ -93,7 +91,6 @@ export class DimensionalReductionVM{
                 e.name = "nameError";
                 throw e;
             }
-
             const dimReductor = new DimensionalReductor();
             let params;
             switch(this.algorithmType){
@@ -122,6 +119,7 @@ export class DimensionalReductionVM{
                     j++;
                 });
             }
+            
             this.datasetStore.addDimensionsToDataset(newDimsFromReduction);
             this.setShowSuccess(true);
             this.closeModal();
