@@ -174,7 +174,7 @@ export default class DatasetStore {
         this.selectedData.clear();
         this.dimensions.clear();
         this.casts.clear();
-        this.fileName.replace("");
+        this.fileName="";
         this.fileSize=0;
     };
 
