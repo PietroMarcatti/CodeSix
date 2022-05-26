@@ -40,7 +40,7 @@ export default class DatasetStore {
     };
 
     get canResample(){
-        return !this.sampleSize === this.uploadedData.length
+        return this.sampleSize !== this.uploadedData.length
     }
 
     get checkedDimensions(){

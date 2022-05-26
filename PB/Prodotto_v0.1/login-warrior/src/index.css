@@ -349,3 +349,7 @@ div.chart{
 .white{
   background-color: var(--text-primary);
 }
+
+#resample{
+  margin-left: 1em;
+}

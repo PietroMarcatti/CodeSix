@@ -71,7 +71,7 @@ const Chart = observer(()=>{
                     </div>
                     <div className="row" >
                         <button className="btn-pref" onClick={togglePref.bind(null)}>{prefBtnText()}</button>
-                        {canResample ? <button className="btn-pref" onClick={changeSample.bind(null)}>Ricampiona dati</button> : ""}
+                        {canResample ? <button className="btn-pref" id="resample" onClick={changeSample.bind(null)}>Ricampiona dati</button> : ""}
                     </div>
                     
                 </div>
