@@ -6,6 +6,9 @@ export class SankeyDiagramPreferencesSelectionVM {
         this.preferencesStore = rootStore.preferencesStore;
 		this.datasetStore = rootStore.datasetStore;
 
+		this.timeoutMin = null;
+		this.timeoutMax = null;
+
         makeAutoObservable(this,{
             distanceMatricesStore : false,
 			preferencesStore : false,
@@ -69,22 +72,31 @@ export class SankeyDiagramPreferencesSelectionVM {
 
     handleMinDistChange = (value) =>{
 		console.log("Valore min: ", value);
-		if(value){
-			if(this.preferencesStore.sankeyDiagramPreferences.distMax <= value){
-				this.preferencesStore.sankeyDiagramPreferences.distMax = value+value/10;
-				console.log("Cambio il max a : ", value+value/10);
+		if(this.timeoutMin)
+			clearTimeout(this.timeoutMin);
+		
+		this.timeoutMin = setTimeout(() => {
+			if(value){
+				if(this.preferencesStore.sankeyDiagramPreferences.distMax <= value){
+					this.preferencesStore.sankeyDiagramPreferences.distMax = value+value/10;
+					console.log("Cambio il max a : ", value+value/10);
+				}
+				this.preferencesStore.sankeyDiagramPreferences.distMin = value;
 			}
-			this.preferencesStore.sankeyDiagramPreferences.distMin = value;
-			
-		}
+		}, 2000);	
 	}
 
 	handleMaxDistChange = (value) =>{
-		if(value){
-			if(this.preferencesStore.sankeyDiagramPreferences.distMin >= value){
-				this.preferencesStore.sankeyDiagramPreferences.distMin = value-value/10;
+		if(this.timeoutMax)
+			clearTimeout(this.timeoutMax);
+
+		this.timeoutMax = setTimeout(() => {
+			if(value){
+				if(this.preferencesStore.sankeyDiagramPreferences.distMin >= value){
+					this.preferencesStore.sankeyDiagramPreferences.distMin = value-value/10;
+				}
+				this.preferencesStore.sankeyDiagramPreferences.distMax = value;
 			}
-			this.preferencesStore.sankeyDiagramPreferences.distMax = value;
-		}
+		}, 2000);		
 	}
 }
