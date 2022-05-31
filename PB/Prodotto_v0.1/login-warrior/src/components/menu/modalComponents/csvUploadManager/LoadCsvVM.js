@@ -78,7 +78,7 @@ export default class LoadCsvVM {
         this.localDimensions.replace(newDims);
         this.datasetStore.loadFileName(fileName);
         this.datasetStore.loadFileSize(fileSize);
-        this.datasetStore.loadSampleSize(newData.length);
+        this.datasetStore.loadSampleSize(Math.round(newData.length/10));
     };
 
     selectAllDimensions=event=>{

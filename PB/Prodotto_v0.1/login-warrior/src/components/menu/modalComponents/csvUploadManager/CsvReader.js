@@ -28,11 +28,9 @@ function CsvReader(props){
                         {acceptedFile ? (
                             <>
                                 <div >
-                                <div >
-                                    <span >
-                                    {formatFileSize(acceptedFile.size)}
-                                    </span>
-                                    <span >{acceptedFile.name}</span>
+                                <div className='row loaderFileNameSize'>
+                                    <span >{acceptedFile.name + "\t"}</span>
+                                    <span >{formatFileSize(acceptedFile.size)}</span>
                                 </div>
                                 <div >
                                     <ProgressBar />

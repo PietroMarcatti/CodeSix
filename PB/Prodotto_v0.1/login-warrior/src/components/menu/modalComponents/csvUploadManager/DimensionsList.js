@@ -22,9 +22,11 @@ const DimensionsList = observer((props)=>{
                         { dimensions.length > 0 ? 
                         <>
                             <FormLabel className="mt-1">Seleziona le dimensioni da utilizzare:</FormLabel>
-                            <Form.Group>
+                                
+                            <Form.Group className="row selectAllDims">
                                 <Form.Check custom="true" type="checkbox" checked={dimensions.length === dimensions.filter(d=>d.isChecked).length}
                                     key="checkAll" value="checkAll" id="checkAll" label="Seleziona tutto" onChange={selectAllDimensions} />
+                                    Interpreta come
                             </Form.Group>
                         </> : 
                         <></> 
@@ -40,7 +42,6 @@ const DimensionsList = observer((props)=>{
                                                     label={dim.value} onChange={selectDimension}/>
                                                 </Col>
                                                 <Col key={dimId}>
-                                                    <Form.Label>Interpreta come:</Form.Label>
                                                     <Form.Control  label="Intepreta come:" custom="true" as="select" value={casts[dimId]} onChange={handleSelectChangeCast.bind(null)}>
                                                         <option id={dim.value+"-"+0} value={"auto"} key={"noCast"}>Auto</option>
                                                         {castChoices.map((d,i) => {
