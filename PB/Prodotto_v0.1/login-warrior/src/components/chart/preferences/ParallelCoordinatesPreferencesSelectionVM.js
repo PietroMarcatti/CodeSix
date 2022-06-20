@@ -7,6 +7,8 @@ export class ParallelCoordinatesPreferencesSelectionVM {
 		this.preferencesStore = rootStore.preferencesStore;
 
     	makeObservable(this,{
+            axes: computed,
+            color: computed,
 			optionList : computed
     	});
 	}
@@ -21,10 +23,10 @@ export class ParallelCoordinatesPreferencesSelectionVM {
     }
 
     checkAxisExistence(){
-        console.log("Axes before: ", this.preferencesStore.parallelCoordinatesPreferences.axes.slice());
+        console.log(this.preferencesStore.parallelCoordinatesPreferences.axes)
         let axes = this.preferencesStore.parallelCoordinatesPreferences.axes.filter(dim => this.dimensions.find(d => dim === d))
+        console.log(axes)
         this.preferencesStore.parallelCoordinatesPreferences.setPreferenceById("PCaxes", axes);
-        console.log("Axes after: ", axes);
     }
 
     get axes(){
@@ -39,6 +41,7 @@ export class ParallelCoordinatesPreferencesSelectionVM {
     
 	
     handleSelectChangeDimensions = (value,handler) => {
+        
         switch(handler.action){
             case "select-option":
                 this.preferencesStore.parallelCoordinatesPreferences.setPreferenceById("PCaxes",value);break;
@@ -52,6 +55,7 @@ export class ParallelCoordinatesPreferencesSelectionVM {
                 break;
             default: break;
         }
+        this.checkAxisExistence()
 	}
 
     handleSelectChangeColor = e => {

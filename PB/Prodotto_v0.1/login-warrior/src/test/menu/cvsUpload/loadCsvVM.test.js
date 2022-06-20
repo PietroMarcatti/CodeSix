@@ -14,22 +14,25 @@ describe("Save data and dims in store", () => {
         loadCsv = new LoadCsvVM(rootStore, function(){});
         dim1 = new Dimension("A");
         dim2 = new Dimension("B");
-        dataset = [{"A": 5.1, "B": 3.5},{"A": 4.9, "B": 3.1}];
+        dataset = [{"A": 5.1, "B": 3.5},{"A": 4.9, "B": 3.1},{"A": 4.6, "B": 3.0}];
     });
 	
     test("Load data and dims", () => {
 		loadCsv.setLocalStates(dataset, [dim1, dim2]);
+		rootStore.datasetStore.loadSampleSize(2);
 		loadCsv.loadDataAndDims();
 		
 		expect(loadCsv.dimensions).toStrictEqual([dim1, dim2]);
 		expect(rootStore.datasetStore.selectedDimensions).toStrictEqual([dim1, dim2]);
-		expect(rootStore.datasetStore.selectedData).toStrictEqual(dataset);
+		expect(rootStore.datasetStore.selectedData).toStrictEqual(dataset.slice(0,-1));
 	});
 
 	test("Update dims", () => {
 		dim1.isChecked = false;
 		loadCsv.setLocalStates(dataset, [dim1, dim2]);
+		rootStore.datasetStore.loadSampleSize(2);
 		loadCsv.loadDataAndDims();
+		console.log(rootStore.datasetStore.selectedData)
 
 		expect(loadCsv.dimensions).toStrictEqual([dim1, dim2]);
 		expect(rootStore.datasetStore.selectedDimensions).toStrictEqual([dim2]);

@@ -1,4 +1,4 @@
-import { makeObservable, computed, action } from "mobx";
+import { makeObservable, computed, action} from "mobx";
 
 class ParallelCoordinatesPreferences{
     constructor(){
@@ -12,6 +12,7 @@ class ParallelCoordinatesPreferences{
     };
 
     get axes(){
+        console.log("PC preference store: "+this.PCaxes)
         return this.PCaxes;
     };
 
@@ -21,6 +22,7 @@ class ParallelCoordinatesPreferences{
 
     setPreferenceById(id, value){
         this[id] = value;
+        console.log("PC preference store assegno: "+this[id])
     };
 
     toJSON(){

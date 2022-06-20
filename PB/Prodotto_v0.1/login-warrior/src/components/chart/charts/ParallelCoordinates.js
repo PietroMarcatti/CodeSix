@@ -12,7 +12,7 @@ const ParallelCoordinates = observer(()=>{
     }=useInstance(new ParallelCoordinatesVM(useStore()));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(()=>{renderChart();},[axes,color]);
+    useEffect(()=>{console.log(axes);renderChart();},[axes,color]);
 
     return(
         <div id="parallel" className="chart"></div>

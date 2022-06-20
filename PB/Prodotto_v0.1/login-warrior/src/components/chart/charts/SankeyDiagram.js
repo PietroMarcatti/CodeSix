@@ -11,11 +11,12 @@ const SankeyDiagram = observer(()=>{
         linkColor,
         distMin,
         distMax,
-        align
+        align,
+        matrices
     }=useInstance(new SankeyDiagramVM(useStore()));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(()=>{renderChart();},[distanceMatrixName, linkColor, align,distMin,distMax]);
+    useEffect(()=>{renderChart();},[distanceMatrixName, linkColor, align,distMin,distMax, matrices]);
 
     return(
         <div id="sankeyDiagram" className="chart"></div>

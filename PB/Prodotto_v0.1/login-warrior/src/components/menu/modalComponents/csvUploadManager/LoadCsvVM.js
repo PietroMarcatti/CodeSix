@@ -27,8 +27,8 @@ export default class LoadCsvVM {
             this.datasetStore.reset();
             this.distanceMatricesStore.reset();
             this.preferencesStore.reset();
-            this.datasetStore.loadData([...this.localData]);
             this.datasetStore.loadDimensions([...this.localDimensions]);
+            this.datasetStore.loadData([...this.localData]);
             this.datasetStore.loadFileName(this.fileName);
             this.datasetStore.loadFileSize(this.fileSize);
             this.datasetStore.loadCasts([...this.localCasts]);
@@ -73,11 +73,11 @@ export default class LoadCsvVM {
 
     setLocalStates = (newData, newDims, fileName, fileSize) => {
         newData = newData.slice(0,newData.length-1);
-        console.log("Ultima riga: ", newData[newData.length-1])
         this.localData.replace(newData);
         this.localDimensions.replace(newDims);
-        this.datasetStore.loadFileName(fileName);
-        this.datasetStore.loadFileSize(fileSize);
+        this.fileName = fileName;
+        this.fileSize = fileSize;
+        console.log("Filename: "+fileName)
         this.datasetStore.loadSampleSize(Math.round(newData.length/10));
     };
 

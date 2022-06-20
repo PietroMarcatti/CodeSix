@@ -14,6 +14,7 @@ export class ParallelCoordinatesVM{
 	};
 
     get axes(){
+        console.log(this.preferencesStore.parallelCoordinatesPreferences.axes.map(axis => axis.value).slice())
         return this.preferencesStore.parallelCoordinatesPreferences.axes.map(axis => axis.value).slice();
     };
 

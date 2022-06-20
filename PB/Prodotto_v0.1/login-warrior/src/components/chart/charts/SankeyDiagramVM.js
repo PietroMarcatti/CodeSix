@@ -10,6 +10,10 @@ export class SankeyDiagramVM{
         makeAutoObservable(this, {datasetStore: false, preferencesStore:false}, {autoBind: true});
     };
 
+    get matrices(){
+        return this.distanceMatricesStore.distanceMatrices.slice();
+      }
+
     get data(){
 		return this.datasetStore.selectedData.slice(0,1000);
 	};
