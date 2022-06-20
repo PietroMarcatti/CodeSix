@@ -54,6 +54,7 @@ const Menu = observer(() =>{
                     <ul className='navbar-nav'>
                         {names.map((name, index)=>{
                             return(
+                                <>
                                 <li className={id===index ? 'nav-item active' : 'nav-item'} key={name}>
                                     {checkToDisabled(index) ?
                                         <OverlayTrigger
@@ -71,8 +72,12 @@ const Menu = observer(() =>{
                                             <span className='link-text'>{name}</span>
                                         </button>
                                     }
+                                    
                                 </li>
+                                {index == 3 ? <hr className='hr'/> : ""}
+                                </>
                             );
+                            
                         })}
                         <li key={"fileName"}>
                             {fileName}

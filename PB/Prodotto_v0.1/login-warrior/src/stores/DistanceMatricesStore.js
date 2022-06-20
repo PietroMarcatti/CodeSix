@@ -28,7 +28,7 @@ class DistanceMatricesStore {
     }
 
     calculateDistanceMatrix(matrix){
-        console.log("Inizio il calcolo della matrice: ", matrix)
+        
         let data = this.datasetStore.selectedData.map(obj => matrix.dimensionsToRedux.map((dim) => obj[dim.value]));
         if(matrix.normalize){
             data = this.normalizeData(data,matrix);

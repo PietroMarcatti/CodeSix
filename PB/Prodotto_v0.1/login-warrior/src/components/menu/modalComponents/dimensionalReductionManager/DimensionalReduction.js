@@ -121,28 +121,30 @@ const DimensionalReduction = observer((props)=>{
                     </Modal.Header>
 
                     <ModalBody>
-                        <FormCheck className="mb-2" custom="true" type="checkbox" key="normalize" value="normalize" id="normalize" label="Normalizza i dati" onChange={toggleNormalize}/>
-                        <Form.Group controlId="dimensionsToRedux">
-                            <Form.Label>Seleziona dimensioni da utilizzare</Form.Label>
-                            <Select value={dimensionsToRedux} options={optionList} isMulti name="toReduxDimensionsList"
-                            className="basic-multi-select" components={makeAnimated()} closeMenuOnSelect={false} onChange={handleChangeDimensionsToRedux}/>
-                        </Form.Group>
-                        <Form.Group controlId="algorithmType" id="alg">
-                            <Form.Label>Algoritmo: </Form.Label>
-                            <Form.Control as="select" custom="true" value={algorithmType} onChange={handleChangeAlgorithmType}>
-                                <option value={AlgorithmTypes.Tsne}>t-SNE</option>
-                                <option value={AlgorithmTypes.Umap}>UMAP</option>
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="newDimensionsName">
-                            <Form.Label>Nome nuove dimensioni: </Form.Label>
-                            {/*<Form.Control required type="text" value={newDimensionsName} onChange={handleChangeNewDimensionsName} isInvalid={nameError}/>*/}
-                        </Form.Group>
-                        <Form.Group controlId="newDimensionsNumber">
-                            <Form.Label>Numero di nuove dimensioni: {newDimensionsNumber}</Form.Label>
-                            <Slider value={newDimensionsNumber} onChange={handleChangeNewDimensionsNumber} min={2} max={8}/>
-                        </Form.Group>
-                        {renderParams()}
+                        <div className="spaced">
+                            <FormCheck className="mb-2" custom="true" type="checkbox" key="normalize" value="normalize" id="normalize" label="Normalizza i dati" onChange={toggleNormalize}/>
+                            <Form.Group controlId="dimensionsToRedux">
+                                <Form.Label>Seleziona dimensioni da utilizzare</Form.Label>
+                                <Select value={dimensionsToRedux} options={optionList} isMulti name="toReduxDimensionsList"
+                                className="basic-multi-select" components={makeAnimated()} closeMenuOnSelect={false} onChange={handleChangeDimensionsToRedux}/>
+                            </Form.Group>
+                            <Form.Group controlId="algorithmType" id="alg">
+                                <Form.Label>Algoritmo: </Form.Label>
+                                <Form.Control as="select" custom="true" value={algorithmType} onChange={handleChangeAlgorithmType}>
+                                    <option value={AlgorithmTypes.Tsne}>t-SNE</option>
+                                    <option value={AlgorithmTypes.Umap}>UMAP</option>
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group controlId="newDimensionsName">
+                                <Form.Label>Nome nuove dimensioni: </Form.Label>
+                                {/*<Form.Control required type="text" value={newDimensionsName} onChange={handleChangeNewDimensionsName} isInvalid={nameError}/>*/}
+                            </Form.Group>
+                            <Form.Group controlId="newDimensionsNumber">
+                                <Form.Label>Numero di nuove dimensioni: {newDimensionsNumber}</Form.Label>
+                                <Slider value={newDimensionsNumber} onChange={handleChangeNewDimensionsNumber} min={2} max={8}/>
+                            </Form.Group>
+                            {renderParams()}
+                        </div>
                     </ModalBody>
                     <ModalFooter>
                         <button type="button" onClick={closeModal} class="red">Torna al menù</button>

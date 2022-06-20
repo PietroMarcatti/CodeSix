@@ -20,6 +20,7 @@ const ParallelCoordinatesPreferencesSelection = observer(() => {
 
 
     return (
+		console.log(axes),
 		<Form className="chartPreferences">
 			<Form.Label>Seleziona dimensioni da utilizzare</Form.Label>
             <Select value={axes} options={optionList} isMulti id="selectParallelPref" name="parallelCoordinatesAxes"

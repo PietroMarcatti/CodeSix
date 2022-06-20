@@ -101,13 +101,13 @@ button.nav-link span{
 div.modal{
   z-index: 100;
   background-color: var(--background-secondary);
-  border: var(--background-tertiary);
   border-radius: 15px;
   color: var(--text-primary);
   position: absolute;
   top: 200px;
   left: 500px;
   padding: 1em;
+  border: 1px solid var(--text-primary);
 }
 
 div.row{
@@ -258,6 +258,7 @@ div.modal button{
   margin: 3em;
   margin-left: 1em;
   cursor: move;
+  border: 1px solid var(--text-primary);
 }
 
 .pref-title{
@@ -316,6 +317,15 @@ select.form-control{
   color: #121317;
 }
 
+.select__value-container > {
+  margin-top: 0em;
+}
+
+.hr{
+  max-width: 16em;
+  margin-left: -0.5em;
+}
+
 .form-control option{
   appearance: none;
   background-color: var(--background-secondary);
@@ -326,6 +336,19 @@ select.form-control{
 
 .hide-pref{
   display: none;
+}
+
+.spaced {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  min-width: 20em;
+  display: flex;
+  flex-flow: column;
+}
+
+
+.spaced div{
+  margin-top: 0.5em;
 }
 
 /* Grafico */
@@ -374,6 +397,10 @@ div.chart{
 
 .white{
   background-color: var(--text-primary);
+}
+
+.black{
+  background-color: var(--background-primary);
 }
 
 #resample{

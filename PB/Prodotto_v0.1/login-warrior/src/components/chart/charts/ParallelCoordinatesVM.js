@@ -10,12 +10,15 @@ export class ParallelCoordinatesVM{
     }
 
     get data(){
-		return this.datasetStore.selectedData;
+		return this.datasetStore.selectedData.slice();
 	};
 
+    get dimensions(){
+		return this.datasetStore.numericDimensions.map(dim => dim.value).slice();
+	}
+
     get axes(){
-        console.log(this.preferencesStore.parallelCoordinatesPreferences.axes.map(axis => axis.value).slice())
-        return this.preferencesStore.parallelCoordinatesPreferences.axes.map(axis => axis.value).slice();
+        return this.preferencesStore.parallelCoordinatesPreferences.axes.filter(dim => this.dimensions.slice().find(d => dim.value == d)).map(axis => axis.value).slice();
     };
 
     get color(){
@@ -45,7 +48,7 @@ export class ParallelCoordinatesVM{
             .attr("transform", function(d,i){return 'translate('+axesT.length*10+','+30+')'});
 
         colorLegend.append("text")
-            .attr("x", 850)
+            .attr("x", 1100)
             .attr("y", 15)
             .style("fill", "white")
             .text(this.color+":");
@@ -55,7 +58,7 @@ export class ParallelCoordinatesVM{
             .data(colorFunction.domain())
             .enter()
             .append("circle")
-              .attr("cx", 850)
+              .attr("cx", 1105)
               .attr("cy", (d,i) => {return 35 + i*25;})
               .attr("r", 6)
               .style("fill", d => {return colorFunction(d);});
@@ -65,7 +68,7 @@ export class ParallelCoordinatesVM{
             .data(colorFunction.domain())
             .enter()
             .append("text")
-              .attr("x", 860)
+              .attr("x", 1120)
               .attr("y", (d,i) => {return 40 + i*25;})
               .style("fill", d => {return colorFunction(d);})
               .text(d => {return d;});
@@ -78,8 +81,8 @@ export class ParallelCoordinatesVM{
         
 
         var margin = {top: 30, right: 10, bottom: 10, left: 0},
-        width = 1080 - margin.left - margin.right,
-        height = 580 - margin.top - margin.bottom;
+        width = 1270 - margin.left - margin.right,
+        height = 950 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
         var svg = d3.select("#parallel")
@@ -89,7 +92,7 @@ export class ParallelCoordinatesVM{
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform",
-                "translate( -60 ," + margin.top + ")")
+                "translate( -120 ," + margin.top + ")")
         .attr("width", "fit-content");
 
 
@@ -104,7 +107,7 @@ export class ParallelCoordinatesVM{
 
         // Build the X scale -> it find the best position for each Y axis
         var x = d3.scalePoint()
-            .range([0, width])
+            .range([0, width+100])
             .padding(1)
             .domain(axesT);
         
