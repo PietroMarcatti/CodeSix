@@ -161,7 +161,7 @@ export class ScatterplotVM{
             .data(colorFunction.domain())
             .enter()
             .append("circle")
-              .attr("cx", 850)
+              .attr("cx", 870)
               .attr("cy", (d,i) => {return 235 + i*25;})
               .attr("r", 6)
               .style("fill", d => {return colorFunction(d);});
@@ -171,7 +171,7 @@ export class ScatterplotVM{
             .data(colorFunction.domain())
             .enter()
             .append("text")
-              .attr("x", 870)
+              .attr("x", 885)
               .attr("y", (d,i) => {return 240 + i*25;})
               .style("fill", d => {return colorFunction(d);})
               .text(d => {return d;});
@@ -272,8 +272,8 @@ export class ScatterplotVM{
             .attr("id", "size-legend");
         
         sizeLegend.append("text")
-            .attr("x", 60)
-            .attr("y", 560)
+            .attr("x", 850)
+            .attr("y", 500)
             .style("fill", "white")
             .text(this.pointSize+" - grandezza dei punti");
         
@@ -281,8 +281,8 @@ export class ScatterplotVM{
             .data(size_f.domain())
             .enter()
             .append("circle")
-              .attr("cx", 1170)
-              .attr("cy", (d,i) => {return 265 + i*25;})
+              .attr("cx", 870)
+              .attr("cy", (d,i) => {return 520 + i*25;})
               .attr("r", (d,i)=>{return size_f(d)/10+(-i+1)*3;})
               .style("fill", "white")
             
@@ -291,8 +291,8 @@ export class ScatterplotVM{
             .data(size_f.domain())
             .enter()
             .append("text")
-              .attr("x", 1185)
-              .attr("y", (d,i) => {return 270 + i*25;})
+              .attr("x", 885)
+              .attr("y", (d,i) => {return 525 + i*25;})
               .style("fill", "white")
               .text(d => {return d;});
     }
