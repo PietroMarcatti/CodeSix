@@ -1,14 +1,10 @@
-import { makeObservable, computed, action } from "mobx";
+import { makeAutoObservable} from "mobx";
 
 class ParallelCoordinatesPreferences{
     constructor(){
         this.PCaxes = [];
         this.PCcolor = undefined;
-        makeObservable(this, {
-            axes: computed,
-            color: computed,
-            setPreferenceById: action,
-        });
+        makeAutoObservable(this);
     };
 
     get axes(){
@@ -21,6 +17,7 @@ class ParallelCoordinatesPreferences{
 
     setPreferenceById(id, value){
         this[id] = value;
+        console.log(this[id])
     };
 
     toJSON(){

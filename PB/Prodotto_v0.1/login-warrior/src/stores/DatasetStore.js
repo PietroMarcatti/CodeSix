@@ -134,6 +134,7 @@ export default class DatasetStore {
 
     loadData(data){
         this.uploadedData.replace(data);
+        this.updateSelectedData();
     };
 
     loadDimensions(dimensions){
@@ -158,11 +159,10 @@ export default class DatasetStore {
     };
 
     updateSelectedData(){
-        let selectedData = this.uploadedData.map(d=>{
+        let data = this.uploadedData.map(d=>{
             return Object.fromEntries(this.selectedDimensions.map(dim=> [dim.value, d[dim.value]]));
         }).filter(this.haveNotANumberValue);
-        this.loadDimensions(this.notReducedDimensions);
-        this.selectedData.replace(selectedData);
+        this.selectedData.replace(data);
     };
 
     addDimensionsToDataset(moreDimensions){

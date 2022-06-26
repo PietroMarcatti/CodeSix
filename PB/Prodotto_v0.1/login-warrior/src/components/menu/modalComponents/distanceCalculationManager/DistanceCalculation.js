@@ -67,25 +67,27 @@ const DistanceCalculation = observer((props)=>{
                         <Modal.Title>Riduzione dimensionale tramite calcolo delle distanze</Modal.Title>
                     </Modal.Header>
                     <ModalBody>
-                        <Form.Check custom="true" type="checkbox" key="normalize" value="normalize" id="normalize" label="Normalizza i dati" onChange={handleNormalize}/>
-                        <Form.Group controlId="dimensionsToRedux">
-                            <Form.Label>Seleziona dimensioni da utilizzare</Form.Label>
-                            <Select className="basic-multi-select" value={dimensionsToRedux} options={optionList} isMulti name="toReduxDimensionsList" components={makeAnimated()}
-                            closeMenuOnSelect={false} onChange={handleChangeDimensionsToRedux} />
-                        </Form.Group>
-                        <Form.Group controlId="distanceType">
-                            <Form.Label>Tipo di distanza</Form.Label>
-                            <Form.Control as="select" custom="true" value={distanceType} onChange={handleChangeDistanceType}>
-                                <option value={DistanceType.Euclidean}>Euclidea</option>
-                                <option value={DistanceType.Manhattan}>Taxicab</option>
-                                <option value={DistanceType.Chebyshev}>Chebyshev</option>
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="newDistanceMatrixName">
-                            <Form.Label>Nome matrice delle distanze</Form.Label>
-                            <Form.Control required type="text" value={newDistanceMatrixName} onChange={handleChangeNewDistanceMatrixName} isInvalid={nameError}/>
-                            {/*<Form.Control.Feedback type="invalid">Nome invalido o già utilizzato.</Form.Control.Feedback>*/}
-                        </Form.Group>
+                        <div className="col spaced">
+                            <Form.Check custom="true" type="checkbox" key="normalize" value="normalize" id="normalize" label="Normalizza i dati" onChange={handleNormalize}/>
+                            <Form.Group controlId="dimensionsToRedux">
+                                <Form.Label>Seleziona dimensioni da utilizzare</Form.Label>
+                                <Select className="basic-multi-select" value={dimensionsToRedux} options={optionList} isMulti name="toReduxDimensionsList" components={makeAnimated()}
+                                closeMenuOnSelect={false} onChange={handleChangeDimensionsToRedux} />
+                            </Form.Group>
+                            <Form.Group controlId="distanceType" >
+                                <Form.Label>Tipo di distanza</Form.Label>
+                                <Form.Control as="select" custom="true" value={distanceType} onChange={handleChangeDistanceType}>
+                                    <option value={DistanceType.Euclidean}>Euclidea</option>
+                                    <option value={DistanceType.Manhattan}>Taxicab</option>
+                                    <option value={DistanceType.Chebyshev}>Chebyshev</option>
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group controlId="newDistanceMatrixName">
+                                <Form.Label>Nome matrice delle distanze</Form.Label>
+                                <Form.Control required type="text" value={newDistanceMatrixName} onChange={handleChangeNewDistanceMatrixName} isInvalid={nameError}/>
+                                {/*<Form.Control.Feedback type="invalid">Nome invalido o già utilizzato.</Form.Control.Feedback>*/}
+                            </Form.Group>
+                        </div>
                     </ModalBody>
                     <ModalFooter>
 						<button className="red" onClick={closeModal}>Torna al menù</button>

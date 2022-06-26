@@ -10,6 +10,10 @@ export class SankeyDiagramVM{
         makeAutoObservable(this, {datasetStore: false, preferencesStore:false}, {autoBind: true});
     };
 
+    get matrices(){
+        return this.distanceMatricesStore.distanceMatrices.slice();
+      }
+
     get data(){
 		return this.datasetStore.selectedData.slice(0,1000);
 	};
@@ -41,6 +45,11 @@ export class SankeyDiagramVM{
         return this.distanceMatrix.links.filter((element) => { return element.value >= this.distMin && element.value <= this.distMax ? element : null} );
     }
 
+    get selectedNodes(){
+        return this.distanceMatrix.nodes.filter((element) => {
+            if (this.selectedLinks.some((link) => {return link['source'] == element.id || link['target']==element.id})) return element })
+    }
+
     get sankeyDiagramDiv(){
         return document.getElementById("sankeyDiagram");
     }
@@ -58,7 +67,7 @@ export class SankeyDiagramVM{
         nodeGroup, // given d in nodes, returns an (ordinal) value for color
         nodeGroups, // an array of ordinal values representing the node groups
         nodeLabel, // given d in (computed) nodes, text to label the associated rect
-        nodeTitle = d => `${d.id}\n${format(d.value)}`, // given d in (computed) nodes, hover text
+        nodeTitle = d=> d, // given d in (computed) nodes, hover text
         nodeAlign = align, // Sankey node alignment strategy: left, right, justify, center
         nodeWidth = 15, // width of node rects
         nodePadding = 10, // vertical separation between adjacent nodes
@@ -83,6 +92,9 @@ export class SankeyDiagramVM{
         marginBottom = 5, // bottom margin, in pixels
         marginLeft = 1, // left margin, in pixels
     } = {}) {
+        var dimRed = this.distanceMatrix.dimensionsToRedux.slice().map(d => d.value);
+        console.log(dimRed)
+        
         // Convert nodeAlign from a name to a function (since d3-sankey is not part of core d3).
         if (typeof nodeAlign !== "function") nodeAlign = {
             left: d3Sankey.sankeyLeft,
@@ -94,14 +106,14 @@ export class SankeyDiagramVM{
         const LS = d3.map(links, linkSource).map(intern);
         const LT = d3.map(links, linkTarget).map(intern);
         const LV = d3.map(links, linkValue);
-        if (nodes === undefined) nodes = Array.from(d3.union(LS, LT), id => ({id}));
+        //if (nodes === undefined) nodes = Array.from(d3.union(LS, LT), id => ({id}));
         const N = d3.map(nodes, nodeId).map(intern);
         const G = nodeGroup == null ? null : d3.map(nodes, nodeGroup).map(intern);
-    
+        const Tt = nodeTitle == null ? null : d3.map(nodes, nodeTitle);
         // Replace the input nodes and links with mutable objects for the simulation.
         nodes = d3.map(nodes, (_, i) => ({id: N[i]}));
         links = d3.map(links, (_, i) => ({source: LS[i], target: LT[i], value: LV[i]}));
-    
+        
         // Ignore a group-based linkColor option if no groups are specified.
         if (!G && ["source", "target", "source-target"].includes(linkColor)) linkColor = "currentColor";
     
@@ -110,7 +122,7 @@ export class SankeyDiagramVM{
     
         // Construct the scales.
         const color = nodeGroup == null ? null : d3.scaleOrdinal(nodeGroups, colors);
-    
+        
         // Compute the Sankey layout.
         d3Sankey.sankey()
             .nodeId(({index: i}) => N[i])
@@ -122,8 +134,8 @@ export class SankeyDiagramVM{
     
         // Compute titles and labels using layout nodes, so as to access aggregate values.
         if (typeof format !== "function") format = d3.format(format);
-        const Tl = nodeLabel === undefined ? N : nodeLabel == null ? null : d3.map(nodes, nodeLabel);
-        const Tt = nodeTitle == null ? null : d3.map(nodes, nodeTitle);
+        //const Tl = nodeLabel === undefined ? N : nodeLabel == null ? null : d3.map(nodes, nodeLabel);
+        
         const Lt = linkTitle == null ? null : d3.map(links, linkTitle);
     
         // A unique identifier for clip paths (to avoid conflicts).
@@ -148,9 +160,14 @@ export class SankeyDiagramVM{
             .attr("y", d => d.y0)
             .attr("height", d => d.y1 - d.y0)
             .attr("width", d => d.x1 - d.x0);
-    
+        console.log(nodes)
         if (G) node.attr("fill", ({index: i}) => color(G[i]));
-        if (Tt) node.append("title").text(({index: i}) => Tt[i]);
+        if (Tt) node.append("title").text(function(d,i){
+            var tit =Tt[i]['id'];
+            dimRed.forEach(dim => (tit+="\n"+dim+": "+Tt[i][dim]))
+            return tit;
+          }
+        );
     
         const link = svg.append("g")
             .attr("fill", "none")
@@ -181,7 +198,7 @@ export class SankeyDiagramVM{
             .attr("stroke-width", ({width}) => Math.max(1, width))
             .call(Lt ? path => path.append("title").text(({index: i}) => Lt[i]) : () => {});
     
-        if (Tl) svg.append("g")
+        /*if (Tl) svg.append("g")
             .attr("font-family", "sans-serif")
             .attr("font-size", 10)
         .selectAll("text")
@@ -191,7 +208,7 @@ export class SankeyDiagramVM{
             .attr("y", d => (d.y1 + d.y0) / 2)
             .attr("dy", "0.35em")
             .attr("text-anchor", d => d.x0 < width / 2 ? "start" : "end")
-            .text(({index: i}) => Tl[i]);
+            .text(({index: i}) => Tl[i]);*/
     
         function intern(value) {
         return value !== null && typeof value === "object" ? value.valueOf() : value;
@@ -209,19 +226,29 @@ export class SankeyDiagramVM{
             this.sankeyDiagramDiv.firstChild.innerHTML= "Il SankeyDiagram verrà visualizzato appena verrà selezionata la matrice delle distanze da utilizzare";
             this.sankeyDiagramDiv.firstChild.setAttribute("id", "data-visualization");
             document.getElementById("downloadSvgGraph").style.display="none";
+            this.sankeyDiagramDiv.firstChild.setAttribute("class","black");
+            return null;
+        }
+        if(this.selectedLinks.length <1 & this.selectedNodes.length <2){
+            this.sankeyDiagramDiv.append(document.createElement("div"));
+            this.sankeyDiagramDiv.firstChild.innerHTML= "Nessun link trovato nell'intervallo richiesto";
+            this.sankeyDiagramDiv.firstChild.setAttribute("id", "data-visualization")
+            this.sankeyDiagramDiv.firstChild.setAttribute("class","black");
             return null;
         }
         this.sankeyDiagramDiv.setAttribute("class", "white")
 
+        console.log(this.selectedNodes)
         this.SankeyChart({
+            nodes: this.selectedNodes,
             links: this.selectedLinks,
           }, {
             nodeGroup: d => d.id.split(/\W/)[0], // take first word for color
             nodeAlign: this.align,
             linkColor: this.linkColor,
             format: (f => d => `${f(d)}`)(d3.format(",.1~f")),
-            width: 700,
-            height: 700
+            width: 1210,
+            height: 950
         })
         document.getElementById("downloadSvgGraph").style.display="block";
     }

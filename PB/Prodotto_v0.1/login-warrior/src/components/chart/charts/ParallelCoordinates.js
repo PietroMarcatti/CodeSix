@@ -9,10 +9,11 @@ const ParallelCoordinates = observer(()=>{
         renderChart,
         axes,
         color,
+        data
     }=useInstance(new ParallelCoordinatesVM(useStore()));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(()=>{renderChart();},[axes,color]);
+    useEffect(()=>{console.log(axes);renderChart();},[axes,color,data]);
 
     return(
         <div id="parallel" className="chart"></div>

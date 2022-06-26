@@ -64,7 +64,7 @@ const Chart = observer(()=>{
     return(
         <div className="content">
             <Draggable cancel="button .pref-field">
-                <div className="pref-container">
+                <div className="pref-container spaced justified">
                     <div className={showPref ? "show-pref": "hide-pref"}>
                         <p className="pref-title">Opzioni</p>
                         <p>{fileSize === 0 ? "Nessun dataset caricato." : fileName+"  "+fileSize}</p>

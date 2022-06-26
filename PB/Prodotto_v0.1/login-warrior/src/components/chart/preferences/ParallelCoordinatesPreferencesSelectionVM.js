@@ -1,36 +1,38 @@
-import { computed, makeObservable } from "mobx";
+import { computed, makeObservable, observable} from "mobx";
 
 export class ParallelCoordinatesPreferencesSelectionVM {
     
     constructor(rootStore){
         this.datasetStore = rootStore.datasetStore;
 		this.preferencesStore = rootStore.preferencesStore;
+        this.parallelStore = this.preferencesStore.parallelCoordinatesPreferences;
 
     	makeObservable(this,{
-			optionList : computed
+            parallelStore:observable,
+            axes: computed,
+            color: computed,
+			optionList : computed,
     	});
 	}
 
     checkExistence(identifier){
-        if(this.dimensions.find(dim => dim === this.preferencesStore.scatterplotPreferences[identifier]) || this.preferencesStore.scatterplotPreferences[identifier]===undefined)
-		    return this.preferencesStore.scatterplotPreferences[identifier];
+        if(this.dimensions.find(dim => dim === this.preferencesStore.parallelCoordinatesPreferences[identifier]) || this.preferencesStore.parallelCoordinatesPreferences[identifier]===undefined)
+		    return this.preferencesStore.parallelCoordinatesPreferences[identifier];
         else{
-            this.preferencesStore.scatterplotPreferences.setPreferenceById("PC"+identifier,undefined)
-            return this.preferencesStore.scatterplotPreferences[identifier];
+            this.preferencesStore.parallelCoordinatesPreferences.setPreferenceById("PC"+identifier,undefined)
+            return this.preferencesStore.parallelCoordinatesPreferences[identifier];
         }
     }
 
     checkAxisExistence(){
-        console.log("Axes before: ", this.preferencesStore.parallelCoordinatesPreferences.axes.slice());
-        let axes = this.preferencesStore.parallelCoordinatesPreferences.axes.filter(dim => this.dimensions.find(d => dim === d))
-        this.preferencesStore.parallelCoordinatesPreferences.setPreferenceById("PCaxes", axes);
-        console.log("Axes after: ", axes);
+        let ax = this.preferencesStore.parallelCoordinatesPreferences.axes.slice().filter(dim => this.dimensions.find(d => dim === d))
+        this.preferencesStore.parallelCoordinatesPreferences.setPreferenceById("PCaxes", ax);
     }
 
     get axes(){
-        this.checkAxisExistence();
-		return this.preferencesStore.parallelCoordinatesPreferences.axes;
-	}
+        //this.checkAxisExistence();
+		return this.parallelStore.axes.slice().filter(dim => this.dimensions.slice().find(d => dim.value == d));
+    }
 
     get color(){
         return this.checkExistence("color");
@@ -39,6 +41,7 @@ export class ParallelCoordinatesPreferencesSelectionVM {
     
 	
     handleSelectChangeDimensions = (value,handler) => {
+        
         switch(handler.action){
             case "select-option":
                 this.preferencesStore.parallelCoordinatesPreferences.setPreferenceById("PCaxes",value);break;
