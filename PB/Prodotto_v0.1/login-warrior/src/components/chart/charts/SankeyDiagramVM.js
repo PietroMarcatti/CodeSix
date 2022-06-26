@@ -247,8 +247,8 @@ export class SankeyDiagramVM{
             nodeAlign: this.align,
             linkColor: this.linkColor,
             format: (f => d => `${f(d)}`)(d3.format(",.1~f")),
-            width: 1210,
-            height: 950
+            width: 1000,
+            height: 800
         })
         document.getElementById("downloadSvgGraph").style.display="block";
     }

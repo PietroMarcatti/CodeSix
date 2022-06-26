@@ -61,8 +61,8 @@ export class ForceDirectedVM{
       linkStrokeLinecap = "round", // link stroke linecap
       linkStrength,
       colors = d3.schemeTableau10, // an array of color strings, for the node groups
-      width = 1300, // outer width, in pixels
-      height = 950, // outer height, in pixels
+      width = 640, // outer width, in pixels
+      height = 400, // outer height, in pixels
       invalidation // when this promise resolves, stop the simulation
     } = {}) {
       var dimRed = this.distanceMatrix.dimensionsToRedux.slice().map(d => d.value);
@@ -201,8 +201,8 @@ export class ForceDirectedVM{
           nodeTitle: d => `${d.id}`,
           linkStrokeWidth: l => Math.sqrt(l.value),
           format: (f => d => `${f(d)}`)(d3.format(",.1~f")),
-          width: 1210,
-          height: 950,
+          width: 1000,
+          height: 800,
       })
   }
 }

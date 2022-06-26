@@ -51,9 +51,9 @@ export class ScatterplotVM{
     }
 
     drawScatterPlot(){
-        var margin = {top: 10, right: 520, bottom: 70, left: 60},
-			width = 1340 - margin.left - margin.right,
-		    height = 950 - margin.top - margin.bottom;
+        var margin = {top: 10, right: 320, bottom: 70, left: 100},
+			width = 1080 - margin.left - margin.right,
+		    height = 580 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
 		var svg = d3.select("#scatterplot")
@@ -152,8 +152,8 @@ export class ScatterplotVM{
             .attr("id", "color-legend");
 
         colorLegend.append("text")
-            .attr("x", 990)
-            .attr("y", 15)
+            .attr("x", 850)
+            .attr("y", 210)
             .style("fill", "white")
             .text(this.color+" - colore:");
           
@@ -161,8 +161,8 @@ export class ScatterplotVM{
             .data(colorFunction.domain())
             .enter()
             .append("circle")
-              .attr("cx", 1010)
-              .attr("cy", (d,i) => {return 35 + i*25;})
+              .attr("cx", 850)
+              .attr("cy", (d,i) => {return 235 + i*25;})
               .attr("r", 6)
               .style("fill", d => {return colorFunction(d);});
             
@@ -171,8 +171,8 @@ export class ScatterplotVM{
             .data(colorFunction.domain())
             .enter()
             .append("text")
-              .attr("x", 1020)
-              .attr("y", (d,i) => {return 40 + i*25;})
+              .attr("x", 870)
+              .attr("y", (d,i) => {return 240 + i*25;})
               .style("fill", d => {return colorFunction(d);})
               .text(d => {return d;});
     }
@@ -187,7 +187,7 @@ export class ScatterplotVM{
             .attr("id", "shape-legend");
           
         shapeLegend.append("text")
-            .attr("x", 1150)
+            .attr("x", 850)
             .attr("y", 15)
             .style("fill", "white")
             .text(this.shape+" - forma:");
@@ -197,7 +197,7 @@ export class ScatterplotVM{
             shapeLegend.selectAll("shape")
             .data(shapeFunction.domain().sort((a,b)=>a-b))
             .join("path")
-            .attr("transform", (d,i) => {return "translate(1170,"+(35 + i*25)+")";})
+            .attr("transform", (d,i) => {return "translate(870,"+(35 + i*25)+")";})
               .style("fill", "white")
               .attr("d", d => {return d3.symbol().type(d3.symbols[shapeFunction(d)]).size(100)();});
         }else if(shapeFunction.type === this.scaleType.QUANTILE) {
@@ -205,7 +205,7 @@ export class ScatterplotVM{
             shapeLegend.selectAll("shape")
             .data(shapeFunction.quantiles())
             .join("path")
-            .attr("transform", (d,i) => {return "translate(1170,"+(35 + i*25)+")";})
+            .attr("transform", (d,i) => {return "translate(870,"+(35 + i*25)+")";})
               .style("fill", "white")
               .attr("d", d => {return d3.symbol().type(d3.symbols[shapeFunction(d)]).size(100)();});
         }
@@ -215,7 +215,7 @@ export class ScatterplotVM{
             .data(shapeFunction.domain().sort((a,b)=>a-b))
             .enter()
             .append("text")
-            .attr("x", 1180)
+            .attr("x", 880)
             .attr("y", (d,i) => {return 40 + i*25;})
             .style("fill", "white")
             .text((d, i) => {
@@ -227,7 +227,7 @@ export class ScatterplotVM{
             .data(shapeFunction.quantiles())
             .enter()
             .append("text")
-            .attr("x", 1180)
+            .attr("x", 880)
             .attr("y", (d,i) => {return 40 + i*25;})
             .style("fill", "white")
             .text((d, i) => {
@@ -249,8 +249,8 @@ export class ScatterplotVM{
             .attr("id", "axisX-legend");
         
         axisXLegend.append("text")
-            .attr("x",450)
-            .attr("y", 930)
+            .attr("x",400)
+            .attr("y", 560)
             .style("fill", "white")
             .text(this.axisX);
 
@@ -259,7 +259,7 @@ export class ScatterplotVM{
             .attr("id", "axisY-legend");
         
         axisYLegend.append("text")
-            .attr("x", -450)
+            .attr("x", -270)
             .attr("y", 15)
             .attr("transform", "rotate(-90)")
             .style("fill", "white")
@@ -272,8 +272,8 @@ export class ScatterplotVM{
             .attr("id", "size-legend");
         
         sizeLegend.append("text")
-            .attr("x", 1150)
-            .attr("y", 230)
+            .attr("x", 60)
+            .attr("y", 560)
             .style("fill", "white")
             .text(this.pointSize+" - grandezza dei punti");
         
