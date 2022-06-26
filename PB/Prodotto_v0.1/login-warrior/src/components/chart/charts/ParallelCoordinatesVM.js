@@ -48,8 +48,8 @@ export class ParallelCoordinatesVM{
             .attr("transform", function(d,i){return 'translate('+axesT.length*10+','+30+')'});
 
         colorLegend.append("text")
-            .attr("x", 850)
-            .attr("y", 15)
+            .attr("x", 790)
+            .attr("y", 45)
             .style("fill", "white")
             .text(this.color+":");
           
@@ -58,8 +58,8 @@ export class ParallelCoordinatesVM{
             .data(colorFunction.domain())
             .enter()
             .append("circle")
-              .attr("cx", 850)
-              .attr("cy", (d,i) => {return 35 + i*25;})
+              .attr("cx", 810)
+              .attr("cy", (d,i) => {return 65 + i*25;})
               .attr("r", 6)
               .style("fill", d => {return colorFunction(d);});
             
@@ -68,8 +68,8 @@ export class ParallelCoordinatesVM{
             .data(colorFunction.domain())
             .enter()
             .append("text")
-              .attr("x", 860)
-              .attr("y", (d,i) => {return 40 + i*25;})
+              .attr("x", 830)
+              .attr("y", (d,i) => {return 70 + i*25;})
               .style("fill", d => {return colorFunction(d);})
               .text(d => {return d;});
     }
@@ -80,8 +80,8 @@ export class ParallelCoordinatesVM{
         var orientations = this.orientations;
         
 
-        var margin = {top: 30, right: 10, bottom: 10, left: 0},
-        width = 1000 - margin.left - margin.right,
+        var margin = {top: 30, right: 50, bottom: 10, left: 0},
+        width = 1050 - margin.left - margin.right,
         height = 800 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
