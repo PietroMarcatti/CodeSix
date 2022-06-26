@@ -14,6 +14,7 @@ import ForceDirectedPreferencesSelection from "./preferences/ForceDirectedPrefer
 import Draggable from "react-draggable"
 import SankeyDiagram from "./charts/SankeyDiagram";
 import SankeyDiagramPreferencesSelection from "./preferences/SankeyDiagramPreferencesSelection";
+import DownloadGraphButton from "../DownloadGraphButton";
 
 const Chart = observer(()=>{
     const {
@@ -73,7 +74,7 @@ const Chart = observer(()=>{
                         <button className="btn-pref" onClick={togglePref.bind(null)}>{prefBtnText()}</button>
                         {canResample ? <button className="btn-pref" id="resample" onClick={changeSample.bind(null)}>Ricampiona dati</button> : ""}
                     </div>
-                    
+                    {chartToShow ? <DownloadGraphButton></DownloadGraphButton> : ""}
                 </div>
             </Draggable>
             <div className={chartToShow!== undefined ? "center-graph" : ""}>

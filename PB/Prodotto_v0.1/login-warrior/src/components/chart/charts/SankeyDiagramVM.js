@@ -208,6 +208,7 @@ export class SankeyDiagramVM{
             this.sankeyDiagramDiv.append(document.createElement("div"));
             this.sankeyDiagramDiv.firstChild.innerHTML= "Il SankeyDiagram verrà visualizzato appena verrà selezionata la matrice delle distanze da utilizzare";
             this.sankeyDiagramDiv.firstChild.setAttribute("id", "data-visualization");
+            document.getElementById("downloadSvgGraph").style.display="none";
             return null;
         }
         this.sankeyDiagramDiv.setAttribute("class", "white")
@@ -222,5 +223,6 @@ export class SankeyDiagramVM{
             width: 700,
             height: 700
         })
+        document.getElementById("downloadSvgGraph").style.display="block";
     }
 }

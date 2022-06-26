@@ -182,6 +182,7 @@ export class ForceDirectedVM{
             this.dataVisualizationDiv.append(document.createElement("div"));
             this.dataVisualizationDiv.firstChild.innerHTML= "Il Force Directed verrà visualizzato quando avrai scelto una matrice delle distanze.";
             this.dataVisualizationDiv.firstChild.setAttribute("id", "data-visualization");
+            document.getElementById("downloadSvgGraph").style.display="none";
             return null;
         }
         this.ForceGraph({
@@ -195,5 +196,6 @@ export class ForceDirectedVM{
             width: 700,
             height: 700,
         })
+        document.getElementById("downloadSvgGraph").style.display="block";
     }
 }

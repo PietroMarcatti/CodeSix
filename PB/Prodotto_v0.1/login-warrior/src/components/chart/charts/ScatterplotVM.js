@@ -72,6 +72,7 @@ export class ScatterplotVM{
             svg.append("g")
               .attr("transform", "translate(0," + height + ")")
               .style("font-size", "14px")
+              .style("color", "white")
               .call(d3.axisBottom(x));
 
         // Add Y axis
@@ -81,6 +82,7 @@ export class ScatterplotVM{
             
             svg.append("g")
               .style("font-size", "14px")
+              .style("color", "white")
               .call(d3.axisLeft(y));
 
         // Check pointSize
@@ -296,9 +298,11 @@ export class ScatterplotVM{
             this.scatterPlotDiv.append(document.createElement("div"));
             this.scatterPlotDiv.firstChild.innerHTML= "Lo Scatterplot verrà visualizzato appena verranno selezionate le dimensioni per asse X e asse Y";
             this.scatterPlotDiv.firstChild.setAttribute("id", "data-visualization");
+            document.getElementById("downloadSvgGraph").style.display="none";
             return null;
         }
 
         this.drawScatterPlot();
+        document.getElementById("downloadSvgGraph").style.display="block";
     }
 }

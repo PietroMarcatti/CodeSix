@@ -408,3 +408,14 @@ div.chart{
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+#downloadSvgGraph{
+  display: block;
+  margin: 1em auto;
+  border-radius: 15px;
+  font-weight: bold;
+  padding: 0.9em 0.8em;
+  color: #fdfdfd;
+  background-color: orange;
+  border: none;
+}

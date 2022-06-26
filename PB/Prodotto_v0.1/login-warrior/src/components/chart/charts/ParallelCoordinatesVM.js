@@ -237,10 +237,11 @@ export class ParallelCoordinatesVM{
             this.dataVisualizationDiv.append(document.createElement("div"));
             this.dataVisualizationDiv.firstChild.innerHTML= "Il Parallel Coordinates verrà visualizzato appena avrai selezionato almeno due assi.";
             this.dataVisualizationDiv.firstChild.setAttribute("id", "data-visualization");
+            document.getElementById("downloadSvgGraph").style.display="none";
             return null;
         }
 
         this.drawParallel();
-        
+        document.getElementById("downloadSvgGraph").style.display="block";
     }
 }
