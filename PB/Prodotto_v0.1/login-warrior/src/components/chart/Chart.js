@@ -14,6 +14,7 @@ import ForceDirectedPreferencesSelection from "./preferences/ForceDirectedPrefer
 import Draggable from "react-draggable"
 import SankeyDiagram from "./charts/SankeyDiagram";
 import SankeyDiagramPreferencesSelection from "./preferences/SankeyDiagramPreferencesSelection";
+import DownloadGraphButton from "../DownloadGraphButton";
 
 const Chart = observer(()=>{
     const {
@@ -21,7 +22,9 @@ const Chart = observer(()=>{
         showPref,
         fileName,
         fileSize,
-        chartToShow
+        chartToShow,
+        changeSample,
+        canResample,
     } = useInstance(new ChartVM(useStore()));
 
     function prefBtnText(){
@@ -61,13 +64,17 @@ const Chart = observer(()=>{
     return(
         <div className="content">
             <Draggable cancel="button .pref-field">
-                <div className="pref-container">
+                <div className="pref-container spaced justified">
                     <div className={showPref ? "show-pref": "hide-pref"}>
                         <p className="pref-title">Opzioni</p>
                         <p>{fileSize === 0 ? "Nessun dataset caricato." : fileName+"  "+fileSize}</p>
                         {chartToShow ? renderPreferences() : "Nessuna opzione disponibile. Scegli una visualizzazione"}
                     </div>
-                    <button className="btn-pref" onClick={togglePref.bind(null)}>{prefBtnText()}</button>
+                    <div className="row" >
+                        <button className="btn-pref" onClick={togglePref.bind(null)}>{prefBtnText()}</button>
+                        {canResample ? <button className="btn-pref" id="resample" onClick={changeSample.bind(null)}>Ricampiona dati</button> : ""}
+                    </div>
+                    {chartToShow ? <DownloadGraphButton></DownloadGraphButton> : ""}
                 </div>
             </Draggable>
             <div className={chartToShow!== undefined ? "center-graph" : ""}>

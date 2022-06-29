@@ -101,13 +101,13 @@ button.nav-link span{
 div.modal{
   z-index: 100;
   background-color: var(--background-secondary);
-  border: var(--background-tertiary);
   border-radius: 15px;
   color: var(--text-primary);
   position: absolute;
   top: 200px;
   left: 500px;
   padding: 1em;
+  border: 1px solid var(--text-primary);
 }
 
 div.row{
@@ -117,8 +117,30 @@ div.row{
   flex-direction: row;
 }
 
+
+
 div.col{
   margin:0.5em 0.8em
+}
+
+.loaderFileNameSize{
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.sampleSelector{
+  margin-top: 2em;
+  margin-bottom: 1.3em;
+}
+
+.sampleSelector div{
+  margin-top: 0.7em;
+}
+
+.close{
+  display: flex;
+  align-items: center;
+  justify-content:start;
 }
 
 div.modal-header{
@@ -236,12 +258,17 @@ div.modal button{
   margin: 3em;
   margin-left: 1em;
   cursor: move;
+  border: 1px solid var(--text-primary);
 }
 
 .pref-title{
   margin-top: 0em;
   font-size: 24px;
   font-weight: bold;
+}
+
+.selectAllDims{
+  margin: 0.7em 0;
 }
 
 .btn-pref{
@@ -290,6 +317,15 @@ select.form-control{
   color: #121317;
 }
 
+.select__value-container > {
+  margin-top: 0em;
+}
+
+.hr{
+  max-width: 16em;
+  margin-left: -0.5em;
+}
+
 .form-control option{
   appearance: none;
   background-color: var(--background-secondary);
@@ -300,6 +336,19 @@ select.form-control{
 
 .hide-pref{
   display: none;
+}
+
+.spaced {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  min-width: 20em;
+  display: flex;
+  flex-flow: column;
+}
+
+
+.spaced div{
+  margin-top: 0.5em;
 }
 
 /* Grafico */
@@ -348,4 +397,52 @@ div.chart{
 
 .white{
   background-color: var(--text-primary);
+}
+
+.black{
+  background-color: var(--background-primary);
+}
+
+#resample{
+  margin-left: 1em;
+}
+
+/* TOOLTIP */
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 12em;
+  background-color: var(--background-tertiary);
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+#downloadSvgGraph{
+  display: block;
+  margin: 1em auto;
+  border-radius: 15px;
+  font-weight: bold;
+  padding: 0.9em 0.8em;
+  color: #fdfdfd;
+  background-color: orange;
+  border: none;
 }

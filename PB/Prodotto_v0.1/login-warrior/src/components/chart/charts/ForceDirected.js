@@ -9,11 +9,11 @@ const ForceDirected = observer(()=>{
         renderChart,
         distanceMatrix,
         distMin,
-        distMax
+        distMax,
+        matrices
     }=useInstance(new ForceDirectedVM(useStore()));
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(()=>{renderChart();},[distanceMatrix, distMax, distMin]);
+    useEffect(()=>{renderChart();},[distanceMatrix, distMax, distMin,matrices]);
 
     return(
         <div id="forceDirected" className="chart"></div>

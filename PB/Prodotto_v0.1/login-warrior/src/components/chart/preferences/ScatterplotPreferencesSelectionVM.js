@@ -1,4 +1,5 @@
 import { computed, makeObservable } from "mobx";
+import { useEffect } from "react";
 
 export class ScatterplotPreferencesSelectionVM {
     
@@ -11,24 +12,33 @@ export class ScatterplotPreferencesSelectionVM {
     	});
 	}
 
+    checkExistence(identifier){
+        if(this.dimensions.find(dim => dim === this.preferencesStore.scatterplotPreferences[identifier]) || this.preferencesStore.scatterplotPreferences[identifier]===undefined)
+		    return this.preferencesStore.scatterplotPreferences[identifier];
+        else{
+            this.preferencesStore.scatterplotPreferences.setPreferenceById("SP"+identifier,undefined)
+            return this.preferencesStore.scatterplotPreferences[identifier];
+        }
+    }
+
     get axisX(){
-		return this.preferencesStore.scatterplotPreferences.axisX;
+        return this.checkExistence("axisX");
 	}
 
     get axisY(){
-        return this.preferencesStore.scatterplotPreferences.axisY;
+        return this.checkExistence("axisY");
     }
 
     get pointSize(){
-        return this.preferencesStore.scatterplotPreferences.pointSize;
+        return this.checkExistence("pointSize");
     }
     
     get color(){
-		return this.preferencesStore.scatterplotPreferences.color;
+		return this.checkExistence("color");
 	}
 
     get shape(){
-        return this.preferencesStore.scatterplotPreferences.shape;
+        return this.checkExistence("shape");
     }
 	
     handleSelectChange = e => {
@@ -38,6 +48,6 @@ export class ScatterplotPreferencesSelectionVM {
 	}
 
     get dimensions(){
-		return this.datasetStore.numericDimensions.map(dim => dim.value);
+		return this.datasetStore.numericDimensions.map(dim => dim.value).slice();
 	}
 }

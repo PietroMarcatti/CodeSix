@@ -10,11 +10,15 @@ export class ParallelCoordinatesVM{
     }
 
     get data(){
-		return this.datasetStore.selectedData;
+		return this.datasetStore.selectedData.slice();
 	};
 
+    get dimensions(){
+		return this.datasetStore.numericDimensions.map(dim => dim.value).slice();
+	}
+
     get axes(){
-        return this.preferencesStore.parallelCoordinatesPreferences.axes.map(axis => axis.value).slice();
+        return this.preferencesStore.parallelCoordinatesPreferences.axes.filter(dim => this.dimensions.slice().find(d => dim.value == d)).map(axis => axis.value).slice();
     };
 
     get color(){
@@ -44,8 +48,8 @@ export class ParallelCoordinatesVM{
             .attr("transform", function(d,i){return 'translate('+axesT.length*10+','+30+')'});
 
         colorLegend.append("text")
-            .attr("x", 850)
-            .attr("y", 15)
+            .attr("x", 790)
+            .attr("y", 45)
             .style("fill", "white")
             .text(this.color+":");
           
@@ -54,8 +58,8 @@ export class ParallelCoordinatesVM{
             .data(colorFunction.domain())
             .enter()
             .append("circle")
-              .attr("cx", 850)
-              .attr("cy", (d,i) => {return 35 + i*25;})
+              .attr("cx", 810)
+              .attr("cy", (d,i) => {return 65 + i*25;})
               .attr("r", 6)
               .style("fill", d => {return colorFunction(d);});
             
@@ -64,8 +68,8 @@ export class ParallelCoordinatesVM{
             .data(colorFunction.domain())
             .enter()
             .append("text")
-              .attr("x", 860)
-              .attr("y", (d,i) => {return 40 + i*25;})
+              .attr("x", 830)
+              .attr("y", (d,i) => {return 70 + i*25;})
               .style("fill", d => {return colorFunction(d);})
               .text(d => {return d;});
     }
@@ -76,9 +80,9 @@ export class ParallelCoordinatesVM{
         var orientations = this.orientations;
         
 
-        var margin = {top: 30, right: 10, bottom: 10, left: 0},
-        width = 1080 - margin.left - margin.right,
-        height = 580 - margin.top - margin.bottom;
+        var margin = {top: 30, right: 50, bottom: 10, left: 0},
+        width = 1050 - margin.left - margin.right,
+        height = 800 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
         var svg = d3.select("#parallel")
@@ -237,10 +241,11 @@ export class ParallelCoordinatesVM{
             this.dataVisualizationDiv.append(document.createElement("div"));
             this.dataVisualizationDiv.firstChild.innerHTML= "Il Parallel Coordinates verrà visualizzato appena avrai selezionato almeno due assi.";
             this.dataVisualizationDiv.firstChild.setAttribute("id", "data-visualization");
+            document.getElementById("downloadSvgGraph").style.display="none";
             return null;
         }
 
         this.drawParallel();
-        
+        document.getElementById("downloadSvgGraph").style.display="block";
     }
 }

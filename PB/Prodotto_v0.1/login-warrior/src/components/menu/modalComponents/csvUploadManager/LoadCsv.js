@@ -9,6 +9,7 @@ import { Modal, ModalBody, ModalFooter, Alert} from "react-bootstrap";
 import LoadCsvVM from './LoadCsvVM';
 import { MdUploadFile } from "react-icons/md";
 
+
 const LoadCsv = observer((props) =>{
     const {
         modalIsOpen,
@@ -26,7 +27,7 @@ const LoadCsv = observer((props) =>{
         selectAllDimensions,
         selectDimension,
         castChoices,
-        localCasts,
+        casts,
         handleSelectChangeCast,
         handleSampleSizeChange,
         handleConfirm,
@@ -59,7 +60,7 @@ const LoadCsv = observer((props) =>{
                     <div>
                         <CsvReader setLocalStates = {setLocalStates.bind(null)}/>
                         <SampleSelector isDataLoaded={isDataLoaded} sampleSize={sampleSize} datasetLength={datasetLength} handleSampleSizeChange={handleSampleSizeChange.bind(null)} />
-                        <DimensionsList datasetLength={datasetLength} isDataLoaded={isDataLoaded} dimensions = {dimensions} selectAllDimensions={selectAllDimensions.bind(null)} selectDimension={selectDimension.bind(null)} handleSelectChangeCast={handleSelectChangeCast.bind(null)} castChoices={castChoices} localCasts={localCasts}/>
+                        <DimensionsList datasetLength={datasetLength} isDataLoaded={isDataLoaded} dimensions = {dimensions} selectAllDimensions={selectAllDimensions.bind(null)} selectDimension={selectDimension.bind(null)} handleSelectChangeCast={handleSelectChangeCast.bind(null)} castChoices={castChoices} casts={casts}/>
                     </div>
                 </ModalBody>
                 <ModalFooter>

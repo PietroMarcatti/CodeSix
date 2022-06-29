@@ -11,7 +11,7 @@ describe("Datasetstore", ()=>{
 	beforeEach(() => {
 		store = new DatasetStore();
 		dimension = new Dimension("test");
-		dataset = [{test: "test"}];
+		dataset = [{test: "test"}, {test: "test2"}];
 	});
 
 	test("Store should set and return the original data/dimensions", () => {
@@ -34,6 +34,12 @@ describe("Datasetstore", ()=>{
 		store.reset();
 		expect(store.dimensions).toStrictEqual([]);
 		expect(store.selectedData).toStrictEqual([]);
+	});
+
+	test("Store should resample data", () => {
+		store.sampleSize = 1;
+		
+		expect(store.canResample).toBe(true);
 	});
 });
 

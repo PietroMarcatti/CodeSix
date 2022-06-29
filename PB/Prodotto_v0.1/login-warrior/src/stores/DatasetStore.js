@@ -7,6 +7,7 @@ export default class DatasetStore {
         this.uploadedData=[];
         this.selectedData=[];
         this.casts=[];
+        this.sampleSize = 0;
         this.fileName="";
         this.fileSize=0;
         this.rootStore= rootStore;
@@ -17,6 +18,7 @@ export default class DatasetStore {
             casts: observable,
             fileName: observable,
             fileSize: observable,
+            sampleSize: observable,
             checkedDimensions: computed,
             categoricCheckedDimensions: computed,
             numericDimensions: computed,
@@ -26,11 +28,20 @@ export default class DatasetStore {
             loadData: action,
             loadFileName: action,
             loadFileSize:  action,
+            loadCasts: action,
+            loadSampleSize: action,
+            sampleData: action,
+            castData: action,
+            deleteReduxedDimensions: action,
             addDimensionsToDataset: action,
             reset: action,
             fromJSON: action
         });
     };
+
+    get canResample(){
+        return this.sampleSize !== this.uploadedData.length
+    }
 
     get checkedDimensions(){
         return this.dimensions.filter(dim => dim.isChecked);
@@ -45,12 +56,77 @@ export default class DatasetStore {
     };
 
     get selectedDimensions(){
-        return this.dimensions.filter(dim => dim.isChecked && !dim.isReduced);
+        return this.dimensions.filter(dim => dim.isChecked && !dim.isRedux);
     };
 
     get notReducedDimensions(){
-        return this.dimensions.filter(dim => !dim.isReduced)
+        return this.dimensions.filter(dim => !dim.isRedux)
     };
+
+    loadSampleSize(value){
+        this.sampleSize=value;
+    }
+
+    sampleData(){
+        if(!this.canResample)
+            this.selectedData.replace(this.uploadedData);
+        else{
+            let selectedRows = 0;
+            let index = Math.random()*this.uploadedData.length;
+            let next = 0;
+            var arr = [...Array(this.uploadedData.length).keys()];
+            var sampledData = [];
+            while(selectedRows < this.sampleSize){
+                next = Math.floor((index + Math.random()*arr.length) % arr.length);
+                sampledData.push(this.uploadedData[arr[next]]);
+                arr.splice(next,1);
+                index = next;
+                ++selectedRows;
+            }
+            this.selectedData.replace(sampledData);
+        }
+        
+    }
+
+    castData(){
+        try{
+            if(this.casts.length > 0){
+                let expandedDimensions=[];
+                this.casts.forEach(item =>{
+                    if(item.value === "Data" && this.dimensions.find(dim => dim._value===item.id+"-year")===undefined){
+                        let dYear = new Dimension(item.id+"-year");
+                        let dMonth = new Dimension(item.id+"-month");
+                        let dDay = new Dimension(item.id+"-day");
+                        let dWeekday = new Dimension(item.id+"-weekday");
+                        dYear.isNumeric = true; dMonth.isNumeric=true; dDay.isNumeric=true; dWeekday.isNumeric = true;
+                        expandedDimensions.push(dYear);
+                        expandedDimensions.push(dMonth);
+                        expandedDimensions.push(dDay);
+                        expandedDimensions.push(dWeekday);
+                        this.dimensions.replace(this.dimensions.concat(expandedDimensions));
+                    }
+                })
+                this.selectedData.forEach((rowObject,index)=>{
+                    this.casts.forEach(item =>{
+                        if(item.value === "Data"){
+                            let date = new Date(rowObject[item.id]);
+                            rowObject[item.id] = date;
+                            rowObject[item.id.concat("-year")] = date.getFullYear();
+                            rowObject[item.id.concat("-month")] = date.getMonth();
+                            rowObject[item.id.concat("-day")]= date.getDate();
+                            rowObject[item.id.concat("-weekday")] = date.getDay();
+                        }
+                    })
+                })
+            }
+        }catch(e){
+            console.log("Error: ",e);
+        }
+    }
+
+    deleteReduxedDimensions(){
+        this.dimensions.replace(this.notReducedDimensions);
+    }
 
     isDataLoaded(){
         return this.dimensions.length===0;
@@ -58,6 +134,7 @@ export default class DatasetStore {
 
     loadData(data){
         this.uploadedData.replace(data);
+        this.updateSelectedData();
     };
 
     loadDimensions(dimensions){
@@ -65,6 +142,7 @@ export default class DatasetStore {
     };
 
     loadCasts(casts){
+        
         this.casts.replace(casts);
     }
 
@@ -81,11 +159,10 @@ export default class DatasetStore {
     };
 
     updateSelectedData(){
-        let selectedData = this.uploadedData.map(d=>{
+        let data = this.uploadedData.map(d=>{
             return Object.fromEntries(this.selectedDimensions.map(dim=> [dim.value, d[dim.value]]));
         }).filter(this.haveNotANumberValue);
-        this.loadDimensions(this.notReducedDimensions);
-        this.selectedData.replace(selectedData);
+        this.selectedData.replace(data);
     };
 
     addDimensionsToDataset(moreDimensions){
@@ -97,7 +174,7 @@ export default class DatasetStore {
         this.selectedData.clear();
         this.dimensions.clear();
         this.casts.clear();
-        this.fileName.replace("");
+        this.fileName="";
         this.fileSize=0;
     };
 

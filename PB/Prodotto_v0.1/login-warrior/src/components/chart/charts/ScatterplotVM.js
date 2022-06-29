@@ -14,7 +14,7 @@ export class ScatterplotVM{
     }
 
     get data(){
-		return this.datasetStore.selectedData.slice(0,1000);
+		return this.datasetStore.selectedData.slice();
 	}
 
     get axisX(){
@@ -51,7 +51,7 @@ export class ScatterplotVM{
     }
 
     drawScatterPlot(){
-        var margin = {top: 10, right: 520, bottom: 70, left: 60},
+        var margin = {top: 10, right: 320, bottom: 70, left: 100},
 			width = 1080 - margin.left - margin.right,
 		    height = 580 - margin.top - margin.bottom;
 
@@ -72,6 +72,7 @@ export class ScatterplotVM{
             svg.append("g")
               .attr("transform", "translate(0," + height + ")")
               .style("font-size", "14px")
+              .style("color", "white")
               .call(d3.axisBottom(x));
 
         // Add Y axis
@@ -81,6 +82,7 @@ export class ScatterplotVM{
             
             svg.append("g")
               .style("font-size", "14px")
+              .style("color", "white")
               .call(d3.axisLeft(y));
 
         // Check pointSize
@@ -150,18 +152,17 @@ export class ScatterplotVM{
             .attr("id", "color-legend");
 
         colorLegend.append("text")
-            .attr("x", 600)
-            .attr("y", 15)
+            .attr("x", 850)
+            .attr("y", 210)
             .style("fill", "white")
             .text(this.color+" - colore:");
           
-        console.log("Range colori: ", colorFunction.range());
         colorLegend.selectAll("dots")
             .data(colorFunction.domain())
             .enter()
             .append("circle")
-              .attr("cx", 620)
-              .attr("cy", (d,i) => {return 35 + i*25;})
+              .attr("cx", 870)
+              .attr("cy", (d,i) => {return 235 + i*25;})
               .attr("r", 6)
               .style("fill", d => {return colorFunction(d);});
             
@@ -170,8 +171,8 @@ export class ScatterplotVM{
             .data(colorFunction.domain())
             .enter()
             .append("text")
-              .attr("x", 630)
-              .attr("y", (d,i) => {return 40 + i*25;})
+              .attr("x", 885)
+              .attr("y", (d,i) => {return 240 + i*25;})
               .style("fill", d => {return colorFunction(d);})
               .text(d => {return d;});
     }
@@ -265,16 +266,35 @@ export class ScatterplotVM{
             .text(this.axisY);       
     }
 
-    drawPointSizeLegend(){
+    drawPointSizeLegend(size_f){
         var sizeLegend= d3.select("#data-visualization")
             .append("g")
             .attr("id", "size-legend");
         
         sizeLegend.append("text")
-            .attr("x", 60)
-            .attr("y", 560)
+            .attr("x", 850)
+            .attr("y", 500)
             .style("fill", "white")
             .text(this.pointSize+" - grandezza dei punti");
+        
+        sizeLegend.selectAll("dots")
+            .data(size_f.domain())
+            .enter()
+            .append("circle")
+              .attr("cx", 870)
+              .attr("cy", (d,i) => {return 520 + i*25;})
+              .attr("r", (d,i)=>{return size_f(d)/10+(-i+1)*3;})
+              .style("fill", "white")
+            
+        // Add one dot in the legend for each name
+        sizeLegend.selectAll("labels")
+            .data(size_f.domain())
+            .enter()
+            .append("text")
+              .attr("x", 885)
+              .attr("y", (d,i) => {return 525 + i*25;})
+              .style("fill", "white")
+              .text(d => {return d;});
     }
 
     drawLegend(colorFunction, shapeFunction, pointSizeFunction){
@@ -286,7 +306,7 @@ export class ScatterplotVM{
             this.drawShapeLegend(shapeFunction);
         
         if(pointSizeFunction !== undefined)
-            this.drawPointSizeLegend();
+            this.drawPointSizeLegend(pointSizeFunction);
     }
 
     renderChart(){
@@ -296,9 +316,11 @@ export class ScatterplotVM{
             this.scatterPlotDiv.append(document.createElement("div"));
             this.scatterPlotDiv.firstChild.innerHTML= "Lo Scatterplot verrà visualizzato appena verranno selezionate le dimensioni per asse X e asse Y";
             this.scatterPlotDiv.firstChild.setAttribute("id", "data-visualization");
+            document.getElementById("downloadSvgGraph").style.display="none";
             return null;
         }
 
         this.drawScatterPlot();
+        document.getElementById("downloadSvgGraph").style.display="block";
     }
 }

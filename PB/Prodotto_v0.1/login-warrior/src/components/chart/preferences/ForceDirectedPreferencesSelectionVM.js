@@ -1,4 +1,5 @@
 import {makeAutoObservable } from "mobx";
+import { InputGroup } from "react-bootstrap";
 
 export class ForceDirectedPreferencesSelectionVM {
     
@@ -6,6 +7,9 @@ export class ForceDirectedPreferencesSelectionVM {
         this.distanceMatricesStore = rootStore.distanceMatricesStore;
 		this.preferencesStore = rootStore.preferencesStore;
 		this.datasetStore = rootStore.datasetStore;
+
+		this.timeoutMin = null;
+		this.timeoutMax = null;
 
     	makeAutoObservable(this,{
 			preferencesStore : false,
@@ -84,14 +88,24 @@ export class ForceDirectedPreferencesSelectionVM {
 	}
 
 	handleMinDistChange = (value) =>{
-		if(value){
-			this.preferencesStore.forceDirectedPreferences.distMin = value;
-		}
+		if(this.timeoutMin)
+			clearTimeout(this.timeoutMin);
+			
+		this.timeoutMin = setTimeout(() => {
+			if(value){
+				this.preferencesStore.forceDirectedPreferences.distMin = value;
+			}
+		}, 2000)
 	}
 
 	handleMaxDistChange = (value) =>{
-		if(value){
-			this.preferencesStore.forceDirectedPreferences.distMax = value;
-		}
+		if(this.timeoutMax)
+			clearTimeout(this.timeoutMax);
+
+		this.timeoutMax = setTimeout(() => {
+			if(value){
+				this.preferencesStore.forceDirectedPreferences.distMax = value;
+			}
+		}, 2000)		
 	}
 }

@@ -1,8 +1,7 @@
 import {makeAutoObservable} from "mobx";
-import {DistanceType} from "../../../../utils";
 import DistanceMatrix from "../../../../stores/data/DistanceMatrix";
-import * as distanceCalculation from "ml-distance";
-import * as d3 from "d3";
+import {DistanceType} from "../../../../utils";
+
 
 export class distanceCalculationVM{
     constructor(rootStore, closeModal){
@@ -14,7 +13,7 @@ export class distanceCalculationVM{
         this.nameError = false;
         this.isLoading = false;
         this.closeModal = closeModal.bind(null);
-        this.normalize = false;
+        this.normalize = true;
         this.showSuccess = false;
         this.showDanger = false;
         makeAutoObservable(this, {datasetStore : false, distanceMatricesStore : false, }, {autoBind: true});
@@ -40,48 +39,24 @@ export class distanceCalculationVM{
         this.normalize = !this.normalize;
     }
 
-    normalizeData(data){
-        const maxes = this.dimensionsToRedux.map((dim, i)=>{
-            return d3.max(data, obj => obj[i]);
-        });
-        return data.map(obj => this.dimensionsToRedux.map((dim, j) => obj[j]/maxes[j]));
-    }
-
     setIsLoading(value){
         this.isLoading = value;
     }
 
     handleSubmit = () =>{
         try{
-            let data = this.datasetStore.selectedData.map(obj => this.dimensionsToRedux.map((dim) => obj[dim.value]));
-            if(this.normalize){
-                data = this.normalizeData(data);
-                this.normalize = false;
-            }
-
+            
             if(this.distanceMatricesStore.getDistanceMatrixByName(this.newDistanceMatrixName) || this.newDistanceMatrixName === ""){
                 let e = new Error("Il nome è già utilizzato o vuoto. Per favore scegline un altro.");
                 e.name = "nameError";
                 throw e;
             }
-
             let matrix = new DistanceMatrix();
+            matrix.distanceType=this.distanceType;
+            matrix.dimensionsToRedux = this.dimensionsToRedux;
             matrix.name = this.newDistanceMatrixName;
-            for(let i = 0; i<data.length; i++){
-                for(let j = i+1; j<data.length; j++){
-                    let link = {
-                        source: "node"+i,
-                        target: "node"+j,
-                        value: distanceCalculation.distance[this.distanceType](data[i],data[j]),
-                    };
-                    matrix.pushLink(link);
-                }
-                let node = {...this.datasetStore.selectedData[i]};
-                node.id ="node"+i;
-                matrix.pushNode(node);
-            }
-
-            this.distanceMatricesStore.addDistanceMatrix(matrix);
+            matrix.normalize = this.normalize;
+            let result = this.distanceMatricesStore.calculateDistanceMatrix(matrix);
             this.setShowSuccess(true);
             this.closeModal();
 
