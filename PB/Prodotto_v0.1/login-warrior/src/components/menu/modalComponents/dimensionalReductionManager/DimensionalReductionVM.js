@@ -25,7 +25,7 @@ export class DimensionalReductionVM{
         this.isLoading = false;
         this.showDanger = false;
         this.showSuccess = false;
-        this.normalize = false;
+        this.normalize = true;
         makeAutoObservable(this,{datasetStore: false}, {autoBind:true});
     };
 

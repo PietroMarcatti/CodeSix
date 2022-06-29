@@ -13,7 +13,7 @@ export class distanceCalculationVM{
         this.nameError = false;
         this.isLoading = false;
         this.closeModal = closeModal.bind(null);
-        this.normalize = false;
+        this.normalize = true;
         this.showSuccess = false;
         this.showDanger = false;
         makeAutoObservable(this, {datasetStore : false, distanceMatricesStore : false, }, {autoBind: true});

@@ -43,7 +43,8 @@ const DimensionalReduction = observer((props)=>{
         setShowSuccess,
         showDanger,
         setShowDanger,
-        toggleNormalize
+        toggleNormalize,
+        normalize
     }= useInstance(new DimensionalReductionVM(useStore(), closeModal));
 
     function renderParams(){
@@ -122,7 +123,7 @@ const DimensionalReduction = observer((props)=>{
 
                     <ModalBody>
                         <div className="spaced">
-                            <FormCheck className="mb-2" custom="true" type="checkbox" key="normalize" value="normalize" id="normalize" label="Normalizza i dati" onChange={toggleNormalize}/>
+                            <FormCheck className="mb-2" custom="true" type="checkbox" key="normalize" checked={normalize} value="normalize" id="normalize" label="Normalizza i dati" onChange={toggleNormalize}/>
                             <Form.Group controlId="dimensionsToRedux">
                                 <Form.Label>Seleziona dimensioni da utilizzare</Form.Label>
                                 <Select value={dimensionsToRedux} options={optionList} isMulti name="toReduxDimensionsList"

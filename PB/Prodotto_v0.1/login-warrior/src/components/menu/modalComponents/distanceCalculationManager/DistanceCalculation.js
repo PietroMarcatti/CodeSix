@@ -32,6 +32,7 @@ const DistanceCalculation = observer((props)=>{
         setShowSuccess,
         showDanger,
         setShowDanger,
+        normalize
     } = useInstance(new distanceCalculationVM(useStore(),closeModal));
 
     useEffect(()=>{	
@@ -68,7 +69,7 @@ const DistanceCalculation = observer((props)=>{
                     </Modal.Header>
                     <ModalBody>
                         <div className="col spaced">
-                            <Form.Check custom="true" type="checkbox" key="normalize" value="normalize" id="normalize" label="Normalizza i dati" onChange={handleNormalize}/>
+                            <Form.Check custom="true" type="checkbox" key="normalize" checked={normalize} value="normalize" id="normalize" label="Normalizza i dati" onChange={handleNormalize}/>
                             <Form.Group controlId="dimensionsToRedux">
                                 <Form.Label>Seleziona dimensioni da utilizzare</Form.Label>
                                 <Select className="basic-multi-select" value={dimensionsToRedux} options={optionList} isMulti name="toReduxDimensionsList" components={makeAnimated()}
