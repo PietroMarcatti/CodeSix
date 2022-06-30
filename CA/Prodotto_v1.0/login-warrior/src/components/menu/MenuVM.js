@@ -14,7 +14,7 @@ export class MenuVM{
 
     modalIsOpen = false;
     id=-1;
-    names=["Carica dati da CSV", "Gestisci Sessione", "Riduzione Dimensionale","Calcolo delle distanze", "Scatterplot","Parallell Coordinates", "Force Directed Field", "Sankey Diagram",];
+    names=["Carica dati da CSV", "Gestisci Sessione", "Riduzione Dimensionale","Calcolo delle distanze", "Scatterplot","Parallel Coordinates", "Force Directed Field", "Sankey Diagram",];
     icons=[<MdUploadFile size={32} className="icons"/>, 
         <AiOutlineCloudSync size={32} className="icons"/>,
         <SiRedux size={30}/>,

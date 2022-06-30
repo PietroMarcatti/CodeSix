@@ -30,7 +30,7 @@ const DownloadGraphButton= (props) =>{
                     var svgElement = document.getElementById("sankeyDiagram").children[0];
                 }
                 else if(document.getElementById("parallel")){
-                    var svgElement = document.getElementById("sankeyDiagram").children[0];
+                    var svgElement = document.getElementById("parallel").children[0];
                 }
 
                 saveSvg(svgElement, "grafico");

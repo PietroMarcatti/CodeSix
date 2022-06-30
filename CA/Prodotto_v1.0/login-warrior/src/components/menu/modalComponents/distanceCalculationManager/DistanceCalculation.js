@@ -91,7 +91,7 @@ const DistanceCalculation = observer((props)=>{
                         </div>
                     </ModalBody>
                     <ModalFooter>
-						<button className="red" onClick={closeModal}>Torna al menù</button>
+						<button type="button" className="red" onClick={closeModal}>Torna al menù</button>
 						<button type="submit" className="green" >
 							{isLoading? <><Spinner animation="border" ></Spinner><span>Riduzione in corso...</span></> : <span>Esegui riduzione</span>}
 						</button>
