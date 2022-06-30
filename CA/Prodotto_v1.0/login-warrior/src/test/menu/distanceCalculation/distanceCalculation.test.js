@@ -35,7 +35,7 @@ describe("dimensional reduction through distance calculation", () => {
 		fireEvent.click(screen.getByRole("button",{name: "Esegui riduzione"}));
 		
 		let matrix = store.distanceMatricesStore.getDistanceMatrixByName("matrix");
-		expect(matrix.links).toStrictEqual([{source: "node0", target: "node1", value: 7.6216796049164905}]);
+		expect(matrix.links).toStrictEqual([{source: "node0", target: "node1", value: 0.7973308550537292}]);
     });
 
     test("Taxicab distance", () => {
@@ -44,7 +44,7 @@ describe("dimensional reduction through distance calculation", () => {
         fireEvent.click(screen.getByRole("button",{name: "Esegui riduzione" }));	
 
 		let matrix = store.distanceMatricesStore.getDistanceMatrixByName("matrix");
-		expect(matrix.links).toStrictEqual([{source: "node0", target: "node1", value: 9.7}]); 
+		expect(matrix.links).toStrictEqual([{source: "node0", target: "node1", value: 1.0700141442715698}]); 
 	});
 
     test("Chebyshev distance", () => {		
@@ -53,6 +53,6 @@ describe("dimensional reduction through distance calculation", () => {
 		fireEvent.click(screen.getByRole("button",{name: "Esegui riduzione" }));	
 
 		let matrix = store.distanceMatricesStore.getDistanceMatrixByName("matrix");
-		expect(matrix.links).toStrictEqual([{source: "node0", target: "node1", value: 7.199999999999999}]); 
+		expect(matrix.links).toStrictEqual([{source: "node0", target: "node1", value: 0.7128712871287128}]); 
 	});
 });
